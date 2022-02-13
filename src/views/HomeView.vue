@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TheWelcome from "@/components/TheWelcome.vue";
+import GameWall from "@/components/GameWall.vue";
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <GameWall />
   </main>
 </template>
