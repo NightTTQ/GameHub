@@ -1,62 +1,92 @@
-{
-  "Action": ["FPS", "TPS", "Fighting", "Platformer", "Shooter", "Stealth"],
-  "Adventure": [
-    "Adventure",
-    "Point and Click",
-    "Visual Novel",
-    "Hidden Object",
-    "Multi-branch Story Telling"
-  ],
-  "Driving": ["Racing", "Car Combat"],
-  "RPG": [
-    "Role Playing",
-    "A-RPG",
-    "S-RPG",
-    "Roguelike",
-    "Party Based",
-    "MMORPG",
-    "Open World RPG"
-  ],
-  "Strategy": [
-    "Real Time Strategy",
-    "Real Time Tactics",
-    "Turn Based Strategy",
-    "Tower Defense",
-    "Grand Strategy",
-    "4X",
-    "MOBA"
-  ],
-  "Sports": [
-    "Big Ball Sports",
-    "Small Ball Sports",
-    "Casual Sports",
-    "Wresling",
-    "Land Sports",
-    "Water Sports",
-    "Air Sports",
-    "Sports",
-    "Other Sports"
-  ],
-  "Simulation": [
-    "Business Simulation",
-    "Driving Simulation",
-    "Realist Simulation",
-    "Futuristic Simulation",
-    "History Simulation",
-    "Walking Simulation",
-    "Open World Simulation",
-    "Education Simulation"
-  ],
-  "Puzzle & Casual": [
-    "Casual",
-    "Puzzle",
-    "Table",
-    "Party",
-    "Music",
-    "Education",
-    "Fast Reaction",
-    "Incremental"
-  ],
-  "Sandbox": ["Sandbox", "Craft", "Open World"],
-  "Others": ["Art", "Experience", "VR", "AR", "Others"]
-}
+[
+  {
+    "class": "Action",
+    "children": ["FPS", "TPS", "Fighting", "Platformer", "Shooter", "Stealth"]
+  },
+  {
+    "class": "Adventure",
+    "children": [
+      "Adventure",
+      "Point and Click",
+      "Visual Novel",
+      "Hidden Object",
+      "Multi-branch Story Telling"
+    ]
+  },
+  {
+    "class": "Driving",
+    "children": ["Racing", "Car Combat"]
+  },
+  {
+    "class": "RPG",
+    "children": [
+      "Role Playing",
+      "A-RPG",
+      "S-RPG",
+      "Roguelike",
+      "Party Based",
+      "MMORPG",
+      "Open World RPG"
+    ]
+  },
+  {
+    "class": "Strategy",
+    "children": [
+      "Real Time Strategy",
+      "Real Time Tactics",
+      "Turn Based Strategy",
+      "Tower Defense",
+      "Grand Strategy",
+      "4X",
+      "MOBA"
+    ]
+  },
+  {
+    "class": "Sports",
+    "children": [
+      "Big Ball Sports",
+      "Small Ball Sports",
+      "Casual Sports",
+      "Wresling",
+      "Land Sports",
+      "Water Sports",
+      "Air Sports",
+      "Sports",
+      "Other Sports"
+    ]
+  },
+  {
+    "class": "Simulation",
+    "children": [
+      "Business Simulation",
+      "Driving Simulation",
+      "Realist Simulation",
+      "Futuristic Simulation",
+      "History Simulation",
+      "Walking Simulation",
+      "Open World Simulation",
+      "Education Simulation"
+    ]
+  },
+  {
+    "class": "Puzzle & Casual",
+    "children": [
+      "Casual",
+      "Puzzle",
+      "Table",
+      "Party",
+      "Music",
+      "Education",
+      "Fast Reaction",
+      "Incremental"
+    ]
+  },
+  {
+    "class": "Sandbox",
+    "children": ["Sandbox", "Craft", "Open World"]
+  },
+  {
+    "class": "Others",
+    "children": ["Art", "Experience", "VR", "AR", "Others"]
+  }
+]
