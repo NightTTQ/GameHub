@@ -33,15 +33,15 @@ const props = {
 
 const handleTreeData = () => {
   let _data = [];
-  for (const item in gameClass) {
+  for (const item of gameClass) {
     let tmp = {
       class: "",
       children: [{}],
     };
     tmp.children.pop();
-    tmp.class = gameClass[item]["class"];
-    for (const _item in gameClass[item]["children"]) {
-      tmp.children.push({ class: gameClass[item]["children"][_item] });
+    tmp.class = item["class"];
+    for (const _item of item["children"]) {
+      tmp.children.push({ class: _item });
     }
     _data.push(tmp);
   }
@@ -50,9 +50,9 @@ const handleTreeData = () => {
 const handleCheckedTagsChange = (event: any, status: boolean) => {
   const selected = treeRef.value?.getCheckedNodes();
   let tmp = [];
-  for (const item in selected) {
-    if (!selected[Number(item)].children) {
-      tmp.push(selected[Number(item)].class);
+  for (const item of selected?) {
+    if (!item.children) {
+      tmp.push(item.class);
     }
   }
   tags.value = tmp;
