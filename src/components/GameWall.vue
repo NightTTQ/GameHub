@@ -50,11 +50,12 @@ const handleTreeData = () => {
 const handleCheckedTagsChange = (event: any, status: boolean) => {
   const selected = treeRef.value?.getCheckedNodes();
   let tmp = [];
-  for (const item of selected?) {
-    if (!item.children) {
-      tmp.push(item.class);
+  if (selected)
+    for (const item of selected) {
+      if (!item.children) {
+        tmp.push(item.class);
+      }
     }
-  }
   tags.value = tmp;
 };
 </script>
