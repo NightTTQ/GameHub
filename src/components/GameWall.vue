@@ -11,7 +11,7 @@
         @check-change="handleCheckedTagsChange"
       />
     </el-aside>
-    <el-main>Main</el-main>
+    <el-main>{{ tags }}</el-main>
   </el-container>
 </template>
 
@@ -62,6 +62,10 @@ const handleCheckedTagsChange = (event: any, status: boolean) => {
 
 <style scoped>
 .el-aside {
+  display: block;
+  position: relative;
+  height: calc(100vh - 59px);
+  overflow-y: auto;
   padding: 0px 20px 0px 20px;
   min-width: 200px;
   background-color: #ffffff;
