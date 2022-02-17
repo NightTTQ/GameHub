@@ -11,7 +11,7 @@
         @check-change="handleCheckedTagsChange"
       />
     </el-aside>
-    <el-main>{{ tags }}</el-main>
+    <el-main>{{ gameData }}</el-main>
   </el-container>
 </template>
 
@@ -19,12 +19,16 @@
 import { onMounted, ref } from "vue";
 import gameClass from "@/assets/gameClass.json";
 import type { ElTree } from "element-plus";
+import getInfoService from "@/services/getInfoService.js";
 
-onMounted(() => handleTreeData());
+onMounted(() => {
+  handleTreeData();
+});
 
 const treeData = ref();
 const treeRef = ref<InstanceType<typeof ElTree>>();
 const tags = ref();
+const gameData = ref();
 
 const props = {
   label: "class",
@@ -47,7 +51,7 @@ const handleTreeData = () => {
   }
   treeData.value = _data;
 };
-const handleCheckedTagsChange = (event: any, status: boolean) => {
+const handleCheckedTagsChange = async (event: any, status: boolean) => {
   const selected = treeRef.value?.getCheckedNodes();
   let tmp = [];
   if (selected)
@@ -57,6 +61,9 @@ const handleCheckedTagsChange = (event: any, status: boolean) => {
       }
     }
   tags.value = tmp;
+  gameData.value = await getInfoService.getInfo({
+    where: { class: tmp },
+  });
 };
 </script>
 
