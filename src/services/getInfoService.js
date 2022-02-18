@@ -1,5 +1,4 @@
 import axios from "axios";
-import console from "console";
 const apiLink = "https://qcnnig.api.cloudendpoint.cn/getGame";
 const apiConfig = {
   headers: { "Content-Type": "application/json" },
