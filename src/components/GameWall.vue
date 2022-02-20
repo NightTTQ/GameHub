@@ -89,7 +89,6 @@ const handleCheckedTagsChange = debounce(async function (
 .el-aside {
   display: block;
   position: relative;
-  height: calc(100vh - 59px);
   overflow-y: auto;
   padding: 0px 20px 0px 20px;
   min-width: 200px;
