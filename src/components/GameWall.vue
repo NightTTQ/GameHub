@@ -20,6 +20,7 @@ import { onMounted, ref } from "vue";
 import gameClass from "@/assets/gameClass.json";
 import type { ElTree } from "element-plus";
 import getInfoService from "@/services/getInfoService.js";
+import { debounce } from "@/utils/common.js";
 
 onMounted(() => {
   handleTreeData();
@@ -51,7 +52,10 @@ const handleTreeData = () => {
   }
   treeData.value = _data;
 };
-const handleCheckedTagsChange = async (event: any, status: boolean) => {
+const handleCheckedTagsChange = debounce(async function (
+  event: any,
+  status: boolean
+) {
   const selected = treeRef.value?.getCheckedNodes();
   let tmp = [];
   if (selected)
@@ -64,7 +68,8 @@ const handleCheckedTagsChange = async (event: any, status: boolean) => {
   gameData.value = await getInfoService.getInfo({
     where: { class: tmp },
   });
-};
+},
+100);
 </script>
 
 <style scoped>
@@ -76,6 +81,7 @@ const handleCheckedTagsChange = async (event: any, status: boolean) => {
   padding: 0px 20px 0px 20px;
   min-width: 200px;
   background-color: #ffffff;
+  font-size: 2rem;
   text-align: left;
 }
 h4 {
