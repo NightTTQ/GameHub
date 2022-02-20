@@ -11,7 +11,16 @@
         @check-change="handleCheckedTagsChange"
       />
     </el-aside>
-    <el-main>{{ gameData }}</el-main>
+    <el-main>
+      <el-row :gutter="20">
+        <el-col :span="6"><GameCard></GameCard></el-col>
+        <el-col :span="6"><GameCard></GameCard></el-col>
+        <el-col :span="6"><GameCard></GameCard></el-col>
+        <el-col :span="6"><GameCard></GameCard></el-col>
+        <el-col :span="6"><GameCard></GameCard></el-col>
+      </el-row>
+      {{ gameData }}
+    </el-main>
   </el-container>
 </template>
 
@@ -21,6 +30,7 @@ import gameClass from "@/assets/gameClass.json";
 import type { ElTree } from "element-plus";
 import getInfoService from "@/services/getInfoService.js";
 import { debounce } from "@/utils/common.js";
+import GameCard from "@/components/GameCard.vue";
 
 onMounted(() => {
   handleTreeData();
@@ -95,5 +105,8 @@ h4 {
   background-color: #e9eef3;
   text-align: center;
   line-height: 160px;
+}
+.el-col {
+  margin-bottom: 20px;
 }
 </style>
