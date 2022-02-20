@@ -36,6 +36,10 @@ onMounted(() => {
   handleTreeData();
 });
 
+interface List {
+  class: string;
+}
+
 const treeData = ref();
 const treeRef = ref<InstanceType<typeof ElTree>>();
 const tags = ref();
@@ -51,9 +55,8 @@ const handleTreeData = () => {
   for (const item of gameClass) {
     let tmp = {
       class: "",
-      children: [{}],
+      children: [] as Array<List>,
     };
-    tmp.children.pop();
     tmp.class = item["class"];
     for (const _item of item["children"]) {
       tmp.children.push({ class: _item });
