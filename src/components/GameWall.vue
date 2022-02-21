@@ -12,14 +12,14 @@
       />
     </el-aside>
     <el-main>
-      <el-row :gutter="20">
-        <el-col :span="6"><GameCard></GameCard></el-col>
-        <el-col :span="6"><GameCard></GameCard></el-col>
-        <el-col :span="6"><GameCard></GameCard></el-col>
-        <el-col :span="6"><GameCard></GameCard></el-col>
-        <el-col :span="6"><GameCard></GameCard></el-col>
-      </el-row>
-      {{ gameData }}
+      <GameCard
+        v-for="item of gameData"
+        :name="item.name"
+        :image="item.image"
+        :author="item.author"
+        :class="item.class"
+      ></GameCard>
+      <GameCard v-for="_name in 20" :name="String(_name)"></GameCard>
     </el-main>
   </el-container>
 </template>
@@ -34,6 +34,7 @@ import GameCard from "@/components/GameCard.vue";
 
 onMounted(() => {
   handleTreeData();
+  // handleCheckedTagsChange();
 });
 
 interface List {
@@ -104,11 +105,14 @@ h4 {
 }
 
 .el-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+  grid-gap: 20px;
+  margin-left: 5px;
+  margin-right: 15px;
+  margin-bottom: 30px;
   background-color: #e9eef3;
   text-align: center;
   line-height: 160px;
-}
-.el-col {
-  margin-bottom: 20px;
 }
 </style>

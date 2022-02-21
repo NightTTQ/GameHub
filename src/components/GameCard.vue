@@ -8,7 +8,14 @@
           <h4 style="margin: 0">{{ name }}</h4>
         </div>
         <div class="author-div">
-          <span v-for="item of author">{{ item.name }}</span>
+          <el-link
+            v-for="item of author"
+            type="primary"
+            :href="item.url"
+            target="_blank"
+          >
+            {{ item.name }}
+          </el-link>
         </div>
         <div class="class-div">
           <span>{{ class }}</span>
@@ -25,7 +32,7 @@ import type { ComputedRef } from "vue";
 export interface Author {
   name: string;
   type: number;
-  uid: string;
+  url: string;
 }
 
 const props = defineProps<{
@@ -72,7 +79,6 @@ const onClick = (event: any) => {
   width: 50%;
   text-align: left;
   line-height: 1.2;
-  font-size: 1em;
   opacity: 0.8;
 }
 .class-div {
