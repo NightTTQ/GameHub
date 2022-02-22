@@ -15,7 +15,12 @@
       <GameCard v-for="item of gameData" :data="item"></GameCard>
       <GameCard
         v-for="item in 20"
-        :data="{ _id: String(item), id: item, name: String(item) }"
+        :data="{
+          _id: String(item),
+          id: item,
+          name: String(item),
+          class: 'TEST',
+        }"
       ></GameCard>
     </el-main>
   </el-container>

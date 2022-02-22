@@ -18,7 +18,7 @@
           </el-link>
         </div>
         <div class="class-div">
-          <span>{{ class }}</span>
+          <span>{{ data?.class }}</span>
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@ import type { ComputedRef } from "vue";
 
 interface data {
   _id: string;
-  id: Number;
+  id: number;
   name: string;
   platform?: Array<string>;
   author?: Array<Author>;
