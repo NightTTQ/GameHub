@@ -28,6 +28,7 @@
 <script lang="ts" setup>
 import { ref, computed } from "vue";
 import type { ComputedRef } from "vue";
+import router from "@/router";
 
 interface data {
   _id: string;
@@ -53,6 +54,7 @@ const imageURL: ComputedRef<string> = computed(
 );
 
 const onClick = (event: any) => {
+  router.push({ name: "app", params: { id: props.data?.id } });
   console.log(props.data?._id);
 };
 </script>
