@@ -5,11 +5,11 @@
     <div style="padding: 12px">
       <div class="bottom">
         <div class="name-div">
-          <h4 style="margin: 0">{{ name }}</h4>
+          <h4 style="margin: 0">{{ data?.name }}</h4>
         </div>
         <div class="author-div">
           <el-link
-            v-for="item of author"
+            v-for="item of data?.author"
             type="primary"
             :href="item.url"
             target="_blank"
@@ -29,24 +29,31 @@
 import { ref, computed } from "vue";
 import type { ComputedRef } from "vue";
 
-export interface Author {
+interface data {
+  _id: string;
+  id: Number;
+  name: string;
+  platform?: Array<string>;
+  author?: Array<Author>;
+  class?: string;
+  image?: string;
+}
+
+interface Author {
   name: string;
   type: number;
   url: string;
 }
 
 const props = defineProps<{
-  name?: string;
-  image?: string;
-  author?: Array<Author>;
-  class?: string;
+  data?: data;
 }>();
 const imageURL: ComputedRef<string> = computed(
-  () => "background-image: url(" + props.image + ")"
+  () => "background-image: url(" + props.data?.image + ")"
 );
 
 const onClick = (event: any) => {
-  console.log(props.name);
+  console.log(props.data?._id);
 };
 </script>
 

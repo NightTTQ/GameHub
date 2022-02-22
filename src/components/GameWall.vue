@@ -12,14 +12,11 @@
       />
     </el-aside>
     <el-main>
+      <GameCard v-for="item of gameData" :data="item"></GameCard>
       <GameCard
-        v-for="item of gameData"
-        :name="item.name"
-        :image="item.image"
-        :author="item.author"
-        :class="item.class"
+        v-for="item in 20"
+        :data="{ _id: String(item), id: item, name: String(item) }"
       ></GameCard>
-      <GameCard v-for="_name in 20" :name="String(_name)"></GameCard>
     </el-main>
   </el-container>
 </template>
