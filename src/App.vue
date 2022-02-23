@@ -12,6 +12,7 @@
   </el-menu>
 
   <router-view />
+  <el-backtop />
 </template>
 
 <script setup lang="ts">
