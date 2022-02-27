@@ -1,7 +1,19 @@
 <template>
-  <div>
-    <span>{{ data }}</span>
-  </div>
+  <el-row justify="center">
+    <el-col :span="24">
+      <h1>{{ data?.name }}</h1>
+      <p>{{ data?.author?.name }}</p>
+    </el-col>
+    <el-col :span="24">
+      <el-card
+        shadow="hover"
+        class="main-image"
+        :body-style="{ padding: '0px' }"
+      >
+        <div class="image-div" :style="imageURL"></div>
+      </el-card>
+    </el-col>
+  </el-row>
 </template>
 
 <script setup lang="ts">
@@ -14,7 +26,7 @@ interface data {
   id: number;
   name: string;
   platform?: Array<string>;
-  author?: Array<Author>;
+  author?: Author;
   class?: string;
   image?: string;
 }
