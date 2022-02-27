@@ -55,7 +55,6 @@ const imageURL: ComputedRef<string> = computed(
 
 const onClick = (event: any) => {
   router.push({ name: "app", params: { id: props.data?.id } });
-  console.log(props.data?._id);
 };
 </script>
 
