@@ -32,4 +32,7 @@ const activeIndex = ref("/");
   text-align: center;
   color: #2c3e50;
 }
+.el-menu {
+  border: none;
+}
 </style>
