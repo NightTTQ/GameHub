@@ -8,13 +8,8 @@
           <h4 style="margin: 0">{{ data?.name }}</h4>
         </div>
         <div class="author-div">
-          <el-link
-            v-for="item of data?.author"
-            type="primary"
-            :href="item.url"
-            target="_blank"
-          >
-            {{ item.name }}
+          <el-link :href="data?.author?.url" type="primary" target="_blank">
+            {{ data?.author?.name }}
           </el-link>
         </div>
         <div class="class-div">
@@ -35,7 +30,7 @@ interface data {
   id: number;
   name: string;
   platform?: Array<string>;
-  author?: Array<Author>;
+  author?: Author;
   class?: string;
   image?: string;
 }
