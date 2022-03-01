@@ -1,17 +1,13 @@
 <template>
-  <el-row justify="center">
-    <el-col :span="24">
-      <h1>{{ data?.name }}</h1>
-      <p>{{ data?.author?.name }}</p>
+  <el-row>
+    <el-col :offset="1" :span="24">
+      <h1 class="name">{{ data?.name }}</h1>
     </el-col>
-    <el-col :span="24">
-      <el-card
-        shadow="hover"
-        class="main-image"
-        :body-style="{ padding: '0px' }"
-      >
-        <div class="image-div" :style="imageURL"></div>
-      </el-card>
+    <el-col :offset="1" :span="16">
+      <div style="background-color: aqua; height: 400px"></div>
+    </el-col>
+    <el-col :offset="1" :span="5">
+      <div class="cover-div" :style="coverURL"></div>
     </el-col>
   </el-row>
 </template>
@@ -28,7 +24,8 @@ interface data {
   platform?: Array<string>;
   author?: Author;
   class?: string;
-  image?: string;
+  cover?: string;
+  image?: Array<string>;
 }
 interface Author {
   name: string;
@@ -49,8 +46,8 @@ const getData = async () => {
   console.log(data.value);
 };
 
-const imageURL: ComputedRef<string> = computed(
-  () => "background-image: url(" + data.value?.image + ")"
+const coverURL: ComputedRef<string> = computed(
+  () => "background-image: url(" + data.value?.cover + ")"
 );
 
 onMounted(() => {
@@ -59,15 +56,22 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.title-bg {
+  width: 100%;
+  height: 100%;
+}
+.name {
+  text-align: left;
+}
+.author {
+  font-style: oblique;
+}
 .game-wrapper {
   display: flex;
   flex: auto;
   flex-direction: column;
 }
-.main-image {
-  width: 300px;
-}
-.image-div {
+.cover-div {
   background-size: cover;
   background-position-x: center;
   background-position-y: center;

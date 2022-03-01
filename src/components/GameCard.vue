@@ -1,6 +1,6 @@
 <template>
   <el-card shadow="hover" :body-style="{ padding: '0px' }" @click="onClick">
-    <div class="image-div" :style="imageURL"></div>
+    <div class="cover-div" :style="coverURL"></div>
 
     <div style="padding: 12px">
       <div class="bottom">
@@ -32,7 +32,7 @@ interface data {
   platform?: Array<string>;
   author?: Author;
   class?: string;
-  image?: string;
+  cover?: string;
 }
 
 interface Author {
@@ -44,8 +44,8 @@ interface Author {
 const props = defineProps<{
   data?: data;
 }>();
-const imageURL: ComputedRef<string> = computed(
-  () => "background-image: url(" + props.data?.image + ")"
+const coverURL: ComputedRef<string> = computed(
+  () => "background-image: url(" + props.data?.cover + ")"
 );
 
 const onClick = (event: any) => {
@@ -66,7 +66,7 @@ const onClick = (event: any) => {
   flex-wrap: wrap;
 }
 
-.image-div {
+.cover-div {
   background-size: cover;
   background-position-x: center;
   background-position-y: center;
