@@ -114,7 +114,7 @@ onMounted(() => {
 @media (min-width: 768px) {
   .aside-content {
     position: sticky;
-    top: 100px;
+    top: 90px;
   }
 }
 </style>
