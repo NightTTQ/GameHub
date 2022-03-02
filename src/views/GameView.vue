@@ -1,15 +1,26 @@
 <template>
-  <el-row>
-    <el-col :offset="1" :span="24">
-      <h1 class="name">{{ data?.name }}</h1>
-    </el-col>
-    <el-col :offset="1" :span="16">
-      <div style="background-color: aqua; height: 400px"></div>
-    </el-col>
-    <el-col :offset="1" :span="5">
-      <div class="cover-div" :style="coverURL"></div>
-    </el-col>
-  </el-row>
+  <div class="view-page">
+    <div class="view-page-content">
+      <div class="detail-row">
+        <div class="detail-col">
+          <h1 class="name">{{ data?.name }}</h1>
+        </div>
+
+        <div class="detail-col">
+          <div class="detail">
+            <div class=""></div>
+          </div>
+
+          <aside class="aside">
+            <div class="aside-content">
+              <div class="cover-div" :style="coverURL"></div>
+              <div></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -56,20 +67,17 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.title-bg {
-  width: 100%;
-  height: 100%;
+.view-page {
+  width: 75%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.view-page-content {
+  padding-bottom: 90px;
 }
 .name {
   text-align: left;
-}
-.author {
-  font-style: oblique;
-}
-.game-wrapper {
-  display: flex;
-  flex: auto;
-  flex-direction: column;
 }
 .cover-div {
   background-size: cover;
@@ -77,5 +85,36 @@ onMounted(() => {
   background-position-y: center;
   height: 0%;
   padding-top: calc(9 / 16 * 100%);
+}
+.detail-row {
+  display: flex;
+  flex-direction: column;
+}
+.detail-col {
+  display: flex;
+  flex-direction: row;
+}
+@media (max-width: 1023px) {
+  .view-page {
+    width: 90%;
+  }
+}
+@media (min-width: 1280px) {
+  .detail {
+    background-color: aqua;
+    height: 3000px;
+    width: calc(100% - 384px);
+  }
+  .aside {
+    background-color: brown;
+    margin-left: 64px;
+    width: 320px;
+  }
+}
+@media (min-width: 768px) {
+  .aside-content {
+    position: sticky;
+    top: 100px;
+  }
 }
 </style>
