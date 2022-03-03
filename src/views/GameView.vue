@@ -36,12 +36,16 @@ interface data {
   author?: Author;
   class?: string;
   cover?: string;
-  image?: Array<string>;
+  image?: Array<Image>;
 }
 interface Author {
   name: string;
   type: number;
   url: string;
+}
+interface Image {
+  type: string;
+  data: string;
 }
 
 const props = defineProps<{
