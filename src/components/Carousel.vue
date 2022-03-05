@@ -6,14 +6,25 @@
           <el-icon :size="20" color="#FFFFFF"><arrow-left-bold /></el-icon>
         </button>
       </div>
-
       <div class="switch right">
         <button class="switch-btn" @click="doSwitch(1)">
           <el-icon :size="20" color="#FFFFFF"><arrow-right-bold /></el-icon>
         </button>
       </div>
     </div>
-    <ul class="detail-slider"></ul>
+    <ul class="detail-slider">
+      <li v-for="(item, index) in data" class="slider-item">
+        <div class="slider-item-wrapper">
+          <div class="slider-item-content">
+            <div class="slider-item-content-ele">
+              <div class="slider-item-content-ele-pic">
+                <img class="img" :src="item.data" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
   <div class="carousel-swiper">
     <ul class="carousel-swiper-wrapper">
@@ -93,10 +104,8 @@ onMounted(() => {
   }
 }
 .carousel-detail {
-  background-color: black;
   position: relative;
   overflow: hidden;
-  padding-top: calc(9 / 16 * 100%);
 }
 .hover-container {
   position: absolute;
@@ -119,6 +128,42 @@ onMounted(() => {
   padding: 10px;
   pointer-events: auto;
   position: relative;
+}
+.detail-slider {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+  transition: all 250ms ease-in-out;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+.slider-item {
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  flex-basis: 100%;
+  flex-shrink: 0;
+}
+.slider-item-wrapper {
+  border-radius: 4px;
+  background: rgb(38, 38, 38);
+}
+.slider-item-content {
+  position: relative;
+  padding-bottom: calc(9 / 16 * 100%);
+}
+.slider-item-content-ele {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+}
+.slider-item-content-ele-pic {
+  width: 100%;
+  height: 100%;
 }
 .carousel-swiper {
   width: 100%;
