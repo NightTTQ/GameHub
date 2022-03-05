@@ -32,6 +32,17 @@ const activeIndex = ref("/");
   text-align: center;
   color: #2c3e50;
 }
+button {
+  outline: none;
+  user-select: none;
+  appearance: none;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
 .el-menu {
   border: none;
 }
