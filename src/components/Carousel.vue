@@ -68,18 +68,23 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   opacity: 0;
+  transition: transform 0.35s cubic-bezier(1, 0.09, 0.03, 0.93),
+    opacity 0.35s ease;
+}
+.left {
   background: linear-gradient(
     270deg,
     rgba(11, 11, 11, 0) 0%,
     rgba(11, 11, 11, 0.4) 100%
   );
-  transition: transform 0.35s cubic-bezier(1, 0.09, 0.03, 0.93),
-    opacity 0.35s ease;
-}
-.left {
   transform: translateX(-100%);
 }
 .right {
+  background: linear-gradient(
+    90deg,
+    rgba(11, 11, 11, 0) 0%,
+    rgba(11, 11, 11, 0.4) 100%
+  );
   transform: translateX(100%);
 }
 @media (min-width: 1440px) {
