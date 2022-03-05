@@ -18,7 +18,13 @@
           <div class="slider-item-content">
             <div class="slider-item-content-ele">
               <div class="slider-item-content-ele-pic">
-                <img class="img" :src="item.data" />
+                <img v-if="item.type === 'img'" class="img" :src="item.data" />
+                <video
+                  v-if="item.type === 'video'"
+                  class="img"
+                  controls
+                  :src="item.data"
+                ></video>
               </div>
             </div>
           </div>
@@ -35,7 +41,14 @@
               <div class="carousel-swiper-item-btn-content">
                 <div class="carousel-swiper-item-btn-content-ele">
                   <div class="carousel-swiper-item-btn-content-ele-pic">
-                    <img class="img" :src="item.data" />
+                    <img
+                      v-if="item.type === 'img'"
+                      class="img"
+                      :src="item.data"
+                    />
+                    <div v-if="item.type === 'video'" class="img">
+                      <el-icon :size="20" color="#FFFFFF"><video-play /></el-icon>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -49,7 +62,11 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, onUpdated, watch } from "vue";
-import { ArrowLeftBold, ArrowRightBold } from "@element-plus/icons-vue";
+import {
+  ArrowLeftBold,
+  ArrowRightBold,
+  VideoPlay,
+} from "@element-plus/icons-vue";
 const props = defineProps<{
   data?: Array<Image>;
 }>();
@@ -230,5 +247,9 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   opacity: 1;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 </style>
