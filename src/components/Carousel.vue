@@ -12,7 +12,7 @@
         </button>
       </div>
     </div>
-    <ul class="detail-slider">
+    <ul class="detail-slider" :style="switchStyle">
       <li v-for="(item, index) in data" class="slider-item">
         <div class="slider-item-wrapper">
           <div class="slider-item-content">
@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, onUpdated, watch } from "vue";
 import { ArrowLeftBold, ArrowRightBold } from "@element-plus/icons-vue";
 const props = defineProps<{
   data?: Array<Image>;
@@ -61,11 +61,20 @@ interface Image {
 const current = ref(0);
 
 const doSwitch = (dir: number) => {
-  console.log(dir);
+  if (props.data) {
+    if (current.value + dir < 0) current.value = props.data.length - 1;
+    else current.value = (current.value + dir) % props.data.length;
+  }
 };
 const switchTo = (index: number) => {
-  console.log(index);
+  current.value = index;
 };
+watch(current, () => {
+  console.log(current.value);
+});
+const switchStyle = computed(
+  () => "transform: translateX(calc(-" + 100 * current.value + "%));"
+);
 onMounted(() => {
   console.log(props.data);
 });
