@@ -2,8 +2,8 @@
   <div class="carousel-detail"></div>
   <div class="carousel-swiper">
     <ul class="carousel-swiper-wrapper">
-      <li v-for="item in data" class="carousel-swiper-item">
-        <button class="carousel-swiper-item-btn">
+      <li v-for="(item, index) in data" class="carousel-swiper-item">
+        <button class="carousel-swiper-item-btn" @click="switchTo(index)">
           <div class="carousel-swiper-item-btn-wrapper">
             <div class="carousel-swiper-item-btn-container">
               <div class="carousel-swiper-item-btn-content">
@@ -31,6 +31,14 @@ interface Image {
   data: string;
 }
 
+const current = ref(0);
+
+const toLeft = () => {
+  console.log("go Left!");
+};
+const switchTo = (index: number) => {
+  console.log(index);
+};
 onMounted(() => {
   console.log(props.data);
 });
