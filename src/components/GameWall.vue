@@ -95,7 +95,7 @@ const loadMore = async () => {
   background-color: #ffffff;
   font-size: 2rem;
   text-align: left;
-  height: 100%;
+  min-height: calc(100vh - 48px);
 }
 h4 {
   font-size: 18px;

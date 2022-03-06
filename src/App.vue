@@ -45,5 +45,6 @@ button {
 }
 .el-menu {
   border: none;
+  height: 48px;
 }
 </style>
