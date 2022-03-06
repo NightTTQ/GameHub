@@ -42,7 +42,10 @@
           >
             <div class="carousel-swiper-item-btn-container">
               <div class="carousel-swiper-item-btn-content">
-                <div class="carousel-swiper-item-btn-content-ele">
+                <div
+                  class="carousel-swiper-item-btn-content-ele"
+                  :class="index === current ? 'select' : ''"
+                >
                   <div class="carousel-swiper-item-btn-content-ele-pic">
                     <img
                       v-if="item.type === 'img'"
@@ -229,6 +232,7 @@ onMounted(() => {
 }
 div.select {
   border-color: white;
+  opacity: 1;
 }
 .carousel-swiper-item-btn-wrapper {
   border: 2px solid transparent;
