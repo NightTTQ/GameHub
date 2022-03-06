@@ -47,7 +47,7 @@
                       :src="item.data"
                     />
                     <div v-if="item.type === 'video'" class="img">
-                      <el-icon :size="20" color="#FFFFFF"><video-play /></el-icon>
+                      <el-icon :size="20" color="#FFF"><video-play /></el-icon>
                     </div>
                   </div>
                 </div>
@@ -211,6 +211,9 @@ onMounted(() => {
   position: relative;
   flex-shrink: 0;
   flex-basis: calc((100% - 90px) / 6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .carousel-swiper-item-btn {
   width: 100%;
