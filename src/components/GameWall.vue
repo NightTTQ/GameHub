@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside>
-      <h4>筛选</h4>
+      <h4>Select</h4>
       <el-tree
         ref="treeRef"
         :data="treeData"
@@ -13,15 +13,6 @@
     </el-aside>
     <el-main>
       <GameCard v-for="item of gameData" :data="item"></GameCard>
-      <GameCard
-        v-for="item in 20"
-        :data="{
-          _id: String(item),
-          id: item,
-          name: String(item),
-          class: 'TEST',
-        }"
-      ></GameCard>
     </el-main>
   </el-container>
 </template>
@@ -36,7 +27,7 @@ import GameCard from "@/components/GameCard.vue";
 
 onMounted(() => {
   handleTreeData();
-  // handleCheckedTagsChange();
+  handleCheckedTagsChange();
 });
 
 interface List {
@@ -86,6 +77,12 @@ const handleCheckedTagsChange = debounce(async function (
   });
 },
 100);
+const loadMore = async () => {
+  console.log("loadMore");
+  gameData.value.push(
+    await getInfoService.getInfo({ skip: gameData.value.length })
+  );
+};
 </script>
 
 <style scoped>
@@ -98,6 +95,7 @@ const handleCheckedTagsChange = debounce(async function (
   background-color: #ffffff;
   font-size: 2rem;
   text-align: left;
+  height: 100%;
 }
 h4 {
   font-size: 18px;
@@ -109,6 +107,7 @@ h4 {
 .el-main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+  grid-template-rows: max-content;
   grid-gap: 20px;
   margin-left: 5px;
   margin-right: 15px;
