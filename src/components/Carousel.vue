@@ -239,10 +239,14 @@ onMounted(() => {
   overflow: hidden;
   position: absolute;
 }
+.carousel-swiper-item-btn-content-ele:hover{
+  opacity: 1;
+}
 .carousel-swiper-item-btn-content-ele {
   width: 100%;
   height: 100%;
-  opacity: 1;
+  transition: opacity 200ms ease-in-out;
+  opacity: 0.5;
 }
 .carousel-swiper-item-btn-content-ele-pic {
   width: 100%;
