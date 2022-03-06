@@ -36,7 +36,10 @@
     <ul class="carousel-swiper-wrapper">
       <li v-for="(item, index) in data" class="carousel-swiper-item">
         <button class="carousel-swiper-item-btn" @click="switchTo(index)">
-          <div class="carousel-swiper-item-btn-wrapper">
+          <div
+            class="carousel-swiper-item-btn-wrapper"
+            :class="index === current ? 'select' : ''"
+          >
             <div class="carousel-swiper-item-btn-container">
               <div class="carousel-swiper-item-btn-content">
                 <div class="carousel-swiper-item-btn-content-ele">
@@ -223,7 +226,11 @@ onMounted(() => {
   overflow: hidden;
   background: none;
 }
+div.select {
+  border-color: white;
+}
 .carousel-swiper-item-btn-wrapper {
+  border: 2px solid transparent;
   border-radius: 4px;
   background: rgb(38, 38, 38);
 }
@@ -239,7 +246,7 @@ onMounted(() => {
   overflow: hidden;
   position: absolute;
 }
-.carousel-swiper-item-btn-content-ele:hover{
+.carousel-swiper-item-btn-content-ele:hover {
   opacity: 1;
 }
 .carousel-swiper-item-btn-content-ele {
