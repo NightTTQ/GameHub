@@ -205,6 +205,7 @@ onMounted(() => {
   padding: 0px;
   list-style-type: none;
   display: flex;
+  gap: 10px;
   width: 100%;
   overflow: auto;
   align-items: center;
@@ -213,7 +214,7 @@ onMounted(() => {
 .carousel-swiper-item {
   position: relative;
   flex-shrink: 0;
-  flex-basis: calc((100% - 90px) / 6);
+  flex-basis: calc((100% - 40px) / 5);
   display: flex;
   align-items: center;
   justify-content: center;
