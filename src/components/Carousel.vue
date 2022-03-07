@@ -38,13 +38,13 @@
         <button class="carousel-swiper-item-btn" @click="switchTo(index)">
           <div
             class="carousel-swiper-item-btn-wrapper"
-            :class="index === current ? 'select' : ''"
+            :class="{ select: index === current }"
           >
             <div class="carousel-swiper-item-btn-container">
               <div class="carousel-swiper-item-btn-content">
                 <div
                   class="carousel-swiper-item-btn-content-ele"
-                  :class="index === current ? 'select' : ''"
+                  :class="{ select: index === current }"
                 >
                   <div class="carousel-swiper-item-btn-content-ele-pic">
                     <img
@@ -224,7 +224,6 @@ onMounted(() => {
 }
 .carousel-swiper-item-btn {
   width: 100%;
-  box-sizing: border-box;
   cursor: pointer;
   border: none;
   overflow: hidden;
@@ -235,7 +234,8 @@ div.select {
   opacity: 1;
 }
 .carousel-swiper-item-btn-wrapper {
-  border: 2px solid transparent;
+  box-sizing: content-box;
+  border: 1px solid transparent;
   border-radius: 4px;
   background: rgb(38, 38, 38);
 }
