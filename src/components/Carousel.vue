@@ -93,7 +93,8 @@ const switchTo = (index: number) => {
   current.value = index;
 };
 watch(current, () => {
-  console.log(current.value);
+  const videos = document.getElementsByTagName("video");
+  for (const item of videos) item.pause();
 });
 const switchStyle = computed(
   () => "transform: translateX(calc(-" + 100 * current.value + "%));"
