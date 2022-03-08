@@ -21,6 +21,9 @@
                       </div>
                     </span>
                   </div>
+                  <div class="description-about">
+                    <Metadata :gameclass="data?.class" :platform="data?.platform" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -46,6 +49,7 @@ import getInfoService from "@/services/getInfoService.js";
 import { ref, computed, onMounted } from "vue";
 import type { ComputedRef } from "vue";
 import Carousel from "@/components/Carousel.vue";
+import Metadata from "@/components/Metadata.vue"
 
 interface data {
   _id: string;
@@ -150,6 +154,9 @@ onMounted(() => {
   font-size: 18px;
   line-height: 25px;
   letter-spacing: -0.2px;
+}
+.description-about {
+  margin-bottom: 20px;
 }
 @media (max-width: 1023px) {
   .view-page {
