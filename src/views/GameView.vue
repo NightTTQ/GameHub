@@ -9,6 +9,21 @@
         <div class="detail-col">
           <div class="detail">
             <Carousel :data="data?.image" />
+            <div class="description-layout">
+              <div class="description-section">
+                <div class="description-container">
+                  <div class="description-short-intro">
+                    <span class="short-intro">
+                      <div class="short-intro-wrapper">
+                        <div class="short-intro-content">
+                          {{ data?.description }}
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <aside class="aside">
@@ -17,6 +32,9 @@
               <div></div>
             </div>
           </aside>
+        </div>
+        <div class="detail-col">
+          <div class="more-info"></div>
         </div>
       </div>
     </div>
@@ -27,7 +45,7 @@
 import getInfoService from "@/services/getInfoService.js";
 import { ref, computed, onMounted } from "vue";
 import type { ComputedRef } from "vue";
-import Carousel from "@/components/Carousel.vue"
+import Carousel from "@/components/Carousel.vue";
 
 interface data {
   _id: string;
@@ -36,6 +54,7 @@ interface data {
   platform?: Array<string>;
   author?: Author;
   class?: string;
+  description?: string;
   cover?: string;
   image?: Array<Image>;
 }
@@ -99,6 +118,39 @@ onMounted(() => {
   display: flex;
   flex-direction: row;
 }
+.description-layout {
+  width: 100%;
+  margin-top: 20px;
+  text-align: left;
+  background-color: gray;
+}
+.description-section {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.description-container {
+  display: flex;
+  flex-direction: column;
+}
+.description-short-intro {
+  flex-basis: 100%;
+  margin-bottom: 40px;
+}
+.short-intro-wrapper {
+  display: grid;
+}
+.short-intro-content {
+  overflow: hidden;
+  word-break: break-word;
+}
+.short-intro {
+  transition: color 125ms ease-in-out;
+  color: rgb(245, 245, 245);
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: -0.2px;
+}
 @media (max-width: 1023px) {
   .view-page {
     width: 90%;
@@ -106,8 +158,6 @@ onMounted(() => {
 }
 @media (min-width: 1280px) {
   .detail {
-    background-color: aqua;
-    height: 3000px;
     width: calc(100% - 384px);
   }
   .aside {
@@ -120,6 +170,27 @@ onMounted(() => {
   .aside-content {
     position: sticky;
     top: 90px;
+  }
+}
+@media (min-width: 1024px) {
+  .short-intro {
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: -0.2px;
+  }
+}
+@media (min-width: 1440px) {
+  .short-intro {
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.2px;
+  }
+}
+@media (min-width: 1600px) {
+  .short-intro {
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: -0.4px;
   }
 }
 </style>
