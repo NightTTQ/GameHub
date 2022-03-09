@@ -22,7 +22,13 @@
                     </span>
                   </div>
                   <div class="description-about">
-                    <Metadata :gameclass="data?.class" :platform="data?.platform" />
+                    <Metadata
+                      :gameclass="data?.class"
+                      :platform="data?.platform"
+                    />
+                  </div>
+                  <div class="description-about">
+                    <ExpandablePanel />
                   </div>
                 </div>
               </div>
@@ -49,7 +55,7 @@ import getInfoService from "@/services/getInfoService.js";
 import { ref, computed, onMounted } from "vue";
 import type { ComputedRef } from "vue";
 import Carousel from "@/components/Carousel.vue";
-import Metadata from "@/components/Metadata.vue"
+import Metadata from "@/components/Metadata.vue";
 
 interface data {
   _id: string;
