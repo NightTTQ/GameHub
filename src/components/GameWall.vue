@@ -22,7 +22,7 @@ import { onMounted, ref } from "vue";
 import gameClass from "@/assets/gameClass.json";
 import type { ElTree } from "element-plus";
 import getInfoService from "@/services/getInfoService.js";
-import { debounce } from "@/utils/common.js";
+import _ from "lodash";
 import GameCard from "@/components/GameCard.vue";
 
 onMounted(() => {
@@ -59,10 +59,7 @@ const handleTreeData = () => {
   }
   treeData.value = _data;
 };
-const handleCheckedTagsChange = debounce(async function (
-  event: any,
-  status: boolean
-) {
+const handleCheckedTagsChange = _.debounce(async function () {
   const selected = treeRef.value?.getCheckedNodes();
   let tmp = [];
   if (selected)
@@ -75,8 +72,7 @@ const handleCheckedTagsChange = debounce(async function (
   gameData.value = await getInfoService.getInfo({
     where: { class: tmp },
   });
-},
-100);
+}, 100);
 const loadMore = async () => {
   console.log("loadMore");
   gameData.value.push(
