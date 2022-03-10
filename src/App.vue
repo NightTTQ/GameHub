@@ -24,6 +24,9 @@ const activeIndex = ref("/");
 </script>
 
 <style>
+body {
+  background-color: rgb(28, 28, 28);
+}
 #app {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
     "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
