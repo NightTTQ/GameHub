@@ -28,7 +28,7 @@
                     />
                   </div>
                   <div class="description-about">
-                    <ExpandablePanel />
+                    <ExpandablePanel :about="data?.about" />
                   </div>
                 </div>
               </div>
@@ -56,6 +56,7 @@ import { ref, computed, onMounted } from "vue";
 import type { ComputedRef } from "vue";
 import Carousel from "@/components/Carousel.vue";
 import Metadata from "@/components/Metadata.vue";
+import ExpandablePanel from "@/components/ExpandablePanel.vue";
 
 interface data {
   _id: string;
@@ -67,6 +68,7 @@ interface data {
   description?: string;
   cover?: string;
   image?: Array<Image>;
+  about?: string;
 }
 interface Author {
   name: string;
@@ -111,6 +113,7 @@ onMounted(() => {
   padding-bottom: 90px;
 }
 .name {
+  color: rgb(245, 245, 245);
   text-align: left;
 }
 .cover-div {
@@ -132,7 +135,6 @@ onMounted(() => {
   width: 100%;
   margin-top: 20px;
   text-align: left;
-  background-color: gray;
 }
 .description-section {
   margin-top: 50px;
@@ -174,7 +176,6 @@ onMounted(() => {
     width: calc(100% - 384px);
   }
   .aside {
-    background-color: brown;
     margin-left: 64px;
     width: 320px;
   }
