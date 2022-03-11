@@ -35,12 +35,13 @@
             </div>
           </div>
 
-          <aside class="aside">
-            <div class="aside-content">
-              <div class="cover-div" :style="coverURL"></div>
-              <div></div>
-            </div>
-          </aside>
+          <Aside
+            :cover="data?.cover"
+            :links="data?.links"
+            :author="data?.author"
+            :created-at="data?.createdAt"
+            :updated-at="data?.updatedAt"
+          />
         </div>
         <div class="detail-col">
           <div class="more-info"></div>
@@ -57,6 +58,7 @@ import type { ComputedRef } from "vue";
 import Carousel from "@/components/Carousel.vue";
 import Metadata from "@/components/Metadata.vue";
 import ExpandablePanel from "@/components/ExpandablePanel.vue";
+import Aside from "@/components/ViewAside.vue";
 
 interface data {
   _id: string;
@@ -100,10 +102,6 @@ const getData = async () => {
   console.log(data.value);
 };
 
-const coverURL: ComputedRef<string> = computed(
-  () => "background-image: url(" + data.value?.cover + ")"
-);
-
 onMounted(() => {
   getData();
 });
@@ -122,13 +120,6 @@ onMounted(() => {
 .name {
   color: rgb(245, 245, 245);
   text-align: left;
-}
-.cover-div {
-  background-size: cover;
-  background-position-x: center;
-  background-position-y: center;
-  height: 0%;
-  padding-top: calc(9 / 16 * 100%);
 }
 .detail-row {
   display: flex;
@@ -182,16 +173,9 @@ onMounted(() => {
   .detail {
     width: calc(100% - 384px);
   }
-  .aside {
-    margin-left: 64px;
-    width: 320px;
-  }
 }
 @media (min-width: 768px) {
-  .aside-content {
-    position: sticky;
-    top: 90px;
-  }
+
 }
 @media (min-width: 1024px) {
   .short-intro {
