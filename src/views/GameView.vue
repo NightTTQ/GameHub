@@ -72,8 +72,8 @@ interface data {
   cover?: string;
   image?: Array<Image>;
   about?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: String;
+  updatedAt: String;
 }
 interface Link {
   name: string;
