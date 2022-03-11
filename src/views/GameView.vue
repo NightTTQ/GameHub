@@ -63,12 +63,19 @@ interface data {
   id: number;
   name: string;
   platform?: Array<string>;
-  author?: Author;
   class?: string;
   description?: string;
+  links?: Array<Link>;
+  author?: Author;
   cover?: string;
   image?: Array<Image>;
   about?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+interface Link {
+  name: string;
+  url: string;
 }
 interface Author {
   name: string;
