@@ -88,10 +88,15 @@ const loadMore = async () => {
   overflow-y: auto;
   padding: 0px 20px 0px 20px;
   min-width: 200px;
-  background-color: #ffffff;
+  color: white;
   font-size: 2rem;
   text-align: left;
   min-height: calc(100vh - 48px);
+}
+.el-tree {
+  background-color: rgba(255, 255, 255, 0);
+  --el-tree-node-hover-bg-color: rgba(255, 255, 255, 0.1);
+  --el-tree-text-color: white;
 }
 h4 {
   font-size: 18px;
@@ -108,7 +113,7 @@ h4 {
   margin-left: 5px;
   margin-right: 15px;
   margin-bottom: 30px;
-  background-color: #e9eef3;
+  background-color: rgba(255, 255, 255, 0);
   text-align: center;
   line-height: 160px;
 }

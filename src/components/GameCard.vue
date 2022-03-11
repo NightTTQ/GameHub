@@ -55,8 +55,18 @@ const onClick = (event: any) => {
 
 <style>
 .el-card {
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+  border: 1px solid black;
   display: inline-block;
   cursor: pointer;
+}
+.el-card:hover {
+  transform: scale(1.01);
+}
+.el-checkbox {
+  --el-checkbox-bg-color: none;
+  --el-checkbox-checked-bg-color: none;
 }
 
 .bottom {
