@@ -7,10 +7,15 @@
       background-color="#424242"
       text-color="#fff"
       active-text-color="#ffd04b"
+      :ellipsis="Boolean(false)"
       router
     >
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item index="/about">About</el-menu-item>
+      <div class="nav-space"></div>
+      <div class="nav-right">
+        <el-button type="primary">Create</el-button>
+      </div>
     </el-menu>
 
     <router-view />
@@ -45,6 +50,15 @@ button {
   margin: 0;
   padding: 0;
   text-align: left;
+}
+.nav-space{
+  flex: 1;
+}
+.nav-right {
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .el-menu {
   border: none;
