@@ -14,7 +14,7 @@
       <el-menu-item index="/about">About</el-menu-item>
       <div class="nav-space"></div>
       <div class="nav-right">
-        <el-button type="primary">Create</el-button>
+        <el-button type="primary" @click="goCreate">Create</el-button>
       </div>
     </el-menu>
 
@@ -24,8 +24,13 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import router from "@/router";
 
 const activeIndex = ref("/");
+
+const goCreate = (event: any) => {
+  router.push({ name: "createNewGame" });
+};
 </script>
 
 <style>
