@@ -51,7 +51,7 @@ button {
   padding: 0;
   text-align: left;
 }
-.nav-space{
+.nav-space {
   flex: 1;
 }
 .nav-right {
@@ -63,5 +63,10 @@ button {
 .el-menu {
   border: none;
   height: 48px;
+}
+.el-backtop {
+  --el-backtop-bg-color: rgb(24, 24, 24);
+  --el-backtop-text-color: var(--el-color-primary);
+  --el-backtop-hover-bg-color: rgb(42, 42, 42);
 }
 </style>
