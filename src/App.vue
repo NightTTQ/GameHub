@@ -90,4 +90,8 @@ button {
   --el-box-shadow-light: none;
   --el-border-color-light: #363636;
 }
+.el-checkbox {
+  --el-checkbox-checked-bg-color: var(--el-checkbox-bg-color);
+  --el-checkbox-checked-icon-color: #ffffff;
+}
 </style>
