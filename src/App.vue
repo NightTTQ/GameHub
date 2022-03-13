@@ -14,7 +14,9 @@
       <el-menu-item index="/about">About</el-menu-item>
       <div class="nav-space"></div>
       <div class="nav-right">
-        <el-button type="primary" @click="goCreate">Create</el-button>
+        <el-button type="primary" @click="goCreate">
+          <span style="color: white">Create</span>
+        </el-button>
       </div>
     </el-menu>
 
