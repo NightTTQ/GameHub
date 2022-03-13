@@ -74,4 +74,18 @@ button {
   --el-backtop-text-color: var(--el-color-primary);
   --el-backtop-hover-bg-color: rgb(42, 42, 42);
 }
+:root {
+  color: #ffffff;
+  --el-color-black: #ffffff;
+  --el-color-white: #424242;
+
+  --el-card-border-color: rgba(255, 255, 255, 0.12);
+  --el-text-color-regular: none;
+  --el-bg-color: #282828;
+  --el-input-bg-color: #424242;
+  --el-input-border: none;
+  --el-border-base: none;
+  --el-box-shadow-light: none;
+  --el-border-color-light: #363636;
+}
 </style>
