@@ -94,4 +94,7 @@ button {
   --el-checkbox-checked-bg-color: var(--el-checkbox-bg-color);
   --el-checkbox-checked-icon-color: #ffffff;
 }
+.el-select .el-select__tags .el-tag--info {
+  background-color: #323232;
+}
 </style>

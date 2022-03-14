@@ -7,15 +7,111 @@
             <span class="title">Create new game</span>
           </div>
         </template>
-        <div class="detail-row">
-          <div class="detail-col">123</div>
-          <div class="detail-col">123</div>
-        </div>
+
+        <el-form :model="form" label-position="top" class="form-body">
+          <el-row :gutter="20" justify="space-between">
+            <el-col :sm="24" :lg="12">
+              <el-form-item label="Game Name">
+                <el-input :maxlength="30" v-model="form.name"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :sm="24" :lg="12">
+              <el-form-item label="Author">
+                <el-input maxlength="30" v-model="form.author.name"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20" justify="space-between">
+            <el-col :sm="24" :lg="12">
+              <el-form-item label="Game Type">
+                <el-select v-model="form.class" class="item">
+                  <el-option-group
+                    v-for="group in gameClass"
+                    :key="group.class"
+                    :label="group.class"
+                  >
+                    <el-option
+                      v-for="item in group.children"
+                      :key="item"
+                      :label="item"
+                      :value="item"
+                    >
+                    </el-option>
+                  </el-option-group>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :sm="24" :lg="12">
+              <el-form-item label="Platform">
+                <el-select v-model="form.platform" multiple class="item">
+                  <el-option
+                    v-for="item in Platforms"
+                    :label="item"
+                    :value="item"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20" justify="space-between">
+            <el-col :sm="24" :lg="12">
+              <el-form-item label="Game Cover">
+                <image-select ref="coverEl" />
+              </el-form-item>
+            </el-col>
+            <el-col :sm="24" :lg="12">
+              <el-form-item label="Tips">
+                <div class="tip">
+                  <p>After clicking Submit, a new game will be created.</p>
+                  <p>Please edit other details on the corresponding game details page.</p>
+                </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row justify="end">
+            <el-col>
+              <el-button color="#424242" @click="submit">
+                <span style="color: white">Submit</span>
+              </el-button>
+            </el-col>
+          </el-row>
+        </el-form>
       </el-card>
     </div>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+import gameClass from "@/assets/gameClass.json";
+import ImageSelect from "@/components/ImageSelect.vue";
+
+const Platforms = ["Windows", "Linux", "MacOS", "Android", "iOS"];
+interface Author {
+  name: string;
+  type: number;
+  url: string;
+}
+interface formData {
+  name: string;
+  author: Author;
+  class: string;
+  platform: Array<string>;
+}
+const form = ref<formData>({
+  name: "",
+  author: { name: "", type: 0, url: "" },
+  class: "",
+  platform: [],
+});
+
+const coverEl = ref();
+
+const submit = () => {
+  console.log(form.value);
+  console.log(coverEl.value.coverImage);
+};
+</script>
 <style scoped>
 .view-page {
   width: 75%;
@@ -26,16 +122,14 @@
 .view-page-content {
   padding-top: 5%;
   padding-bottom: 90px;
-  color: white;
 }
 .el-card {
   color: white;
-  border: none;
   width: 100%;
   background-color: rgb(42, 42, 42);
 }
-* {
-  --el-card-border-color: rgba(255, 255, 255, 0.12);
+.item {
+  width: 100%;
 }
 .card-header {
   display: flex;
@@ -43,13 +137,12 @@
 .title {
   font-size: large;
 }
-.detail-row {
-  display: flex;
-  flex-direction: column;
+.form-body {
+  width: 100%;
 }
-.detail-col {
-  display: flex;
-  flex-direction: row;
+.tip{
+  text-align: left;
+  line-height: 1em;
 }
 @media (max-width: 1023px) {
   .view-page {

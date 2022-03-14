@@ -40,3 +40,15 @@ export function thorttle(fn, delay = 1000) {
     }
   };
 }
+
+/**
+ * @desc 文件大小计算
+ * @param file 单个文件
+ * @returns 文件大小
+ */
+export function fileSize(file) {
+  if (file.size < 1024) return file.size + "bytes";
+  else if (file.size >= 1024 && file.size < 1048576)
+    return (file.size / 1024).toFixed(1) + "KB";
+  else if (file.size >= 1048576) return (file.size / 1048576).toFixed(1) + "MB";
+}
