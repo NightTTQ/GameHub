@@ -64,7 +64,10 @@
               <el-form-item label="Tips">
                 <div class="tip">
                   <p>After clicking Submit, a new game will be created.</p>
-                  <p>Please edit other details on the corresponding game details page.</p>
+                  <p>
+                    Please edit other details on the corresponding game details
+                    page.
+                  </p>
                 </div>
               </el-form-item>
             </el-col>
@@ -85,6 +88,7 @@
 import { ref } from "vue";
 import gameClass from "@/assets/gameClass.json";
 import ImageSelect from "@/components/ImageSelect.vue";
+import uploadService from "@/services/uploadService";
 
 const Platforms = ["Windows", "Linux", "MacOS", "Android", "iOS"];
 interface Author {
@@ -140,7 +144,7 @@ const submit = () => {
 .form-body {
   width: 100%;
 }
-.tip{
+.tip {
   text-align: left;
   line-height: 1em;
 }
