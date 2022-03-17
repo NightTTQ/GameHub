@@ -62,7 +62,7 @@ const handleLogin = () => {
 <style scoped>
 .wrapper {
   max-width: 450px;
-  top: calc(50% - 182.5px);
+  top: calc(50% - 225px);
   position: absolute;
   right: 0;
   left: 0;
