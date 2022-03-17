@@ -17,7 +17,11 @@
         <el-row>
           <el-col>
             <el-form-item label="Password">
-              <el-input :maxlength="30" v-model="form.password"></el-input>
+              <el-input
+                :maxlength="30"
+                v-model="form.password"
+                type="password"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -45,7 +49,6 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-import Router from "@/router";
 
 const form = ref({
   username: "",
