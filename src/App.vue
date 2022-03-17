@@ -14,8 +14,8 @@
       <el-menu-item index="/about">About</el-menu-item>
       <div class="nav-space"></div>
       <div class="nav-right">
-        <el-button type="primary" @click="goCreate">
-          <span style="color: white">Create</span>
+        <el-button type="primary" @click="goLogin">
+          <span style="color: white">Login</span>
         </el-button>
       </div>
     </el-menu>
@@ -32,6 +32,9 @@ const activeIndex = ref("/");
 
 const goCreate = (event: any) => {
   router.push({ name: "createNewGame" });
+};
+const goLogin = (event: any) => {
+  router.push({ name: "Login" });
 };
 </script>
 
