@@ -34,7 +34,7 @@ const goCreate = (event: any) => {
   router.push({ name: "createNewGame" });
 };
 const goLogin = (event: any) => {
-  router.push({ name: "Login" });
+  router.push({ name: "login" });
 };
 </script>
 
@@ -83,6 +83,7 @@ button {
   color: #ffffff;
   --el-color-black: #ffffff;
   --el-color-white: #424242;
+  --el-text-color-primary: #f2f6fc;
 
   --el-card-border-color: rgba(255, 255, 255, 0.12);
   --el-text-color-regular: none;
@@ -99,5 +100,8 @@ button {
 }
 .el-select .el-select__tags .el-tag--info {
   background-color: #323232;
+}
+.el-notification{
+  --el-border-color-lighter: none;
 }
 </style>
