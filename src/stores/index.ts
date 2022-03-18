@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
 
-export const useCounterStore = defineStore({
+export const useUserStore = defineStore({
   id: "user",
-  state: () => ({
-    userInfo: {},
-    token: "",
-  }),
+  state: () => {
+    return {
+      userInfo: {},
+    };
+  },
   getters: {
     doubleCount: (state) => state,
   },
@@ -13,8 +14,10 @@ export const useCounterStore = defineStore({
     setUserInfo(userInfo: object) {
       this.userInfo = userInfo;
     },
-    setToken(token: string) {
-      this.token = token;
-    },
+  },
+  persist: {
+    key: "userInfo",
+    storage: window.sessionStorage,
+    paths: ["userInfo"],
   },
 });

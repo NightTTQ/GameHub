@@ -14,7 +14,11 @@
       <el-menu-item index="/about">About</el-menu-item>
       <div class="nav-space"></div>
       <div class="nav-right">
-        <el-button type="primary" @click="goLogin">
+        <div v-if="user.userInfo" style="color: white">
+
+          <span>{{ user.userInfo.username }}</span>
+        </div>
+        <el-button v-else type="primary" @click="goLogin">
           <span style="color: white">Login</span>
         </el-button>
       </div>
@@ -25,15 +29,42 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import router from "@/router";
+import { useUserStore } from "@/stores";
+import getUserInfoService from "@/services/getUserInfoService";
 
+onMounted(() => {
+  getUserInfo();
+});
+
+const user = useUserStore();
 const activeIndex = ref("/");
 
-const goCreate = (event: any) => {
-  router.push({ name: "createNewGame" });
+const getUserInfo = async () => {
+  const localSessionKey = `light:GameHub:local-session`;
+  //查询localSession是否存在
+  if (localStorage.getItem(localSessionKey)) {
+    //存在时查询pinia中的userInfo是否存在
+    if (!user.userInfo) {
+      //pinia中userInfo不存在则需重新获取
+      const userInfo = await getUserInfoService.getUserInfo();
+      //判断userInfo是否获取成功
+      if (userInfo.success) {
+        //登录成功
+        user.setUserInfo(userInfo.user);
+      } else {
+        //登录态失效并清除localSession
+        user.setUserInfo({});
+        localStorage.removeItem(localSessionKey);
+      }
+    }
+  } else {
+    //不存在则认为是未登录态
+    user.setUserInfo({});
+  }
 };
-const goLogin = (event: any) => {
+const goLogin = () => {
   router.push({ name: "login" });
 };
 </script>
@@ -101,7 +132,7 @@ button {
 .el-select .el-select__tags .el-tag--info {
   background-color: #323232;
 }
-.el-notification{
+.el-notification {
   --el-border-color-lighter: none;
 }
 </style>
