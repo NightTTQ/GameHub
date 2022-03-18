@@ -6,7 +6,8 @@ const apiLink = "https://qcnnig.api.cloudendpoint.cn/userRegister";
 export default {
   async register(username: string, password: string) {
     const localSessionKey = `light:GameHub:local-session`;
-    localStorage.setItem(localSessionKey, uuidv1());
+    if (!localStorage.getItem(localSessionKey))
+      localStorage.setItem(localSessionKey, uuidv1());
     const apiConfig = {
       headers: {
         "Content-Type": "application/json",
