@@ -21,7 +21,7 @@
 import { onMounted, ref } from "vue";
 import gameClass from "@/assets/gameClass.json";
 import type { ElTree } from "element-plus";
-import getInfoService from "@/services/getInfoService.js";
+import getInfoService from "@/services/getInfoService";
 import _ from "lodash";
 import GameCard from "@/components/GameCard.vue";
 

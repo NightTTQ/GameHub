@@ -5,7 +5,19 @@ const apiConfig = {
 };
 
 export default {
-  async getInfo({ _id, id, skip, limit, where }) {
+  async getInfo({
+    _id,
+    id,
+    skip,
+    limit,
+    where,
+  }: {
+    _id?: number;
+    id?: number;
+    skip?: number;
+    limit?: number;
+    where?: any;
+  }) {
     for (const item in where) {
       if (where[item].length === 0) delete where[item];
     }
