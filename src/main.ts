@@ -14,6 +14,24 @@ const pinia = createPinia();
 
 pinia.use(piniaPluginPersistedstate);
 
+router.beforeEach((to, from, next) => {
+  const isLogin = sessionStorage.getItem("isLogin");
+
+  if (isLogin) {
+    //用户已登录不能进入登录和注册页
+    if (to.name === "login" || to.name === "register") {
+      next({ name: "home" });
+    }
+  } else {
+    //用户未登录不能进入需要登录的页面
+    if (to.meta.isLogin) {
+      next({ name: "login" });
+    } else {
+      next();
+    }
+  }
+});
+
 app.use(pinia);
 app.use(router);
 app.use(ElementPlus);
