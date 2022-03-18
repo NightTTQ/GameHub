@@ -14,8 +14,12 @@
       <el-menu-item index="/about">About</el-menu-item>
       <div class="nav-space"></div>
       <div class="nav-right">
-        <div v-if="user.userInfo" style="color: white">
-
+        <div v-if="user.isLogin" style="color: white">
+          <img
+            v-if="user.userInfo.avatar"
+            :src="user.userInfo.avatar"
+            alt="avatar"
+          />
           <span>{{ user.userInfo.username }}</span>
         </div>
         <el-button v-else type="primary" @click="goLogin">
@@ -53,15 +57,21 @@ const getUserInfo = async () => {
       if (userInfo.success) {
         //登录成功
         user.setUserInfo(userInfo.user);
+        user.setLoginStatus(true);
       } else {
         //登录态失效并清除localSession
         user.setUserInfo({});
+        user.setLoginStatus(false);
         localStorage.removeItem(localSessionKey);
       }
+    } else {
+      //pinia中userInfo存在则视为成功登录
+      user.setLoginStatus(true);
     }
   } else {
     //不存在则认为是未登录态
     user.setUserInfo({});
+    user.setLoginStatus(false);
   }
 };
 const goLogin = () => {
@@ -96,7 +106,7 @@ button {
   flex: 1;
 }
 .nav-right {
-  margin: 0 10px;
+  padding-right: 20px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -4,20 +4,41 @@ export const useUserStore = defineStore({
   id: "user",
   state: () => {
     return {
-      userInfo: {},
+      isLogin: false,
+      userInfo: {
+        agent: null,
+        avatar: null,
+        createAt: null,
+        createdAt: null,
+        email: null,
+        firstProvider: null,
+        intro: null,
+        lastIp: null,
+        lastLogin: null,
+        loginCount: null,
+        nickname: null,
+        phoneNumber: null,
+        status: null,
+        updatedAt: null,
+        username: null,
+        _id: null,
+      },
     };
   },
   getters: {
     doubleCount: (state) => state,
   },
   actions: {
-    setUserInfo(userInfo: object) {
+    setUserInfo(userInfo: any) {
       this.userInfo = userInfo;
+    },
+    setLoginStatus(state: boolean) {
+      this.isLogin = state;
     },
   },
   persist: {
     key: "userInfo",
     storage: window.sessionStorage,
-    paths: ["userInfo"],
+    paths: ["userInfo", "isLogin"],
   },
 });
