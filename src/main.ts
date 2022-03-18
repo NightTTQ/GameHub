@@ -3,7 +3,7 @@ import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
-import Video from "video.js";
+import { useUserStore } from "@/stores";
 import "video.js/dist/video-js.css";
 
 import App from "./App.vue";
@@ -15,12 +15,14 @@ const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 
 router.beforeEach((to, from, next) => {
-  const isLogin = sessionStorage.getItem("isLogin");
+  const isLogin = JSON.parse(sessionStorage.getItem("userInfo")!);
 
-  if (isLogin) {
+  if (isLogin.isLogin) {
     //用户已登录不能进入登录和注册页
     if (to.name === "login" || to.name === "register") {
       next({ name: "home" });
+    } else {
+      next();
     }
   } else {
     //用户未登录不能进入需要登录的页面
