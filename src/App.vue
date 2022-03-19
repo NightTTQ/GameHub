@@ -13,19 +13,28 @@
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item index="/about">About</el-menu-item>
       <div class="nav-space"></div>
-      <div class="nav-right">
-        <div v-if="user.isLogin" style="color: white">
+
+      <el-sub-menu
+        index="user-menu"
+        v-if="user.isLogin"
+        style="color: white"
+        class="nav-right"
+      >
+        <template #title>
           <img
             v-if="user.userInfo.avatar"
             :src="user.userInfo.avatar"
             alt="avatar"
           />
           <span>{{ user.userInfo.username }}</span>
-        </div>
-        <el-button v-else type="primary" @click="goLogin">
-          <span style="color: white">Login</span>
-        </el-button>
-      </div>
+        </template>
+        <el-menu-item index="/user">User</el-menu-item>
+        <el-menu-item index="/logout">Logout</el-menu-item>
+      </el-sub-menu>
+
+      <el-button v-else type="primary" @click="goLogin">
+        <span style="color: white">Login</span>
+      </el-button>
     </el-menu>
 
     <router-view />
@@ -106,14 +115,13 @@ button {
   flex: 1;
 }
 .nav-right {
-  padding-right: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .el-menu {
   border: none;
-  height: 48px;
+  --el-menu-item-height: 48px;
 }
 .el-backtop {
   --el-backtop-bg-color: rgb(24, 24, 24);
