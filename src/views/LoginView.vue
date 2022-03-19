@@ -49,14 +49,55 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
+import router from "@/router";
+import loginService from "@/services/loginService";
+import { useUserStore } from "@/stores";
+import getUserInfoService from "@/services/getUserInfoService";
 
 const form = ref({
   username: "",
   password: "",
 });
 
-const handleLogin = () => {
-  console.log(form.value);
+const user = useUserStore();
+
+const handleLogin = async () => {
+  //清除登录信息
+  user.setUserInfo({});
+  user.setLoginStatus(false);
+  //进行登录
+  const loginRes = await loginService.login(
+    form.value.username,
+    form.value.password
+  );
+  if (loginRes.success) {
+    //服务器返回成功
+    const localSessionKey = `light:GameHub:local-session`;
+    //查询localSession是否存在
+    if (localStorage.getItem(localSessionKey)) {
+      //获取userInfo
+      const userInfo = await getUserInfoService.getUserInfo();
+      //判断userInfo是否获取成功
+      if (userInfo.success && userInfo.user) {
+        //登录成功
+        user.setUserInfo(userInfo.user);
+        user.setLoginStatus(true);
+        router.push({ name: "home" });
+      } else {
+        //登录态失效并清除localSession
+        user.setUserInfo({});
+        user.setLoginStatus(false);
+        localStorage.removeItem(localSessionKey);
+      }
+    } else {
+      //不存在则认为是未登录态
+      user.setUserInfo({});
+      user.setLoginStatus(false);
+      console.log("No Session");
+    }
+  } else {
+    console.log("login fail");
+  }
 };
 </script>
 <style scoped>

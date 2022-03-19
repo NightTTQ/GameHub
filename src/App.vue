@@ -22,19 +22,16 @@
       >
         <template #title>
           <img
-            v-if="user.userInfo.avatar"
-            :src="user.userInfo.avatar"
+            v-if="user.userInfo?.avatar"
+            :src="user.userInfo?.avatar"
             alt="avatar"
           />
           <span>{{ user.userInfo.username }}</span>
         </template>
-        <el-menu-item index="/user">User</el-menu-item>
+        <el-menu-item index="/create">Create</el-menu-item>
         <el-menu-item index="/logout">Logout</el-menu-item>
       </el-sub-menu>
-
-      <el-button v-else type="primary" @click="goLogin">
-        <span style="color: white">Login</span>
-      </el-button>
+      <el-menu-item v-else index="/login">Login</el-menu-item>
     </el-menu>
 
     <router-view />
@@ -42,17 +39,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onBeforeMount } from "vue";
 import router from "@/router";
 import { useUserStore } from "@/stores";
 import getUserInfoService from "@/services/getUserInfoService";
 
-onMounted(() => {
+onBeforeMount(() => {
   getUserInfo();
 });
 
 const user = useUserStore();
-const activeIndex = ref("/");
+const activeIndex = ref(router.currentRoute.value.path);
 
 const getUserInfo = async () => {
   const localSessionKey = `light:GameHub:local-session`;
@@ -63,7 +60,7 @@ const getUserInfo = async () => {
       //pinia中userInfo不存在则需重新获取
       const userInfo = await getUserInfoService.getUserInfo();
       //判断userInfo是否获取成功
-      if (userInfo.success) {
+      if (userInfo.success && userInfo.user) {
         //登录成功
         user.setUserInfo(userInfo.user);
         user.setLoginStatus(true);

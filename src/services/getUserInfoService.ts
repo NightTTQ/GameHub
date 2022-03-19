@@ -12,9 +12,10 @@ export default {
         "x-tt-session-v2": localStorage.getItem(localSessionKey)!,
       },
     };
+    const params = {};
     // return params;
     const { data } = await axios
-      .get(apiLink, apiConfig)
+      .post(apiLink, params, apiConfig)
       .then((response) => {
         return response;
       })
