@@ -4,39 +4,38 @@
  * @param wait 延迟执行毫秒数
  * @param immediate true 表立即执行，false 表非立即执行
  */
-export function debounce(func, wait, immediate = true) {
-  let timeout = null;
-  return function () {
+export function debounce(func: Function, wait: number, immediate = true) {
+  let timeout: number | null = null;
+  return function (this: Function) {
     if (timeout) clearTimeout(timeout);
     if (immediate) {
       var callNow = !timeout;
-      timeout = setTimeout(() => {
+      timeout = window.setTimeout(() => {
         timeout = null;
       }, wait);
       if (callNow) func.apply(this, arguments);
     } else {
-      timeout = setTimeout(function () {
-        func.apply(context, args);
+      timeout = window.setTimeout(function (this: Function) {
+        func.apply(this, arguments);
       }, wait);
     }
   };
 }
-export function thorttle(fn, delay = 1000) {
-  let lastTime = "";
-  let timer = "";
+export function thorttle(func: Function, delay = 1000) {
+  let lastTime = 0;
+  let timer = 0;
   let interval = delay;
-  return function () {
-    let args = arguments;
+  return function (this: Function) {
     let nowTime = Date.now();
     if (lastTime && nowTime - lastTime < interval) {
       clearTimeout(timer);
-      timer = setTimeout(() => {
+      timer = window.setTimeout(() => {
         lastTime = nowTime;
-        fn.apply(this, args);
+        func.apply(this, arguments);
       }, interval);
     } else {
       lastTime = nowTime;
-      fn.apply(this, args);
+      func.apply(this, arguments);
     }
   };
 }
@@ -46,7 +45,7 @@ export function thorttle(fn, delay = 1000) {
  * @param file 单个文件
  * @returns 文件大小
  */
-export function fileSize(file) {
+export function fileSize(file: File) {
   if (file.size < 1024) return file.size + "bytes";
   else if (file.size >= 1024 && file.size < 1048576)
     return (file.size / 1024).toFixed(1) + "KB";
