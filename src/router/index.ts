@@ -29,6 +29,14 @@ const router = createRouter({
       },
     },
     {
+      path: "/logout",
+      name: "logout",
+      component: () => import("../components/Logout.vue"),
+      meta: {
+        isLogin: false,
+      },
+    },
+    {
       path: "/forgot",
       name: "forgot",
       component: () => import("../views/RegisterView.vue"),
