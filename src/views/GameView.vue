@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import getInfoService from "@/services/getInfoService.js";
+import getInfoService from "@/services/getInfoService";
 import { ref, computed, onMounted } from "vue";
 import type { ComputedRef } from "vue";
 import Carousel from "@/components/Carousel.vue";
@@ -90,7 +90,7 @@ interface Image {
 }
 
 const props = defineProps<{
-  id: string;
+  id: number;
 }>();
 
 const data = ref<data>();
