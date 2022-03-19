@@ -17,7 +17,7 @@ pinia.use(piniaPluginPersistedstate);
 router.beforeEach((to, from, next) => {
   const isLogin = JSON.parse(sessionStorage.getItem("userInfo")!);
 
-  if (isLogin.isLogin) {
+  if (isLogin?.isLogin) {
     //用户已登录不能进入登录和注册页
     if (to.name === "login" || to.name === "register") {
       next({ name: "home" });
