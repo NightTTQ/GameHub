@@ -3,7 +3,7 @@
 import { onMounted } from "vue";
 import router from "@/router";
 import { useUserStore } from "@/stores";
-import logoutService from "@/services/logoutService";
+import userService from "@/services/userService";
 
 onMounted(() => {
   doLogout();
@@ -13,7 +13,7 @@ onMounted(() => {
 const user = useUserStore();
 
 const doLogout = async () => {
-  await logoutService.logout();
+  await userService.logout();
   user.setLoginStatus(false);
   user.setUserInfo({});
 };

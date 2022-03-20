@@ -50,9 +50,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import router from "@/router";
-import loginService from "@/services/loginService";
+import userService from "@/services/userService";
 import { useUserStore } from "@/stores";
-import getUserInfoService from "@/services/getUserInfoService";
 
 const form = ref({
   username: "",
@@ -66,7 +65,7 @@ const handleLogin = async () => {
   user.setUserInfo({});
   user.setLoginStatus(false);
   //进行登录
-  const loginRes = await loginService.login(
+  const loginRes = await userService.login(
     form.value.username,
     form.value.password
   );
@@ -76,7 +75,7 @@ const handleLogin = async () => {
     //查询localSession是否存在
     if (localStorage.getItem(localSessionKey)) {
       //获取userInfo
-      const userInfo = await getUserInfoService.getUserInfo();
+      const userInfo = await userService.getUserInfo();
       //判断userInfo是否获取成功
       if (userInfo.success && userInfo.user) {
         //登录成功

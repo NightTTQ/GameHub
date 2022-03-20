@@ -54,7 +54,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { ElNotification } from "element-plus";
-import registerService from "@/services/registerService";
+import userService from "@/services/userService";
 
 const form = ref({
   username: "",
@@ -71,7 +71,7 @@ const handleRegister = async () => {
     });
     return;
   }
-  const res = await registerService.register(
+  const res = await userService.register(
     form.value.username,
     form.value.password
   );
