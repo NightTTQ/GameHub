@@ -1,5 +1,6 @@
 import { v1 as uuidv1 } from "uuid";
 import axios from "axios";
+const localSessionKey = `light:GameHub:local-session`;
 
 export default {
   /**
@@ -9,7 +10,6 @@ export default {
    */
   async login(username: string, password: string): Promise<any> {
     const apiLink = "https://qcnnig.api.cloudendpoint.cn/userLogin";
-    const localSessionKey = `light:GameHub:local-session`;
     if (!localStorage.getItem(localSessionKey))
       localStorage.setItem(localSessionKey, uuidv1());
     const apiConfig = {
@@ -42,7 +42,6 @@ export default {
    */
   async register(username: string, password: string): Promise<any> {
     const apiLink = "https://qcnnig.api.cloudendpoint.cn/userRegister";
-    const localSessionKey = `light:GameHub:local-session`;
     if (!localStorage.getItem(localSessionKey))
       localStorage.setItem(localSessionKey, uuidv1());
     const apiConfig = {
@@ -73,7 +72,6 @@ export default {
    */
   async logout() {
     const apiLink = "https://qcnnig.api.cloudendpoint.cn/userLogout";
-    const localSessionKey = `light:GameHub:local-session`;
     if (!localStorage.getItem(localSessionKey))
       return { error: "No user login." };
     const apiConfig = {
@@ -101,7 +99,6 @@ export default {
    */
   async getUserInfo() {
     const apiLink = "https://qcnnig.api.cloudendpoint.cn/getUserInfo";
-    const localSessionKey = `light:GameHub:local-session`;
     if (!localStorage.getItem(localSessionKey)) return null;
     const apiConfig = {
       headers: {
