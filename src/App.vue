@@ -41,6 +41,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeMount } from "vue";
 import router from "@/router";
+import store from "@/utils/store";
 import { useUserStore } from "@/stores";
 import userService from "@/services/userService";
 
@@ -52,9 +53,8 @@ const user = useUserStore();
 const activeIndex = ref(router.currentRoute.value.path);
 
 const getUserInfo = async () => {
-  const localSessionKey = `light:GameHub:local-session`;
   //查询localSession是否存在
-  if (localStorage.getItem(localSessionKey)) {
+  if (store.getSession()) {
     //存在时查询pinia中的userInfo是否存在
     if (!user.userInfo._id) {
       //pinia中userInfo不存在则需重新获取
@@ -68,7 +68,7 @@ const getUserInfo = async () => {
         //登录态失效并清除localSession
         user.setUserInfo({});
         user.setLoginStatus(false);
-        localStorage.removeItem(localSessionKey);
+        store.removeSession();
       }
     } else {
       //pinia中userInfo存在则视为成功登录
@@ -79,9 +79,6 @@ const getUserInfo = async () => {
     user.setUserInfo({});
     user.setLoginStatus(false);
   }
-};
-const goLogin = () => {
-  router.push({ name: "login" });
 };
 </script>
 

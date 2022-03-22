@@ -53,8 +53,13 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
+import router from "@/router";
 import { ElNotification } from "element-plus";
 import userService from "@/services/userService";
+import { useUserStore } from "@/stores";
+import store from "@/utils/store";
+
+const user = useUserStore();
 
 const form = ref({
   username: "",
@@ -63,20 +68,40 @@ const form = ref({
 });
 
 const handleRegister = async () => {
+  //表单验证
   if (form.value.check != form.value.password) {
     ElNotification({
       title: "Error",
-      message: "The passwords entered do not match",
+      message: "Passwords entered do not match",
       type: "error",
     });
     return;
+  } else {
+    //进行注册
+    const res = await userService.register(
+      form.value.username,
+      form.value.password
+    );
+    if (res.success) {
+      //注册成功自动登录并跳转至首页
+      user.setUserInfo(res.userInfo.userInfo);
+      user.setLoginStatus(true);
+      ElNotification({
+        title: "Success",
+        message: "Register success",
+        type: "success",
+      });
+      router.push({ name: "home" });
+    } else {
+      //注册失败弹出失败详细信息并删除localSession
+      ElNotification({
+        title: "Error",
+        message: res.message,
+        type: "error",
+      });
+      store.removeSession();
+    }
   }
-  const res = await userService.register(
-    form.value.username,
-    form.value.password
-  );
-  console.log(form.value);
-  console.log(res);
 };
 </script>
 <style scoped>

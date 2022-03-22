@@ -51,6 +51,7 @@
 import { ref } from "vue";
 import router from "@/router";
 import userService from "@/services/userService";
+import store from "@/utils/store";
 import { useUserStore } from "@/stores";
 
 const form = ref({
@@ -71,9 +72,8 @@ const handleLogin = async () => {
   );
   if (loginRes.success) {
     //服务器返回成功
-    const localSessionKey = `light:GameHub:local-session`;
     //查询localSession是否存在
-    if (localStorage.getItem(localSessionKey)) {
+    if (store.getSession()) {
       //获取userInfo
       const userInfo = await userService.getUserInfo();
       //判断userInfo是否获取成功
@@ -86,7 +86,7 @@ const handleLogin = async () => {
         //登录态失效并清除localSession
         user.setUserInfo({});
         user.setLoginStatus(false);
-        localStorage.removeItem(localSessionKey);
+        store.removeSession();
       }
     } else {
       //不存在则认为是未登录态

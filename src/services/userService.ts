@@ -1,6 +1,6 @@
 import { v1 as uuidv1 } from "uuid";
 import axios from "axios";
-const localSessionKey = `light:GameHub:local-session`;
+import store from "@/utils/store";
 
 export default {
   /**
@@ -10,12 +10,11 @@ export default {
    */
   async login(username: string, password: string): Promise<any> {
     const apiLink = "https://qcnnig.api.cloudendpoint.cn/userLogin";
-    if (!localStorage.getItem(localSessionKey))
-      localStorage.setItem(localSessionKey, uuidv1());
+    if (!store.getSession()) store.setSession(uuidv1());
     const apiConfig = {
       headers: {
         "Content-Type": "application/json",
-        "x-tt-session-v2": localStorage.getItem(localSessionKey)!,
+        "x-tt-session-v2": store.getSession()!,
       },
     };
 
@@ -42,12 +41,12 @@ export default {
    */
   async register(username: string, password: string): Promise<any> {
     const apiLink = "https://qcnnig.api.cloudendpoint.cn/userRegister";
-    if (!localStorage.getItem(localSessionKey))
-      localStorage.setItem(localSessionKey, uuidv1());
+    if (!store.getSession()) store.setSession(uuidv1());
+
     const apiConfig = {
       headers: {
         "Content-Type": "application/json",
-        "x-tt-session-v2": localStorage.getItem(localSessionKey)!,
+        "x-tt-session-v2": store.getSession()!,
       },
     };
 
@@ -72,12 +71,11 @@ export default {
    */
   async logout() {
     const apiLink = "https://qcnnig.api.cloudendpoint.cn/userLogout";
-    if (!localStorage.getItem(localSessionKey))
-      return { error: "No user login." };
+    if (!store.getSession()) return { error: "No user login." };
     const apiConfig = {
       headers: {
         "Content-Type": "application/json",
-        "x-tt-session-v2": localStorage.getItem(localSessionKey)!,
+        "x-tt-session-v2": store.getSession()!,
       },
     };
 
@@ -99,11 +97,11 @@ export default {
    */
   async getUserInfo() {
     const apiLink = "https://qcnnig.api.cloudendpoint.cn/getUserInfo";
-    if (!localStorage.getItem(localSessionKey)) return null;
+    if (!store.getSession()) return null;
     const apiConfig = {
       headers: {
         "Content-Type": "application/json",
-        "x-tt-session-v2": localStorage.getItem(localSessionKey)!,
+        "x-tt-session-v2": store.getSession()!,
       },
     };
     const params = {};
