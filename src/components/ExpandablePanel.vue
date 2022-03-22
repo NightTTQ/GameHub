@@ -2,10 +2,10 @@
   <div class="container">
     <div class="collapse-content" :style="expandStyle">
       <span class="text">
-        <div v-html="compiledMarkdown" class="text-content"></div>
+        <div v-html="compiledMarkdown" ref="MDdiv" class="text-content"></div>
       </span>
     </div>
-    <div class="collapse-expand">
+    <div class="collapse-expand" v-if="needExpand">
       <button class="expand-btn" v-if="!status" @click="handle">
         <span>More</span>
         <el-icon :size="12" style="width: 20px; height: 20px">
@@ -23,7 +23,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, computed, type ComputedRef, type Ref } from "vue";
+import { ref, computed, onMounted, type ComputedRef, type Ref } from "vue";
 import { ArrowDownBold, ArrowUpBold } from "@element-plus/icons-vue";
 import { marked } from "marked";
 
@@ -32,12 +32,18 @@ const props = defineProps<{
 }>();
 
 const status: Ref<Boolean> = ref(false);
+const MDdiv = ref();
+const needExpand = ref(true);
 
 const expandStyle = computed(() => (status.value ? "" : "max-height: 400px"));
 
 const handle = () => (status.value = !status.value);
 const compiledMarkdown: ComputedRef<string | undefined> = computed(() => {
   if (props.about) return marked.parse(props.about, {});
+});
+
+onMounted(() => {
+  needExpand.value = MDdiv.value.offsetHeight > 400;
 });
 </script>
 <style scoped>
