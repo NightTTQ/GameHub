@@ -99,7 +99,6 @@ const getData = async () => {
   data.value = await getInfoService.getInfo({
     id: props.id,
   });
-  console.log(data.value);
 };
 
 onMounted(() => {
@@ -175,7 +174,6 @@ onMounted(() => {
   }
 }
 @media (min-width: 768px) {
-
 }
 @media (min-width: 1024px) {
   .short-intro {

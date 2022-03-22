@@ -67,7 +67,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, onUpdated, watch } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import {
   ArrowLeftBold,
   ArrowRightBold,
@@ -99,9 +99,7 @@ watch(current, () => {
 const switchStyle = computed(
   () => "transform: translateX(calc(-" + 100 * current.value + "%));"
 );
-onMounted(() => {
-  console.log(props.data);
-});
+onMounted(() => {});
 </script>
 
 <style scoped>
