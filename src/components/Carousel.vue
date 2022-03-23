@@ -83,19 +83,23 @@ interface Image {
 
 const current = ref(0);
 
+//使用左右箭头切换展示内容
 const doSwitch = (dir: number) => {
   if (props.data) {
     if (current.value + dir < 0) current.value = props.data.length - 1;
     else current.value = (current.value + dir) % props.data.length;
   }
 };
+//通过点击缩略图切换展示内容
 const switchTo = (index: number) => {
   current.value = index;
 };
+//监听是否切换了展示内容以暂停视频
 watch(current, () => {
   const videos = document.getElementsByTagName("video");
   for (const item of videos) item.pause();
 });
+//控制展示内容的位置
 const switchStyle = computed(
   () => "transform: translateX(calc(-" + 100 * current.value + "%));"
 );
