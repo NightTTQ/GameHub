@@ -211,7 +211,7 @@ onMounted(() => {});
   width: 100%;
   overflow: auto;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
 }
 .carousel-swiper-item {
   position: relative;
