@@ -90,7 +90,7 @@ interface Image {
 }
 
 const props = defineProps<{
-  id: number;
+  id: number | string;
 }>();
 
 const data = ref<data>();

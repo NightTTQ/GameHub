@@ -12,8 +12,8 @@ export default {
     limit,
     where,
   }: {
-    _id?: number;
-    id?: number;
+    _id?: number | string;
+    id?: number | string;
     skip?: number;
     limit?: number;
     where?: any;
