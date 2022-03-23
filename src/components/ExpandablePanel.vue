@@ -35,9 +35,12 @@ const status: Ref<Boolean> = ref(false);
 const MDdiv = ref();
 const needExpand = ref(true);
 
+//控制展开样式
 const expandStyle = computed(() => (status.value ? "" : "max-height: 400px"));
 
+//响应按钮事件
 const handle = () => (status.value = !status.value);
+//输出编译后的Markdown文档
 const compiledMarkdown: ComputedRef<string | undefined> = computed(() => {
   if (props.about) return marked.parse(props.about, {});
 });
