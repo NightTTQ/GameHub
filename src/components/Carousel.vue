@@ -24,6 +24,7 @@
                   class="img"
                   controls
                   :src="item.data"
+                  :ref="(video) => videos.push(video)"
                 ></video>
               </div>
             </div>
@@ -71,12 +72,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, watch, type Ref, type VNode } from "vue";
 import {
   ArrowLeftBold,
   ArrowRightBold,
   VideoPlay,
 } from "@element-plus/icons-vue";
+
+const videos: any = ref([]);
 const props = defineProps<{
   data?: Array<Image>;
 }>();
@@ -100,8 +103,7 @@ const switchTo = (index: number) => {
 };
 //监听是否切换了展示内容以暂停视频
 watch(current, () => {
-  const videos = document.getElementsByTagName("video");
-  for (const item of videos) item.pause();
+  for (const item of videos.value) item.pause();
 });
 //控制展示内容的位置
 const switchStyle = computed(
