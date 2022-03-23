@@ -33,36 +33,40 @@
     </ul>
   </div>
   <div class="carousel-swiper">
-    <ul class="carousel-swiper-wrapper">
-      <li v-for="(item, index) in data" class="carousel-swiper-item">
-        <button class="carousel-swiper-item-btn" @click="switchTo(index)">
-          <div
-            class="carousel-swiper-item-btn-wrapper"
-            :class="{ select: index === current }"
-          >
-            <div class="carousel-swiper-item-btn-container">
-              <div class="carousel-swiper-item-btn-content">
-                <div
-                  class="carousel-swiper-item-btn-content-ele"
-                  :class="{ select: index === current }"
-                >
-                  <div class="carousel-swiper-item-btn-content-ele-pic">
-                    <img
-                      v-if="item.type === 'img'"
-                      class="img"
-                      :src="item.data"
-                    />
-                    <div v-if="item.type === 'video'" class="img">
-                      <el-icon :size="20" color="#FFF"><video-play /></el-icon>
+    <el-scrollbar style="height: 100%">
+      <ul class="carousel-swiper-wrapper">
+        <li v-for="(item, index) in data" class="carousel-swiper-item">
+          <button class="carousel-swiper-item-btn" @click="switchTo(index)">
+            <div
+              class="carousel-swiper-item-btn-wrapper"
+              :class="{ select: index === current }"
+            >
+              <div class="carousel-swiper-item-btn-container">
+                <div class="carousel-swiper-item-btn-content">
+                  <div
+                    class="carousel-swiper-item-btn-content-ele"
+                    :class="{ select: index === current }"
+                  >
+                    <div class="carousel-swiper-item-btn-content-ele-pic">
+                      <img
+                        v-if="item.type === 'img'"
+                        class="img"
+                        :src="item.data"
+                      />
+                      <div v-if="item.type === 'video'" class="img">
+                        <el-icon :size="20" color="#FFF">
+                          <video-play />
+                        </el-icon>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </button>
-      </li>
-    </ul>
+          </button>
+        </li>
+      </ul>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -207,13 +211,12 @@ onMounted(() => {});
   margin-right: auto;
 }
 .carousel-swiper-wrapper {
-  margin: 0px;
+  margin: 0 0 10px;
   padding: 0px;
   list-style-type: none;
   display: flex;
   gap: 10px;
   width: 100%;
-  overflow: auto;
   align-items: center;
   justify-content: left;
 }
