@@ -71,7 +71,9 @@ const handleLogin = async () => {
     form.value.password
   );
   if (loginRes.success) {
-    //服务器返回成功
+    //服务器返回成功保存RefreshToken和TOKEN
+    store.setRefreshToken(loginRes.RefreshToken);
+    store.setToken(loginRes.TOKEN);
     //查询localSession是否存在
     if (store.getSession()) {
       //获取userInfo
