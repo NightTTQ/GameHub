@@ -92,10 +92,10 @@ const handleLogin = async () => {
       //不存在则认为是未登录态
       user.setUserInfo({});
       user.setLoginStatus(false);
-      console.log("No Session");
+      console.log("Generally Session Fail");
     }
   } else {
-    console.log("login fail");
+    console.log("Login Fail");
   }
 };
 </script>
