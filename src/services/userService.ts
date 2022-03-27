@@ -116,4 +116,32 @@ export default {
       });
     return data;
   },
+  /**
+   * @desc 使用localRefreshToken获取新Token
+   */
+  async refreshToken() {
+    const apiLink = "https://qcnnig.api.cloudendpoint.cn/refreshToken";
+    if (!store.getSession()) return null;
+    const apiConfig = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-tt-session-v2": store.getSession()!,
+        RefreshToken: store.getRefreshToken()!,
+      },
+    };
+    const params = {};
+    // return params;
+    const { data } = await axios
+      .post(apiLink, params, apiConfig)
+      .then((response) => {
+        //当服务器返回RefreshToken时说明RefreshToken也进行了刷新
+        if (response.data.RefreshToken)
+          store.setRefreshToken(response.data.RefreshToken);
+        return response;
+      })
+      .catch((error) => {
+        return error;
+      });
+    return data;
+  },
 };
