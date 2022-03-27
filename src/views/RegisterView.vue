@@ -84,6 +84,8 @@ const handleRegister = async () => {
     );
     if (res.success) {
       //注册成功自动登录并跳转至首页
+      store.setRefreshToken(res.RefreshToken);
+      store.setToken(res.TOKEN);
       user.setUserInfo(res.userInfo.userInfo);
       user.setLoginStatus(true);
       ElNotification({
