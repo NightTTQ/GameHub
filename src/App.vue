@@ -28,7 +28,7 @@
           />
           <span>{{ user.userInfo.username }}</span>
         </template>
-        <el-menu-item index="/create">Create</el-menu-item>
+        <el-menu-item index="/mygames">My Games</el-menu-item>
         <el-menu-item index="/logout">Logout</el-menu-item>
       </el-sub-menu>
       <el-menu-item v-else index="/login">Login</el-menu-item>

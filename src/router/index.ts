@@ -56,6 +56,14 @@ const router = createRouter({
       },
     },
     {
+      path: "/mygames",
+      name: "mygames",
+      component: () => import("../views/MyGamesView.vue"),
+      meta: {
+        isLogin: true,
+      },
+    },
+    {
       path: "/create",
       name: "createNewGame",
       component: () => import("../views/CreateView.vue"),
