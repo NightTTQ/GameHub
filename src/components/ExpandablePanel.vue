@@ -23,7 +23,15 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, computed, onMounted, type ComputedRef, type Ref } from "vue";
+import {
+  ref,
+  computed,
+  onMounted,
+  type ComputedRef,
+  type Ref,
+  nextTick,
+  watch,
+} from "vue";
 import { ArrowDownBold, ArrowUpBold } from "@element-plus/icons-vue";
 import { marked } from "marked";
 
@@ -43,10 +51,6 @@ const handle = () => (status.value = !status.value);
 //输出编译后的Markdown文档
 const compiledMarkdown: ComputedRef<string | undefined> = computed(() => {
   if (props.about) return marked.parse(props.about, {});
-});
-
-onMounted(() => {
-  needExpand.value = MDdiv.value.offsetHeight > 400;
 });
 </script>
 <style scoped>
