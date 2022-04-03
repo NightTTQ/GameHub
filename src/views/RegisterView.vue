@@ -42,6 +42,7 @@
               @click="handleRegister"
               color="#424242"
               style="width: 100%"
+              :loading="isLoading"
             >
               <span style="color: white">Register</span>
             </el-button>
@@ -60,6 +61,7 @@ import { useUserStore } from "@/stores";
 import store from "@/utils/store";
 
 const user = useUserStore();
+const isLoading = ref(false);
 
 const form = ref({
   username: "",
@@ -77,6 +79,7 @@ const handleRegister = async () => {
     });
     return;
   } else {
+    isLoading.value = true;
     //进行注册
     const res = await userService.register(
       form.value.username,
@@ -93,6 +96,7 @@ const handleRegister = async () => {
         message: "Register success",
         type: "success",
       });
+      isLoading.value = false;
       router.push({ name: "home" });
     } else {
       //注册失败弹出失败详细信息并删除localSession
@@ -102,6 +106,7 @@ const handleRegister = async () => {
         type: "error",
       });
       store.removeSession();
+      isLoading.value = false;
     }
   }
 };
