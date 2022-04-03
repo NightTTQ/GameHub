@@ -7,43 +7,87 @@
             <span class="title">My Games</span>
           </div>
         </template>
-        <div class="games-wrapper"></div>
+        <div class="games-div">
+          <span class="title">OWN</span>
+          <div class="games-wrapper">
+            <EditGameCard v-for="item in games?.own" :data="item" :type="0" />
+            <EditGameCard data="" :type="0" />
+          </div>
+          <span class="title">EDITOR</span>
+          <div class="games-wrapper">
+            <EditGameCard
+              v-for="item in games?.editor"
+              :data="item"
+              :type="1"
+            />
+            <EditGameCard data="" :type="1" />
+          </div>
+        </div>
       </el-card>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import store from "@/utils/store";
 import userService from "@/services/userService";
 import userGameService from "@/services/getUserGameService";
+import router from "@/router";
+import EditGameCard from "@/components/gameManage/editGameCard.vue";
+import { ElNotification } from "element-plus";
+
+interface data {
+  own: Array<object>;
+  editor: Array<object>;
+}
+
+const games = ref<data>();
+
+onMounted(async () => {
+  games.value = await getGames();
+});
+
 const getGames = async () => {
+  let data;
   // 尝试获取可编辑的游戏
-  userGameService.getGame().then((res) => {
-    // token过期
-    if (res.code == 1002) {
+  await userGameService.getGame().then(async (res) => {
+    // token无效
+    if (res.code) {
       // 使用RefreshToken刷新token
-      userService.refreshToken().then((token) => {
-        // 重发请求
-        userGameService.getGame().then((res) => {
-          if (res.code) {
-            console.log(res);
-          } else {
-            console.log(res);
-          }
-        });
-        // store.setToken(token);
-        // res = userGameService.getGame();
+      await userService.refreshToken().then(async (token) => {
+        // RefreshToken过期自动登出
+        if (token.code) {
+          ElNotification({
+            title: "Error",
+            message: "Please login again\n" + token.code,
+            type: "error",
+          });
+          router.push({ name: "logout" });
+        }
+        // 刷新成功重发请求
+        else {
+          await userGameService.getGame().then((res) => {
+            // 刷新Token后仍发生错误
+            if (res.code) {
+              ElNotification({
+                title: "Error",
+                message: "Please login again",
+                type: "error",
+              });
+              router.push({ name: "logout" });
+            } else {
+              // 成功
+              data = res;
+            }
+          });
+        }
       });
     }
-    return res;
+    // 成功
+    else data = res;
   });
+  console.log(data);
+  return data;
 };
-const games = await getGames();
-
-onMounted(() => {
-  console.log(games);
-});
 </script>
 <style scoped>
 .view-page {
@@ -70,8 +114,22 @@ onMounted(() => {
 .title {
   font-size: large;
 }
+.games-div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
 .games-wrapper {
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+  grid-template-rows: max-content;
+  grid-gap: 20px;
+  margin-left: 5px;
+  margin-right: 15px;
+  margin-bottom: 30px;
+  width: 100%;
 }
 .form-body {
   width: 100%;
