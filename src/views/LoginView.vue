@@ -27,7 +27,12 @@
         </el-row>
         <el-row>
           <el-col>
-            <el-button @click="handleLogin" color="#424242" style="width: 100%">
+            <el-button
+              @click="handleLogin"
+              color="#424242"
+              style="width: 100%"
+              :loading="isLoading"
+            >
               <span style="color: white">Login</span>
             </el-button>
           </el-col>
@@ -60,8 +65,10 @@ const form = ref({
 });
 
 const user = useUserStore();
+const isLoading = ref(false);
 
 const handleLogin = async () => {
+  isLoading.value = true;
   //清除登录信息
   user.setUserInfo({});
   user.setLoginStatus(false);
@@ -80,6 +87,7 @@ const handleLogin = async () => {
       const userInfo = await userService.getUserInfo();
       //判断userInfo是否获取成功
       if (userInfo.success && userInfo.user) {
+        isLoading.value = false;
         //登录成功
         user.setUserInfo(userInfo.user);
         user.setLoginStatus(true);
