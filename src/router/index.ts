@@ -64,9 +64,10 @@ const router = createRouter({
       },
     },
     {
-      path: "/create",
-      name: "createNewGame",
-      component: () => import("../views/CreateView.vue"),
+      path: "/edit/:id",
+      name: "editGame",
+      component: () => import("../views/EditView.vue"),
+      props: true,
       meta: {
         isLogin: true,
       },
