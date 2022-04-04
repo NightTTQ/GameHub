@@ -71,6 +71,22 @@ const form = ref({
 
 const handleRegister = async () => {
   //表单验证
+  if (!form.value.username) {
+    ElNotification({
+      title: "Error",
+      message: "Please input your username",
+      type: "error",
+    });
+    return;
+  }
+  if (!form.value.password) {
+    ElNotification({
+      title: "Error",
+      message: "Please input your password",
+      type: "error",
+    });
+    return;
+  }
   if (form.value.check != form.value.password) {
     ElNotification({
       title: "Error",
@@ -78,36 +94,36 @@ const handleRegister = async () => {
       type: "error",
     });
     return;
+  }
+
+  isLoading.value = true;
+  //进行注册
+  const res = await userService.register(
+    form.value.username,
+    form.value.password
+  );
+  if (res.success) {
+    //注册成功自动登录并跳转至首页
+    store.setRefreshToken(res.RefreshToken);
+    store.setToken(res.TOKEN);
+    user.setUserInfo(res.userInfo.userInfo);
+    user.setLoginStatus(true);
+    ElNotification({
+      title: "Success",
+      message: "Register success",
+      type: "success",
+    });
+    isLoading.value = false;
+    router.push({ name: "home" });
   } else {
-    isLoading.value = true;
-    //进行注册
-    const res = await userService.register(
-      form.value.username,
-      form.value.password
-    );
-    if (res.success) {
-      //注册成功自动登录并跳转至首页
-      store.setRefreshToken(res.RefreshToken);
-      store.setToken(res.TOKEN);
-      user.setUserInfo(res.userInfo.userInfo);
-      user.setLoginStatus(true);
-      ElNotification({
-        title: "Success",
-        message: "Register success",
-        type: "success",
-      });
-      isLoading.value = false;
-      router.push({ name: "home" });
-    } else {
-      //注册失败弹出失败详细信息并删除localSession
-      ElNotification({
-        title: "Error",
-        message: res.message,
-        type: "error",
-      });
-      store.removeSession();
-      isLoading.value = false;
-    }
+    //注册失败弹出失败详细信息并删除localSession
+    ElNotification({
+      title: "Error",
+      message: res.message,
+      type: "error",
+    });
+    store.removeSession();
+    isLoading.value = false;
   }
 };
 </script>
