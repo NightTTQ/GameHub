@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="hover" :body-style="{ padding: '0px' }" @click="onClick">
+  <el-card shadow="hover" :body-style="{ padding: '0px' }">
     <div class="cover-div" :style="coverURL"></div>
 
     <div style="padding: 12px">
@@ -7,13 +7,17 @@
         <div class="name-div">
           <h4 style="margin: 0">{{ data?.name }}</h4>
         </div>
-        <div class="author-div">
-          <el-link :href="data?.author?.url" type="primary" target="_blank">
-            {{ data?.author?.name }}
-          </el-link>
-        </div>
-        <div class="class-div">
-          <span>{{ data?.class }}</span>
+        <div class="btn-div">
+          <div class="edit-div">
+            <el-button color="#222222" :icon="Edit" round @click="goEdit"
+              >Edit</el-button
+            >
+          </div>
+          <div class="view-div">
+            <el-button color="#222222" :icon="Link" round @click="goView"
+              >View</el-button
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -22,6 +26,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import type { ComputedRef } from "vue";
+import { Edit, Link } from "@element-plus/icons-vue";
 import router from "@/router";
 
 const props = defineProps<{
@@ -33,24 +38,22 @@ const coverURL: ComputedRef<string> = computed(
   () => "background-image: url(" + props.data?.cover + ")"
 );
 
-const onClick = (event: any) => {
-  router.push({ name: "app", params: { id: props.data?.id } });
+const goEdit = () => {
+  router.push({ name: "editGame", params: { id: props.data?.id } });
+};
+const goView = () => {
+  window.open(
+    router.resolve({ name: "app", params: { id: props.data?.id } }).href,
+    "_blank"
+  );
 };
 </script>
 <style scoped>
 .el-card {
   background-color: rgba(255, 255, 255, 0);
   color: white;
-  border: none;
+  border: 1px solid rgba(28, 28, 28, 1);
   display: inline-block;
-  cursor: pointer;
-}
-.el-card:hover {
-  transform: scale(1.01);
-}
-.el-checkbox {
-  --el-checkbox-bg-color: none;
-  --el-checkbox-checked-bg-color: none;
 }
 
 .bottom {
@@ -72,17 +75,26 @@ const onClick = (event: any) => {
   text-align: left;
   line-height: 1.2;
 }
-.author-div {
-  width: 50%;
-  text-align: left;
-  line-height: 1.2;
-  opacity: 0.8;
+.btn-div {
+  width: 100%;
+  display: flex;
+  margin-top: 12px;
 }
-.class-div {
+.edit-div {
   width: 50%;
-  text-align: right;
+  text-align: center;
   line-height: 1.2;
   font-size: 0.8em;
   opacity: 0.8;
+}
+.view-div {
+  width: 50%;
+  text-align: center;
+  line-height: 1.2;
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+.el-button {
+  --el-button-hover-text-color: white;
 }
 </style>
