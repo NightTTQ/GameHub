@@ -32,6 +32,7 @@
               color="#424242"
               style="width: 100%"
               :loading="isLoading"
+              native-type="submit"
             >
               <span style="color: white">Login</span>
             </el-button>
@@ -57,6 +58,7 @@ import { ref } from "vue";
 import router from "@/router";
 import userService from "@/services/userService";
 import store from "@/utils/store";
+import { ElNotification } from "element-plus";
 import { useUserStore } from "@/stores";
 
 const form = ref({
@@ -91,21 +93,43 @@ const handleLogin = async () => {
         //登录成功
         user.setUserInfo(userInfo.user);
         user.setLoginStatus(true);
+        ElNotification({
+          title: "Success",
+          message: "Login success",
+          type: "success",
+        });
+        isLoading.value = false;
         router.push({ name: "home" });
       } else {
         //登录态失效并清除localSession
         user.setUserInfo({});
         user.setLoginStatus(false);
         store.removeSession();
+        ElNotification({
+          title: "Error",
+          message: userInfo.message,
+          type: "error",
+        });
+        isLoading.value = false;
       }
     } else {
       //不存在则认为是未登录态
       user.setUserInfo({});
       user.setLoginStatus(false);
-      console.log("Generally Session Fail");
+      ElNotification({
+        title: "Error",
+        message: "General Session Fail",
+        type: "error",
+      });
+      isLoading.value = false;
     }
   } else {
-    console.log("Login Fail");
+    ElNotification({
+      title: "Error",
+      message: loginRes.message,
+      type: "error",
+    });
+    isLoading.value = false;
   }
 };
 </script>
