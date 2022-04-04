@@ -1,19 +1,24 @@
 <template>
   <div class="view-page">
     <div class="view-page-content">
-      <el-card body-style="display: flex;">
+      <el-card class="card" body-style="display: flex;">
         <template #header>
           <div class="card-header">
             <span class="title">My Games</span>
           </div>
         </template>
         <div class="games-div">
-          <span class="title">OWN</span>
+          <span class="sub-title">OWN</span>
           <div class="games-wrapper">
-            <EditGameCard v-for="item in games?.own" :data="item" :type="0" />
+            <EditGameCard
+              class="card"
+              v-for="item in games?.own"
+              :data="item"
+              :type="0"
+            />
             <EditGameCard data="" :type="0" />
           </div>
-          <span class="title">EDITOR</span>
+          <span class="sub-title">EDITOR</span>
           <div class="games-wrapper">
             <EditGameCard
               v-for="item in games?.editor"
@@ -100,7 +105,7 @@ const getGames = async () => {
   padding-top: 5%;
   padding-bottom: 90px;
 }
-.el-card {
+.card {
   color: white;
   width: 100%;
   background-color: rgb(42, 42, 42);
@@ -114,6 +119,18 @@ const getGames = async () => {
 .title {
   font-size: large;
 }
+.sub-title {
+  height: 2em;
+  line-height: 2em;
+  padding-left: 1em;
+  text-align: center;
+  margin-bottom: 1em;
+  background: linear-gradient(
+    to right,
+    rgba(22, 22, 22, 1),
+    rgba(22, 22, 22, 0)
+  );
+}
 .games-div {
   width: 100%;
   display: flex;
@@ -126,8 +143,6 @@ const getGames = async () => {
   grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
   grid-template-rows: max-content;
   grid-gap: 20px;
-  margin-left: 5px;
-  margin-right: 15px;
   margin-bottom: 30px;
   width: 100%;
 }

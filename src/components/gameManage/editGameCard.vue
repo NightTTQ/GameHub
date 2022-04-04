@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="hover" :body-style="{ padding: '0px' }">
+  <el-card class="sub-card" shadow="hover" :body-style="{ padding: '0px' }">
     <div class="cover-div" :style="coverURL"></div>
 
     <div style="padding: 12px">
@@ -49,8 +49,8 @@ const goView = () => {
 };
 </script>
 <style scoped>
-.el-card {
-  background-color: rgba(255, 255, 255, 0);
+.sub-card {
+  background-color: #303030;
   color: white;
   border: 1px solid rgba(28, 28, 28, 1);
   display: inline-block;
