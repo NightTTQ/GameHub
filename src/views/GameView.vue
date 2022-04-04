@@ -6,7 +6,7 @@
           <h1 class="name">{{ data?.name }}</h1>
         </div>
 
-        <div class="detail-col">
+        <div class="detail-col reactive">
           <div class="detail">
             <Carousel :data="data?.image" />
             <div class="description-layout">
@@ -173,7 +173,20 @@ onMounted(() => {
     width: calc(100% - 384px);
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .detail {
+    min-width: calc(100% - 280px);
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  .detail {
+    width: 100%;
+    order: 2;
+  }
+  .reactive {
+    flex-direction: column;
+  }
 }
 @media (min-width: 1024px) {
   .short-intro {

@@ -78,6 +78,10 @@ a {
   height: 0%;
   padding-top: calc(9 / 16 * 100%);
 }
+.aside {
+  flex-shrink: 0;
+  flex-grow: 0;
+}
 .aside-el {
   margin-top: 10px;
 }
@@ -172,10 +176,27 @@ a {
   line-height: 20px;
   letter-spacing: 0.2px;
 }
+@media (max-width: 767px) {
+  .aside {
+    width: 100%;
+    order: 1;
+    margin-bottom: 20px;
+  }
+}
 @media (min-width: 768px) {
+  .aside {
+    width: 256px;
+    margin-left: 32px;
+  }
   .aside-content {
     position: sticky;
     top: 90px;
+  }
+}
+@media (min-width: 1024px) {
+  .aside {
+    width: 260px;
+    margin-left: 20px;
   }
 }
 @media (min-width: 1280px) {
