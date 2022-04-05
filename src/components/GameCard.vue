@@ -57,7 +57,7 @@ const onClick = (event: any) => {
 .el-card {
   background-color: rgba(255, 255, 255, 0);
   color: white;
-  border: 1px solid black;
+  border: 1px solid #121212;
   display: inline-block;
   cursor: pointer;
 }
