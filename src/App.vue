@@ -134,7 +134,6 @@ button {
   --el-input-bg-color: #424242;
   --el-input-border: none;
   --el-border-base: none;
-  --el-box-shadow-light: none;
   --el-border-color-light: #363636;
 }
 .el-checkbox {

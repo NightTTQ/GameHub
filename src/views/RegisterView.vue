@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <el-card>
+    <el-card shadow="never">
       <el-form label-position="top">
         <el-row>
           <el-col>
