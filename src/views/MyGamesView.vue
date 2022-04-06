@@ -16,7 +16,7 @@
               :data="item"
               :type="0"
             />
-            <EditGameCard data="" :type="0" />
+            <CreateGameCard :type="0" />
           </div>
           <span class="sub-title">EDITOR</span>
           <div class="games-wrapper">
@@ -25,7 +25,7 @@
               :data="item"
               :type="1"
             />
-            <EditGameCard data="" :type="1" />
+            <CreateGameCard :type="1" />
           </div>
         </div>
       </el-card>
@@ -38,6 +38,7 @@ import userService from "@/services/userService";
 import userGameService from "@/services/getUserGameService";
 import router from "@/router";
 import EditGameCard from "@/components/gameManage/editGameCard.vue";
+import CreateGameCard from "@/components/gameManage/createGameCard.vue";
 import { ElNotification } from "element-plus";
 
 interface data {
