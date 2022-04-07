@@ -2,7 +2,12 @@
   <el-card class="sub-card" :body-style="{ padding: '0px', height: '100%' }">
     <div class="content-wrapper">
       <div class="btn-div">
-        <el-button color="#222222" :icon="Plus" circle></el-button>
+        <el-button
+          color="#222222"
+          :icon="Plus"
+          @click="goCreate"
+          circle
+        ></el-button>
       </div>
     </div>
   </el-card>
@@ -20,6 +25,10 @@ const props = defineProps<{
 const coverURL: ComputedRef<string> = computed(
   () => "background-image: url(" + props + ")"
 );
+
+const goCreate = () => {
+  router.push({ name: "createGame" });
+};
 </script>
 <style scoped>
 .sub-card {

@@ -146,4 +146,7 @@ button {
 .el-notification {
   --el-border-color-lighter: none;
 }
+.el-picker-panel {
+  background: none;
+}
 </style>
