@@ -84,7 +84,7 @@ const getUserInfo = async () => {
 
 <style>
 body {
-  background-color: rgb(28, 28, 28);
+  background-color: var(--el-bg-color);
 }
 #app {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
@@ -130,7 +130,7 @@ button {
 
   --el-card-border-color: rgba(255, 255, 255, 0.12);
   --el-text-color-regular: none;
-  --el-bg-color: #282828;
+  --el-bg-color: rgb(28, 28, 28);
   --el-input-bg-color: #424242;
   --el-input-border: none;
   --el-border-base: none;

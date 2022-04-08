@@ -91,7 +91,9 @@ const loadMore = async () => {
   color: white;
   font-size: 2rem;
   text-align: left;
-  min-height: calc(100vh - 48px);
+  min-height: calc(100vh - 50px);
+  background-color: var(--el-bg-color);
+  z-index: 1;
 }
 .el-tree {
   background-color: rgba(255, 255, 255, 0);
@@ -109,12 +111,23 @@ h4 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
   grid-template-rows: max-content;
-  grid-gap: 20px;
+  grid-gap: 10px;
   margin-left: 5px;
   margin-right: 15px;
   margin-bottom: 30px;
   background-color: rgba(255, 255, 255, 0);
   text-align: center;
   line-height: 160px;
+}
+@media screen and (max-width: 1023px) {
+  .el-aside {
+    position: absolute;
+    left: -100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .el-main {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }
 </style>
