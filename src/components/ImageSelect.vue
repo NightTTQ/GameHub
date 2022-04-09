@@ -22,8 +22,9 @@ import { Plus } from "@element-plus/icons-vue";
 
 const selectFileEl = ref();
 const coverImage = ref();
+const file = ref();
 
-defineExpose({ coverImage });
+defineExpose({ coverImage, file });
 
 const selectFile = () => {
   selectFileEl.value.click();
@@ -37,6 +38,7 @@ const handleFile = (event: any) => {
     ElMessage.info(
       (event.target.files[0].size / (1024 * 1024)).toFixed(2) + "MB"
     );
+    file.value = event.target.files[0];
     coverImage.value = URL.createObjectURL(event.target.files[0]);
   }
 };
