@@ -150,4 +150,14 @@ const getGames = async () => {
 .form-body {
   width: 100%;
 }
+@media (max-width: 1023px) {
+  .view-page {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .games-wrapper {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
 </style>
