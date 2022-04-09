@@ -90,7 +90,7 @@
           </el-row>
           <el-row justify="end">
             <el-col>
-              <el-button color="#424242" @click="submit">
+              <el-button color="#424242" @click="submit" :loading="isLoading">
                 <span style="color: white">Submit</span>
               </el-button>
             </el-col>
@@ -104,7 +104,10 @@
 import { ref } from "vue";
 import gameClass from "@/assets/gameClass.json";
 import ImageSelect from "@/components/ImageSelect.vue";
+import { ElNotification } from "element-plus";
+import gameManageService from "@/services/gameManageService";
 import uploadService from "@/services/uploadService";
+import router from "@/router";
 
 const Platforms = ["Windows", "Linux", "MacOS", "Android", "iOS"];
 interface Author {
@@ -112,30 +115,58 @@ interface Author {
   type: number;
   url: string;
 }
-interface formData {
+interface createGameData {
   name: string | undefined;
-  author: Author;
-  class: string | undefined;
   platform: Array<string> | undefined;
+  class: string | undefined;
+  author: Author;
+  cover: string | undefined;
   releaseDate: Date | undefined;
 }
-const form = ref<formData>({
+const form = ref<createGameData>({
   name: undefined,
-  author: { name: "", type: 0, url: "" },
-  class: undefined,
   platform: undefined,
+  class: undefined,
+  author: { name: "", type: 0, url: "" },
+  cover: undefined,
   releaseDate: undefined,
 });
 
 const coverEl = ref();
 const haveDate = ref(false);
+const isLoading = ref(false);
 
-const submit = () => {
+const submit = async () => {
+  // 验证表单内容
   if (!haveDate.value) {
     form.value.releaseDate = undefined;
   }
-  console.log(form.value);
-  console.log(coverEl.value.coverImage);
+  isLoading.value = true;
+  // 上传封面图片
+  if (coverEl.value.coverImage) {
+    form.value.cover = await uploadService.upload(coverEl.value.file);
+  }
+  // 请求新建游戏
+  await gameManageService.createGame(form.value).then((res) => {
+    // 错误
+    if (res.code || res.error) {
+      ElNotification({
+        title: "Error",
+        message: "Create fail\n" + res.code ? res.code : res.error,
+        type: "error",
+      });
+    } else {
+      // 创建成功
+      ElNotification({
+        title: "Success",
+        message: "Create success",
+        type: "success",
+      });
+      router.push({ name: "mygames" });
+    }
+  });
+  isLoading.value = false;
+  return;
 };
 </script>
 <style scoped>
