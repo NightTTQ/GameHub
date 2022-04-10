@@ -54,6 +54,22 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <el-row>
+            <el-col :sm="24" :lg="12">
+              <el-form-item label="Release Date">
+                <el-radio v-model="haveDate" :label="false">TBD</el-radio>
+                <el-radio v-model="haveDate" :label="true"
+                  >Pick a date</el-radio
+                >
+                <el-date-picker
+                  v-if="haveDate"
+                  v-model="form.releaseDate"
+                  type="date"
+                  popper-class="date-popper"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
           <el-row :gutter="20" justify="space-between">
             <el-col :sm="24" :lg="12">
               <el-form-item label="Game Cover">
@@ -74,7 +90,7 @@
           </el-row>
           <el-row justify="end">
             <el-col>
-              <el-button color="#424242" @click="submit">
+              <el-button color="#424242" @click="submit" :loading="isLoading">
                 <span style="color: white">Submit</span>
               </el-button>
             </el-col>
@@ -85,10 +101,19 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import gameClass from "@/assets/gameClass.json";
 import ImageSelect from "@/components/ImageSelect.vue";
+import { ElNotification } from "element-plus";
+import gameManageService from "@/services/gameManageService";
 import uploadService from "@/services/uploadService";
+import router from "@/router";
+
+const props = defineProps<{
+  id: number | string;
+}>();
+// 获取游戏信息
+onMounted(() => {});
 
 const Platforms = ["Windows", "Linux", "MacOS", "Android", "iOS"];
 interface Author {
@@ -96,24 +121,41 @@ interface Author {
   type: number;
   url: string;
 }
-interface formData {
-  name: string;
+interface gameData {
+  name: string | undefined;
+  platform: Array<string> | undefined;
+  class: string | undefined;
   author: Author;
-  class: string;
-  platform: Array<string>;
+  cover: string | undefined;
+  releaseDate: Date | undefined;
 }
-const form = ref<formData>({
-  name: "",
+const form = ref<gameData>({
+  name: undefined,
+  platform: undefined,
+  class: undefined,
   author: { name: "", type: 0, url: "" },
-  class: "",
-  platform: [],
+  cover: undefined,
+  releaseDate: undefined,
 });
 
 const coverEl = ref();
+const haveDate = ref(false);
+const isLoading = ref(false);
 
-const submit = () => {
-  console.log(form.value);
-  console.log(coverEl.value.coverImage);
+const submit = async () => {
+  // 验证表单内容
+  if (!haveDate.value) {
+    form.value.releaseDate = undefined;
+  }
+  isLoading.value = true;
+  // 上传封面图片
+  if (coverEl.value.coverImage) {
+    form.value.cover = await uploadService.upload(coverEl.value.file);
+  }
+  // 请求新建游戏
+
+  isLoading.value = false;
+  return;
 };
 </script>
 <style scoped>
