@@ -1,6 +1,5 @@
-import axios from "axios";
-const apiLink = "https://qcnnig.api.cloudendpoint.cn/getGame";
-const apiConfig = {
+import request from "@/services/axios/request";
+const config = {
   headers: { "Content-Type": "application/json" },
 };
 
@@ -29,15 +28,7 @@ export default {
       where: where,
     };
 
-    // return params;
-    const { data } = await axios
-      .post(apiLink, params, apiConfig)
-      .then((response) => {
-        return response;
-      })
-      .catch((error) => {
-        return error;
-      });
+    const { data } = await request.post("/getGame", params, config);
     return data;
   },
 };
