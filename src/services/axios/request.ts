@@ -11,7 +11,8 @@ const instance = axios.create({
 // 请求拦截器
 instance.interceptors.request.use(
   (req) => {
-    console.log(req);
+    req.headers!["x-tt-session-v2"] = store.getSession()!;
+    req.headers!["token"] = store.getToken()!;
     return req;
   },
   (err) => {
