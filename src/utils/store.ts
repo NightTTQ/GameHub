@@ -43,7 +43,8 @@ export default {
   },
   /**
    * @desc 获取localRefreshToken
-   */ getRefreshToken() {
+   */
+  getRefreshToken() {
     return localStorage.getItem(localRefreshTokenKey);
   },
   /**
