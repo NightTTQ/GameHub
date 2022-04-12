@@ -1,6 +1,4 @@
-import axios from "axios";
-import store from "@/utils/store";
-const apiLink = "https://qcnnig.api.cloudendpoint.cn/createGame";
+import request from "@/services/axios/request";
 
 export default {
   /**
@@ -8,23 +6,12 @@ export default {
    * @param info 新游戏信息
    */
   async createGame(info: any) {
-    const apiConfig = {
+    const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        "x-tt-session-v2": store.getSession()!,
-        TOKEN: store.getToken()!,
       },
     };
-
-    // return params;
-    const { data } = await axios
-      .post(apiLink, info, apiConfig)
-      .then((response) => {
-        return response;
-      })
-      .catch((error) => {
-        return error;
-      });
+    const { data } = await request.post("/createGame", info, config);
     return data;
   },
 };
