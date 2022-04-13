@@ -53,46 +53,8 @@ onMounted(async () => {
 });
 
 const getGames = async () => {
-  let data;
   // 尝试获取可编辑的游戏
-  await userGameService.getGame().then(async (res) => {
-    // token无效
-    if (res.code) {
-      // 使用RefreshToken刷新token
-      await userService.refreshToken().then(async (token) => {
-        // RefreshToken过期自动登出
-        if (token.code) {
-          ElNotification({
-            title: "Error",
-            message: "Please login again\n" + token.code,
-            type: "error",
-          });
-          router.push({ name: "logout" });
-        }
-        // 刷新成功重发请求
-        else {
-          await userGameService.getGame().then((res) => {
-            // 刷新Token后仍发生错误
-            if (res.code) {
-              ElNotification({
-                title: "Error",
-                message: "Please login again",
-                type: "error",
-              });
-              router.push({ name: "logout" });
-            } else {
-              // 成功
-              data = res;
-            }
-          });
-        }
-      });
-    }
-    // 成功
-    else data = res;
-  });
-  console.log(data);
-  return data;
+  return await userGameService.getGame();
 };
 </script>
 <style scoped>
