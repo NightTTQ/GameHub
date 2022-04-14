@@ -73,7 +73,7 @@
           <el-row :gutter="20" justify="space-between">
             <el-col :sm="24" :lg="12">
               <el-form-item label="Game Cover">
-                <image-select ref="coverEl" />
+                <image-select ref="coverEl" :old-image="form.cover" />
               </el-form-item>
             </el-col>
             <el-col :sm="24" :lg="12">

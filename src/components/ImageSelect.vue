@@ -16,15 +16,20 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { ElMessage } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
 
 const selectFileEl = ref();
 const coverImage = ref();
 const file = ref();
-
+const props = defineProps<{
+  oldImage?: string;
+}>();
 defineExpose({ coverImage, file });
+watch(props, () => {
+  coverImage.value = props.oldImage;
+});
 
 const selectFile = () => {
   selectFileEl.value.click();
