@@ -149,10 +149,10 @@ const submit = async () => {
   // 请求新建游戏
   await gameManageService.createGame(form.value).then((res) => {
     // 错误
-    if (res.code || res.error) {
+    if (res.error) {
       ElNotification({
         title: "Error",
-        message: "Create fail\n" + res.code ? res.code : res.error,
+        message: "Create fail\n" + res.error,
         type: "error",
       });
     } else {
