@@ -21,15 +21,19 @@
           </div>
           <div class="aside-metadata-el">
             <div class="metadata-layout">
-              <span class="metadata-name">CreatedTime</span>
+              <span class="metadata-name">ReleaseDate</span>
               <span class="metadata-content">
-                {{ new Date(String(props.createdAt)).toLocaleDateString() }}
+                {{
+                  props.releaseDate
+                    ? new Date(String(props.releaseDate)).toLocaleDateString()
+                    : "TBD"
+                }}
               </span>
             </div>
           </div>
           <div class="aside-metadata-el">
             <div class="metadata-layout">
-              <span class="metadata-name">UpdatedTime</span>
+              <span class="metadata-name">UpdatedDate</span>
               <span class="metadata-content">
                 {{ new Date(String(props.updatedAt)).toLocaleDateString() }}
               </span>
@@ -49,7 +53,7 @@ const props = defineProps<{
   links?: Array<Link>;
   cover?: string;
   author?: Author;
-  createdAt?: String;
+  releaseDate?: String;
   updatedAt?: String;
 }>();
 interface Link {

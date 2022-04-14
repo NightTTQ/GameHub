@@ -39,7 +39,7 @@
             :cover="data?.cover"
             :links="data?.links"
             :author="data?.author"
-            :created-at="data?.createdAt"
+            :release-date="data?.releaseDate"
             :updated-at="data?.updatedAt"
           />
         </div>
@@ -72,6 +72,7 @@ interface data {
   cover?: string;
   image?: Array<Image>;
   about?: string;
+  releaseDate?: String;
   createdAt: String;
   updatedAt: String;
 }
