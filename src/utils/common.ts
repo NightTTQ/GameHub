@@ -9,7 +9,7 @@ export function debounce(func: Function, wait: number, immediate = true) {
   return function (this: Function) {
     if (timeout) clearTimeout(timeout);
     if (immediate) {
-      var callNow = !timeout;
+      let callNow = !timeout;
       timeout = window.setTimeout(() => {
         timeout = null;
       }, wait);
