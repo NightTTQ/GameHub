@@ -105,8 +105,7 @@ import { ref, onMounted } from "vue";
 import gameClass from "@/assets/gameClass.json";
 import ImageSelect from "@/components/ImageSelect.vue";
 import { ElNotification } from "element-plus";
-import userGameService from "@/services/getUserGameService";
-import gameManageService from "@/services/gameManageService";
+import { getUserGame } from "@/services/userGameService";
 import uploadService from "@/services/uploadService";
 import router from "@/router";
 
@@ -115,7 +114,7 @@ const props = defineProps<{
 }>();
 // 获取游戏信息
 onMounted(async () => {
-  form.value = await userGameService.getGame(Number(props.id));
+  form.value = await getUserGame(Number(props.id));
   if (form.value.releaseDate) haveDate.value = true;
 });
 

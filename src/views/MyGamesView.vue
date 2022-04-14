@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import userService from "@/services/userService";
-import userGameService from "@/services/getUserGameService";
+import { getUserGame } from "@/services/userGameService";
 import router from "@/router";
 import EditGameCard from "@/components/gameManage/editGameCard.vue";
 import CreateGameCard from "@/components/gameManage/createGameCard.vue";
@@ -54,7 +54,7 @@ onMounted(async () => {
 
 const getGames = async () => {
   // 尝试获取可编辑的游戏
-  return await userGameService.getGame();
+  return await getUserGame();
 };
 </script>
 <style scoped>

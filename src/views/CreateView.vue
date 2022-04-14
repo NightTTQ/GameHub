@@ -105,7 +105,7 @@ import { ref } from "vue";
 import gameClass from "@/assets/gameClass.json";
 import ImageSelect from "@/components/ImageSelect.vue";
 import { ElNotification } from "element-plus";
-import gameManageService from "@/services/gameManageService";
+import { createGame } from "@/services/userGameService";
 import uploadService from "@/services/uploadService";
 import router from "@/router";
 
@@ -147,7 +147,7 @@ const submit = async () => {
     form.value.cover = await uploadService.upload(coverEl.value.file);
   }
   // 请求新建游戏
-  await gameManageService.createGame(form.value).then((res) => {
+  await createGame(form.value).then((res) => {
     // 错误
     if (res.error) {
       ElNotification({
