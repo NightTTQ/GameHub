@@ -84,11 +84,13 @@ async function refreshToken() {
     .then((response) => {
       if (response.data.code) {
         // 返回含错误码，登录态失效
+        console.log("refresh token error");
       } else {
+        // 更新本地token
         if (response.data.token) {
           store.setToken(response.data.token);
         }
-        //当服务器返回RefreshToken时说明RefreshToken也进行了刷新
+        // 当服务器返回RefreshToken时说明RefreshToken也进行了刷新
         if (response.data.RefreshToken) {
           store.setRefreshToken(response.data.RefreshToken);
         }
