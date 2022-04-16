@@ -3,10 +3,10 @@
     <el-row>
       <el-col :span="24">
         <el-form-item label="Short Intro">
-          {{ data.description }}
+          <Editor v-model="data.description" theme="dark" />
         </el-form-item>
         <el-form-item label="Detail Intro">
-          {{ data.about }}
+          <Editor v-model="data.about" theme="dark" />
         </el-form-item>
       </el-col>
     </el-row>
@@ -23,12 +23,16 @@
   </el-form>
 </template>
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, computed, onMounted } from "vue";
+import Editor from "md-editor-v3";
+import "md-editor-v3/lib/style.css";
 
 const isLoading = ref(false);
 const submit = () => {
   console.log(data.value);
 };
+
+onMounted(() => {});
 
 interface dataType {
   description?: string;
