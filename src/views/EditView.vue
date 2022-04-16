@@ -54,7 +54,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row :gutter="20" justify="space-between">
             <el-col :sm="24" :lg="12">
               <el-form-item label="Release Date">
                 <el-radio v-model="haveDate" :label="false">TBD</el-radio>
@@ -62,15 +62,13 @@
                   >Pick a date</el-radio
                 >
                 <el-date-picker
-                  v-if="haveDate"
+                  :disabled="!haveDate"
                   v-model="form.releaseDate"
                   type="date"
                   popper-class="date-popper"
                 />
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row :gutter="20" justify="space-between">
             <el-col :sm="24" :lg="12">
               <el-form-item label="Game Cover">
                 <image-select ref="coverEl" :old-image="form.cover" />
