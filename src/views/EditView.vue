@@ -22,7 +22,11 @@
                 }"
               />
             </el-collapse-item>
-            <el-collapse-item title="Game Intro" name="3"> </el-collapse-item>
+            <el-collapse-item title="Game Intro" name="3">
+              <GameIntro
+                :src="{ description: form.description, about: form.about }"
+              />
+            </el-collapse-item>
             <el-collapse-item title="Game Intro Images" name="4">
               <game-intro-images :src="{ cover: form.cover }" />
             </el-collapse-item>
@@ -62,20 +66,32 @@ interface Author {
   url: string;
 }
 interface gameData {
+  // 1 Basic Info
   name?: string;
-  platform?: Array<string>;
-  class?: string;
   author?: Author;
-  cover?: string;
+  // 2 Additional Info
+  class?: string;
+  platform?: Array<string>;
   releaseDate?: Date;
+  // 3 Game Intro
+  description?: string;
+  about?: string;
+  // 4 Game Intro Images
+  cover?: string;
 }
 const form = ref<gameData>({
+  // 1 Basic Info
   name: undefined,
-  platform: undefined,
-  class: undefined,
   author: { name: "", type: 0, url: "" },
-  cover: undefined,
+  // 2 Additional Info
+  class: undefined,
+  platform: undefined,
   releaseDate: undefined,
+  // 3 Game Intro
+  description: undefined,
+  about: undefined,
+  // 4 Game Intro Images
+  cover: undefined,
 });
 
 const activeTab = ref("1");
