@@ -9,88 +9,35 @@
         </template>
 
         <el-form :model="form" label-position="top" class="form-body">
-          <el-row :gutter="20" justify="space-between">
-            <el-col :sm="24" :lg="12">
-              <el-form-item label="Game Name">
-                <el-input :maxlength="30" v-model="form.name"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :sm="24" :lg="12">
-              <el-form-item label="Author">
-                <el-input maxlength="30" v-model="form.author.name"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row :gutter="20" justify="space-between">
-            <el-col :sm="24" :lg="12">
-              <el-form-item label="Game Type">
-                <el-select v-model="form.class" class="item">
-                  <el-option-group
-                    v-for="group in gameClass"
-                    :key="group.class"
-                    :label="group.class"
-                  >
-                    <el-option
-                      v-for="item in group.children"
-                      :key="item"
-                      :label="item"
-                      :value="item"
-                    >
-                    </el-option>
-                  </el-option-group>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :sm="24" :lg="12">
-              <el-form-item label="Platform">
-                <el-select v-model="form.platform" multiple class="item">
-                  <el-option
-                    v-for="item in Platforms"
-                    :label="item"
-                    :value="item"
-                  >
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row :gutter="20" justify="space-between">
-            <el-col :sm="24" :lg="12">
-              <el-form-item label="Release Date">
-                <el-radio v-model="haveDate" :label="false">TBD</el-radio>
-                <el-radio v-model="haveDate" :label="true"
-                  >Pick a date</el-radio
-                >
-                <el-date-picker
-                  :disabled="!haveDate"
-                  v-model="form.releaseDate"
-                  type="date"
-                  popper-class="date-popper"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :sm="24" :lg="12">
-              <el-form-item label="Game Cover">
-                <image-select ref="coverEl" :old-image="form.cover" />
-              </el-form-item>
-            </el-col>
-            <el-col :sm="24" :lg="12">
-              <el-form-item label="Tips">
-                <div class="tip">
-                  <p>After clicking Submit, a new game will be created.</p>
-                  <p>
-                    Please edit other details on the corresponding game details
-                    page.
-                  </p>
-                </div>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row justify="end">
-            <el-col>
-              <el-button color="#424242" @click="submit" :loading="isLoading">
-                <span style="color: white">Submit</span>
-              </el-button>
+          <el-collapse v-model="activeTab" accordion>
+            <el-collapse-item title="Basic Info" name="1">
+              <basic-info :src="{ name: form.name, author: form.author }" />
+            </el-collapse-item>
+            <el-collapse-item title="Additional Info" name="2">
+              <additional-info
+                :src="{
+                  class: form.class,
+                  platform: form.platform,
+                  releaseDate: form.releaseDate,
+                }"
+              />
+            </el-collapse-item>
+            <el-collapse-item title="Game Intro" name="3"> </el-collapse-item>
+            <el-collapse-item title="Game Intro Images" name="4">
+              <game-intro-images :src="{ cover: form.cover }" />
+            </el-collapse-item>
+            <el-collapse-item title="Videos" name="5"> </el-collapse-item>
+            <el-collapse-item title="Gallery" name="6"> </el-collapse-item>
+            <el-collapse-item title="Downloads" name="7"> </el-collapse-item>
+          </el-collapse>
+
+          <el-row :gutter="20" justify="center">
+            <el-col :sm="24" :lg="24">
+              <el-scrollbar>
+                <el-form-item label="Game Video" class="game-pic-wrapper">
+                  <div style="display: flex"></div>
+                </el-form-item>
+              </el-scrollbar>
             </el-col>
           </el-row>
         </el-form>
@@ -100,12 +47,14 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import gameClass from "@/assets/gameClass.json";
-import ImageSelect from "@/components/ImageSelect.vue";
-import { ElNotification } from "element-plus";
 import { getUserGame } from "@/services/userGameService";
-import uploadService from "@/services/uploadService";
 import router from "@/router";
+import BasicInfo from "@/components/gameManage/gameEdit/basicInfo.vue";
+import AdditionalInfo from "@/components/gameManage/gameEdit/additionalInfo.vue";
+import GameIntro from "@/components/gameManage/gameEdit/gameIntro.vue";
+import GameIntroImages from "@/components/gameManage/gameEdit/gameIntroImages.vue";
+import Videos from "@/components/gameManage/gameEdit/videos.vue";
+import Downloads from "@/components/gameManage/gameEdit/downloads.vue";
 
 const props = defineProps<{
   id: number | string;
@@ -113,22 +62,20 @@ const props = defineProps<{
 // 获取游戏信息
 onMounted(async () => {
   form.value = await getUserGame(Number(props.id));
-  if (form.value.releaseDate) haveDate.value = true;
 });
 
-const Platforms = ["Windows", "Linux", "MacOS", "Android", "iOS"];
 interface Author {
   name: string;
   type: number;
   url: string;
 }
 interface gameData {
-  name: string | undefined;
-  platform: Array<string> | undefined;
-  class: string | undefined;
-  author: Author;
-  cover: string | undefined;
-  releaseDate: Date | undefined;
+  name?: string;
+  platform?: Array<string>;
+  class?: string;
+  author?: Author;
+  cover?: string;
+  releaseDate?: Date;
 }
 const form = ref<gameData>({
   name: undefined,
@@ -139,13 +86,7 @@ const form = ref<gameData>({
   releaseDate: undefined,
 });
 
-const coverEl = ref();
-const haveDate = ref(false);
-const isLoading = ref(false);
-
-const submit = async () => {
-  console.log(form.value);
-};
+const activeTab = ref("1");
 </script>
 <style scoped>
 .view-page {
@@ -163,21 +104,19 @@ const submit = async () => {
   width: 100%;
   background-color: rgb(42, 42, 42);
 }
-.item {
-  width: 100%;
-}
 .card-header {
   display: flex;
+}
+.el-collapse {
+  --el-collapse-border-color: var(--el-bg-color);
+  --el-collapse-header-bg-color: none;
+  --el-collapse-content-bg-color: none;
 }
 .title {
   font-size: large;
 }
 .form-body {
   width: 100%;
-}
-.tip {
-  text-align: left;
-  line-height: 1em;
 }
 @media (max-width: 1023px) {
   .view-page {
