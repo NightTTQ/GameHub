@@ -26,20 +26,12 @@
             <el-collapse-item title="Game Intro Images" name="4">
               <game-intro-images :src="{ cover: form.cover }" />
             </el-collapse-item>
-            <el-collapse-item title="Videos" name="5"> </el-collapse-item>
+            <el-collapse-item title="Videos" name="5">
+              <videos />
+            </el-collapse-item>
             <el-collapse-item title="Gallery" name="6"> </el-collapse-item>
             <el-collapse-item title="Downloads" name="7"> </el-collapse-item>
           </el-collapse>
-
-          <el-row :gutter="20" justify="center">
-            <el-col :sm="24" :lg="24">
-              <el-scrollbar>
-                <el-form-item label="Game Video" class="game-pic-wrapper">
-                  <div style="display: flex"></div>
-                </el-form-item>
-              </el-scrollbar>
-            </el-col>
-          </el-row>
         </el-form>
       </el-card>
     </div>

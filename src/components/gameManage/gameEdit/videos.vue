@@ -1,0 +1,57 @@
+<template>
+  <el-form>
+    <el-row :gutter="20" justify="center">
+      <el-col :sm="24" :lg="24">
+        <el-scrollbar>
+          <el-form-item label="Game Video" class="game-pic-wrapper">
+            <div style="display: flex"></div>
+          </el-form-item>
+        </el-scrollbar>
+      </el-col>
+    </el-row>
+
+    <el-row justify="end">
+      <el-col>
+        <el-form-item style="margin: 0">
+          <el-button color="#424242" @click="submit" :loading="isLoading">
+            <span style="color: white">Submit</span>
+          </el-button>
+        </el-form-item>
+      </el-col>
+    </el-row>
+  </el-form>
+</template>
+<script setup lang="ts">
+import { ref, watch } from "vue";
+
+const isLoading = ref(false);
+
+const submit = () => {
+  console.log(data.value);
+};
+
+interface dataType {
+  class?: string;
+  platform?: Array<string>;
+  releaseDate?: Date;
+}
+const props = defineProps<{
+  src?: dataType;
+}>();
+
+const data = ref<dataType>({
+  class: undefined,
+  platform: undefined,
+  releaseDate: undefined,
+});
+watch(props, () => {
+  data.value.class = props.src?.class;
+  data.value.platform = props.src?.platform;
+  data.value.releaseDate = props.src?.releaseDate;
+});
+</script>
+<style scoped>
+.item {
+  width: 100%;
+}
+</style>
