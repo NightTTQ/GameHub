@@ -75,9 +75,6 @@ instance.interceptors.response.use(
             // 刷新配置
             config.headers!["token"] = store.getToken()!;
             resolve(instance(config));
-            async function cancel() {
-              resolve(null);
-            }
           });
         });
       }
