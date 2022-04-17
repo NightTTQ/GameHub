@@ -4,12 +4,16 @@ export default {
   /**
    * @dec 向服务器上传单个文件
    * @param file 需要上传的文件
+   * @param callback 获取上传进度的回调函数
    * @returns 文件的url
    */
-  async upload(file: File) {
+  async upload(file: File, callback?: Function) {
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress: (e: any) => {
+        if (callback) callback(((e.loaded / e.total) * 100) | 0);
       },
     };
     // 构建 FormData 对象
