@@ -9,6 +9,8 @@
             editor-id="dec"
             :toolbars="decToolbar"
             noMermaid
+            :preview="false"
+            style="height: 200px"
           />
         </el-form-item>
         <el-form-item label="Detail Intro">
@@ -48,16 +50,7 @@ const emit = defineEmits<{
   (event: "updated", res: any): void;
 }>();
 
-const decToolbar: ToolbarNames[] = [
-  "bold",
-  "underline",
-  "italic",
-  "-",
-  "strikeThrough",
-  "title",
-  "sub",
-  "sup",
-];
+const decToolbar: ToolbarNames[] = ["revoke", "next"];
 const aboutToolbar: ToolbarNames[] = [
   "save",
   "htmlPreview",
