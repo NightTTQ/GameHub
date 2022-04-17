@@ -24,9 +24,25 @@ async function createGame(info: any) {
       "Content-Type": "multipart/form-data",
     },
   };
-  const { data } = await request.post("/createGame", info, config);
+  const params = { info };
+  const { data } = await request.post("/createGame", params, config);
+  return data;
+}
+/**
+ * @dec 向服务器请求更新游戏信息
+ * @param id 需要修改的游戏id
+ * @param info 需要更新的信息
+ */
+async function updateGame(id: number, info: object) {
+  const config = {
+    headers: {
+      "Content-Type": "content-type: application/json",
+    },
+  };
+  const params = { id, data: info };
+  const { data } = await request.post("/updateGame", params, config);
   return data;
 }
 
-export { getUserGame, createGame };
-export default { getUserGame, createGame };
+export { getUserGame, createGame, updateGame };
+export default { getUserGame, createGame, updateGame };
