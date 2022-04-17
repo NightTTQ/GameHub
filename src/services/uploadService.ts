@@ -1,6 +1,11 @@
 import request from "@/services/axios/request";
 
 export default {
+  /**
+   * @dec 向服务器上传单个文件
+   * @param file 需要上传的文件
+   * @returns 文件的url
+   */
   async upload(file: File) {
     const config = {
       headers: {
