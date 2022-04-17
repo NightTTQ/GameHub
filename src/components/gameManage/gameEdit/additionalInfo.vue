@@ -58,11 +58,20 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import gameClass from "@/assets/gameClass.json";
+import { updateGame } from "@/services/userGameService";
+
+const emit = defineEmits<{
+  (event: "updated", res: any): void;
+}>();
 
 const isLoading = ref(false);
 
-const submit = () => {
-  console.log(data.value);
+const submit = async () => {
+  if (!haveDate.value) data.value.releaseDate = null;
+  isLoading.value = true;
+  const res = await updateGame(props.gameId, data.value);
+  emit("updated", res);
+  isLoading.value = false;
 };
 
 const Platforms = ["Windows", "Linux", "MacOS", "Android", "iOS"];
@@ -70,9 +79,10 @@ const haveDate = ref(false);
 interface dataType {
   class?: string;
   platform?: Array<string>;
-  releaseDate?: Date;
+  releaseDate?: Date | null;
 }
 const props = defineProps<{
+  gameId: number;
   src?: dataType;
 }>();
 

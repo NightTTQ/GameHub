@@ -22,15 +22,22 @@
         </el-form-item>
       </el-col>
     </el-row>
-    
   </el-form>
 </template>
 <script setup lang="ts">
 import { ref, watch } from "vue";
+import { updateGame } from "@/services/userGameService";
+
+const emit = defineEmits<{
+  (event: "updated", res: any): void;
+}>();
 
 const isLoading = ref(false);
-const submit = () => {
-  console.log(data.value);
+const submit = async () => {
+  isLoading.value = true;
+  const res = await updateGame(props.gameId, data.value);
+  emit("updated", res);
+  isLoading.value = false;
 };
 
 interface Author {
@@ -43,6 +50,7 @@ interface dataType {
   author?: Author;
 }
 const props = defineProps<{
+  gameId: number;
   src?: dataType;
 }>();
 

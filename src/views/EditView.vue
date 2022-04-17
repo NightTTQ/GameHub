@@ -11,7 +11,11 @@
         <el-form :model="form" label-position="top" class="form-body">
           <el-collapse v-model="activeTab" accordion>
             <el-collapse-item title="Basic Info" name="1">
-              <basic-info :src="{ name: form.name, author: form.author }" />
+              <basic-info
+                :src="{ name: form.name, author: form.author }"
+                :game-id="Number(props.id)"
+                @updated="update"
+              />
             </el-collapse-item>
             <el-collapse-item title="Additional Info" name="2">
               <additional-info
@@ -20,15 +24,23 @@
                   platform: form.platform,
                   releaseDate: form.releaseDate,
                 }"
+                :game-id="Number(props.id)"
+                @updated="update"
               />
             </el-collapse-item>
             <el-collapse-item title="Game Intro" name="3">
               <GameIntro
                 :src="{ description: form.description, about: form.about }"
+                :game-id="Number(props.id)"
+                @updated="update"
               />
             </el-collapse-item>
             <el-collapse-item title="Game Intro Images" name="4">
-              <game-intro-images :src="{ cover: form.cover }" />
+              <game-intro-images
+                :src="{ cover: form.cover }"
+                :game-id="Number(props.id)"
+                @updated="update"
+              />
             </el-collapse-item>
             <el-collapse-item title="Videos" name="5">
               <videos />
@@ -68,6 +80,23 @@ onMounted(async () => {
     router.push({ name: "mygames" });
   } else form.value = res;
 });
+// 游戏更新后根据返回信息刷新
+const update = (res: any) => {
+  if (res.error) {
+    ElNotification({
+      type: "error",
+      message: res.error,
+      title: "Error",
+    });
+  } else {
+    ElNotification({
+      type: "success",
+      message: "Save success",
+      title: "Success",
+    });
+    form.value = res;
+  }
+};
 
 interface Author {
   name: string;

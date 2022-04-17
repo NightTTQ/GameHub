@@ -42,6 +42,11 @@ import uploadService from "@/services/uploadService";
 import Editor from "md-editor-v3";
 import type { ToolbarNames } from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
+import { updateGame } from "@/services/userGameService";
+
+const emit = defineEmits<{
+  (event: "updated", res: any): void;
+}>();
 
 const decToolbar: ToolbarNames[] = [
   "bold",
@@ -74,8 +79,11 @@ const uploadImg = async (
 };
 
 const isLoading = ref(false);
-const submit = () => {
-  console.log(data.value);
+const submit = async () => {
+  isLoading.value = true;
+  const res = await updateGame(props.gameId, data.value);
+  emit("updated", res);
+  isLoading.value = false;
 };
 
 onMounted(() => {});
@@ -85,6 +93,7 @@ interface dataType {
   about?: string;
 }
 const props = defineProps<{
+  gameId: number;
   src?: dataType;
 }>();
 

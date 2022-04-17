@@ -22,18 +22,30 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import ImageSelect from "@/components/ImageSelect.vue";
+import uploadService from "@/services/uploadService";
+import { updateGame } from "@/services/userGameService";
+
+const emit = defineEmits<{
+  (event: "updated", res: any): void;
+}>();
 
 const coverEl = ref();
 
 const isLoading = ref(false);
-const submit = () => {
-  console.log(data.value);
+const submit = async () => {
+  isLoading.value = true;
+  if (coverEl.value.file)
+    data.value.cover = await uploadService.upload(coverEl.value.file);
+  const res = await updateGame(props.gameId, data.value);
+  emit("updated", res);
+  isLoading.value = false;
 };
 
 interface dataType {
   cover?: string;
 }
 const props = defineProps<{
+  gameId: number;
   src?: dataType;
 }>();
 
