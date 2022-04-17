@@ -43,6 +43,7 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { ElNotification } from "element-plus";
 import { getUserGame } from "@/services/userGameService";
 import router from "@/router";
 import BasicInfo from "@/components/gameManage/gameEdit/basicInfo.vue";
@@ -57,7 +58,15 @@ const props = defineProps<{
 }>();
 // 获取游戏信息
 onMounted(async () => {
-  form.value = await getUserGame(Number(props.id));
+  const res = await getUserGame(Number(props.id));
+  if (res.error) {
+    ElNotification({
+      type: "error",
+      message: res.error,
+      title: "Error",
+    });
+    router.push({ name: "mygames" });
+  } else form.value = res;
 });
 
 interface Author {
