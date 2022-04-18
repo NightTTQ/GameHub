@@ -43,7 +43,7 @@
               />
             </el-collapse-item>
             <el-collapse-item title="Videos" name="5">
-              <videos />
+              <videos :src="{}" :game-id="Number(props.id)" @updated="update" />
             </el-collapse-item>
             <el-collapse-item title="Gallery" name="6"> </el-collapse-item>
             <el-collapse-item title="Downloads" name="7"> </el-collapse-item>
