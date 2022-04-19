@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, watch, type Ref, type VNode } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import {
   ArrowLeftBold,
   ArrowRightBold,
@@ -81,9 +81,9 @@ import {
 
 const videos: any = ref([]);
 const props = defineProps<{
-  data?: Array<Image>;
+  data?: Array<elType>;
 }>();
-interface Image {
+interface elType {
   type: string;
   data: string;
 }

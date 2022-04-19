@@ -8,7 +8,7 @@
 
         <div class="detail-col reactive">
           <div class="detail">
-            <Carousel :data="data?.image" />
+            <Carousel :data="carouselData" />
             <div class="description-layout">
               <div class="description-section">
                 <div class="description-container">
@@ -60,21 +60,22 @@ import Metadata from "@/components/Metadata.vue";
 import ExpandablePanel from "@/components/ExpandablePanel.vue";
 import Aside from "@/components/ViewAside.vue";
 
-interface data {
-  _id: string;
-  id: number;
-  name: string;
-  platform?: Array<string>;
+interface dataType {
+  _id?: string;
+  id?: number;
+  name?: string;
+  platform?: string[];
   class?: string;
   description?: string;
-  links?: Array<Link>;
+  links?: Link[];
   author?: Author;
   cover?: string;
-  image?: Array<Image>;
+  image?: Image[];
   about?: string;
   releaseDate?: String;
-  createdAt: String;
-  updatedAt: String;
+  video?: Video[];
+  createdAt?: String;
+  updatedAt?: String;
 }
 interface Link {
   name: string;
@@ -89,12 +90,39 @@ interface Image {
   type: string;
   data: string;
 }
+interface Video {
+  type: string;
+  data: string;
+}
+
+const data = ref<dataType>({
+  _id: undefined,
+  id: undefined,
+  name: undefined,
+  platform: undefined,
+  class: undefined,
+  description: undefined,
+  links: undefined,
+  author: undefined,
+  cover: undefined,
+  image: undefined,
+  about: undefined,
+  releaseDate: undefined,
+  video: undefined,
+  createdAt: undefined,
+  updatedAt: undefined,
+});
 
 const props = defineProps<{
   id: number | string;
 }>();
 
-const data = ref<data>();
+const carouselData = computed(() => {
+  return [
+    ...(Array.isArray(data.value.video) ? data.value.video : []),
+    ...(Array.isArray(data.value.image) ? data.value.image : []),
+  ];
+});
 
 const getData = async () => {
   data.value = await getInfoService.getInfo({
