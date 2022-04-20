@@ -8,7 +8,7 @@
       </el-col>
       <el-col :sm="24" :lg="12">
         <el-form-item label="Author">
-          <el-input maxlength="30" v-model="data.author.name"></el-input>
+          <el-input maxlength="30" v-model="author.name"></el-input>
         </el-form-item>
       </el-col>
     </el-row>
@@ -35,6 +35,7 @@ const emit = defineEmits<{
 const isLoading = ref(false);
 const submit = async () => {
   isLoading.value = true;
+  data.value.author = author;
   const res = await updateGame(props.gameId, data.value);
   emit("updated", res);
   isLoading.value = false;
@@ -54,13 +55,14 @@ const props = defineProps<{
   src?: dataType;
 }>();
 
+const author = ref<any>({ name: "", type: 0, url: "" });
 const data = ref<dataType>({
   name: undefined,
   author: { name: "", type: 0, url: "" },
 });
 watch(props, () => {
   data.value.name = props.src?.name;
-  data.value.author = props.src?.author;
+  author.value = props.src?.author;
 });
 </script>
 <style scoped></style>
