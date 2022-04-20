@@ -72,6 +72,7 @@ const uploadImg = async (
 };
 
 const isLoading = ref(false);
+let hasInit = false;
 const submit = async () => {
   isLoading.value = true;
   const res = await updateGame(props.gameId, data.value);
@@ -95,8 +96,11 @@ const data = ref<dataType>({
   about: undefined,
 });
 watch(props, () => {
-  if (!data.value.description) data.value.description = props.src?.description;
-  if (!data.value.about) data.value.about = props.src?.about;
+  if (!hasInit) {
+    data.value.description = props.src?.description;
+    data.value.about = props.src?.about;
+    hasInit = true;
+  }
 });
 </script>
 <style scoped></style>

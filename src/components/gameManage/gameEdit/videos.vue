@@ -29,7 +29,7 @@ const emit = defineEmits<{
   (event: "updated", res: any): void;
 }>();
 const isLoading = ref(false);
-
+let hasInit = false;
 const submit = async () => {
   isLoading.value = true;
   const res = await updateGame(props.gameId, data.value);
@@ -53,9 +53,12 @@ const data = ref<dataType>({
   releaseDate: undefined,
 });
 watch(props, () => {
-  data.value.class = props.src?.class;
-  data.value.platform = props.src?.platform;
-  data.value.releaseDate = props.src?.releaseDate;
+  if (!hasInit) {
+    data.value.class = props.src?.class;
+    data.value.platform = props.src?.platform;
+    data.value.releaseDate = props.src?.releaseDate;
+    hasInit = true;
+  }
 });
 </script>
 <style scoped>

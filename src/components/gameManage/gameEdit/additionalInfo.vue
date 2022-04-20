@@ -59,13 +59,14 @@
 import { ref, watch } from "vue";
 import gameClass from "@/assets/gameClass.json";
 import { updateGame } from "@/services/userGameService";
+import { hasIn } from "lodash";
 
 const emit = defineEmits<{
   (event: "updated", res: any): void;
 }>();
 
 const isLoading = ref(false);
-
+let hasInit = false;
 const submit = async () => {
   if (!haveDate.value) data.value.releaseDate = null;
   isLoading.value = true;
@@ -92,10 +93,13 @@ const data = ref<dataType>({
   releaseDate: undefined,
 });
 watch(props, () => {
-  data.value.class = props.src?.class;
-  data.value.platform = props.src?.platform;
-  data.value.releaseDate = props.src?.releaseDate;
-  if (data.value.releaseDate) haveDate.value = true;
+  if (!hasInit) {
+    data.value.class = props.src?.class;
+    data.value.platform = props.src?.platform;
+    data.value.releaseDate = props.src?.releaseDate;
+    if (data.value.releaseDate) haveDate.value = true;
+    hasInit = true;
+  }
 });
 </script>
 <style scoped>

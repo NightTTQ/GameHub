@@ -32,6 +32,7 @@ const emit = defineEmits<{
 const coverEl = ref();
 
 const isLoading = ref(false);
+let hasInit = false;
 const submit = async () => {
   isLoading.value = true;
   if (coverEl.value.file)
@@ -53,7 +54,10 @@ const data = ref<dataType>({
   cover: undefined,
 });
 watch(props, () => {
-  data.value.cover = props.src?.cover;
+  if (!hasInit) {
+    data.value.cover = props.src?.cover;
+    hasInit = true;
+  }
 });
 </script>
 <style scoped></style>

@@ -33,6 +33,7 @@ const emit = defineEmits<{
 }>();
 
 const isLoading = ref(false);
+let hasInit = false;
 const submit = async () => {
   isLoading.value = true;
   data.value.author = author;
@@ -61,8 +62,11 @@ const data = ref<dataType>({
   author: { name: "", type: 0, url: "" },
 });
 watch(props, () => {
-  data.value.name = props.src?.name;
-  author.value = props.src?.author;
+  if (!hasInit) {
+    data.value.name = props.src?.name;
+    author.value = props.src?.author;
+    hasInit = true;
+  }
 });
 </script>
 <style scoped></style>
