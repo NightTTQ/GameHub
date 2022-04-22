@@ -106,4 +106,7 @@ watch(props, () => {
 .item {
   width: 100%;
 }
+.el-select :deep() .el-select__tags .el-tag--info {
+  background-color: #323232;
+}
 </style>
