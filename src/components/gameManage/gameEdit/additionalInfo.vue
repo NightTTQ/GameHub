@@ -59,7 +59,6 @@
 import { ref, watch } from "vue";
 import gameClass from "@/assets/gameClass.json";
 import { updateGame } from "@/services/userGameService";
-import { hasIn } from "lodash";
 
 const emit = defineEmits<{
   (event: "updated", res: any): void;

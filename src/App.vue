@@ -143,7 +143,7 @@ button {
 .el-notification {
   --el-border-color-lighter: none;
 }
-.el-pooper :deep() .el-picker-panel {
-  background: none;
+.date-popper .el-picker-panel {
+  background: none !important;
 }
 </style>
