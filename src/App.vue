@@ -144,6 +144,6 @@ button {
   --el-border-color-lighter: none;
 }
 .date-popper .el-picker-panel {
-  background: none !important;
+  background: none;
 }
 </style>
