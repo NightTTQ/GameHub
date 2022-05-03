@@ -31,6 +31,7 @@ declare module '@vue/runtime-core' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElOptionGroup: typeof import('element-plus/es')['ElOptionGroup']
+    ElProgress: typeof import('element-plus/es')['ElProgress']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
@@ -53,6 +54,7 @@ declare module '@vue/runtime-core' {
     Metadata: typeof import('./src/components/Metadata.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    UploadProcess: typeof import('./src/components/utils/uploadProcess.vue')['default']
     Videos: typeof import('./src/components/gameManage/gameEdit/videos.vue')['default']
     ViewAside: typeof import('./src/components/ViewAside.vue')['default']
   }

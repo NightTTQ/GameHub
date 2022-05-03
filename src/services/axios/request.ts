@@ -4,6 +4,8 @@ import router from "@/router/index";
 import { refreshToken } from "@/services/userService";
 import { ElNotification } from "element-plus";
 
+const controller = new AbortController();
+
 // 控制变量
 let isRefreshing = false;
 let queue: Array<Function> = [];
@@ -13,6 +15,7 @@ const instance = axios.create({
   baseURL: "https://qcnnig.api.cloudendpoint.cn",
   timeout: 300000,
   headers: {},
+  signal: controller.signal,
 });
 
 // 请求拦截器
@@ -87,3 +90,4 @@ instance.interceptors.response.use(
 );
 
 export default instance;
+export { controller };

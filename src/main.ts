@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import "element-plus/es/components/notification/style/index";
+import "element-plus/es/components/message-box/style/index";
 import store from "@/utils/store";
 import "video.js/dist/video-js.css";
 

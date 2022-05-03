@@ -146,4 +146,7 @@ button {
 .date-popper .el-picker-panel {
   background: none;
 }
+.el-message-box {
+  border: none;
+}
 </style>
