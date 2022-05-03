@@ -37,8 +37,8 @@ const selectFile = () => {
 
 const handleFile = (event: any) => {
   if (!event.target.files[0]) return;
-  if (event.target.files[0].size > 1024 * 1024) {
-    ElMessage.error("The file should be less than 1MB.");
+  if (event.target.files[0].size > 2 * 1024 * 1024) {
+    ElMessage.error("The file should be less than 2MB.");
   } else {
     ElMessage.info(
       (event.target.files[0].size / (1024 * 1024)).toFixed(2) + "MB"
