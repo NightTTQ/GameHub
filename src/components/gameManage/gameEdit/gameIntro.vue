@@ -63,12 +63,13 @@ const uploadImg = async (
   files: FileList,
   callback: (urls: string[]) => void
 ) => {
-  const res = await Promise.all(
+  await Promise.all(
     Array.from(files).map((file) => {
       return uploadService.upload(file);
     })
-  );
-  callback(res.map((url) => url));
+  )
+    .then((res) => callback(res.map((url) => url)))
+    .catch((err) => console.log(err));
 };
 
 const isLoading = ref(false);

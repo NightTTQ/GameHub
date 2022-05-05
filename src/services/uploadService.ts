@@ -1,5 +1,4 @@
 import request from "@/services/axios/request";
-import { controller } from "@/services/axios/request";
 import { ElMessageBox } from "element-plus";
 import uploadProcess from "@/components/utils/uploadProcess.vue";
 import { ref, h } from "vue";
@@ -13,6 +12,8 @@ export default {
    */
   async upload(file: File, callback?: Function) {
     const process = ref(0);
+    const controller = new AbortController();
+    request.defaults.signal = controller.signal;
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -21,7 +22,6 @@ export default {
         if (callback) callback(((e.loaded / e.total) * 100) | 0);
         process.value = Number(((e.loaded / e.total) * 100).toFixed(1));
       },
-      AbortSignal: controller.signal,
     };
     ElMessageBox({
       title: "Uploading",
@@ -33,6 +33,7 @@ export default {
       beforeClose: (action, instance, done) => {
         if (process.value < 100) {
           controller.abort();
+          request.defaults.signal = undefined;
         }
         done();
       },
