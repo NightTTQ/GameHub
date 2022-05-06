@@ -124,8 +124,6 @@ button {
 }
 :root {
   color: #ffffff;
-  --el-color-black: #ffffff;
-  --el-color-white: #424242;
   --el-text-color-primary: #f2f6fc;
 
   --el-card-border-color: rgba(255, 255, 255, 0.12);
@@ -135,6 +133,21 @@ button {
   --el-input-border: none;
   --el-border-base: none;
   --el-border-color-light: #363636;
+}
+.el-notification {
+  background-color: #424242;
+}
+.el-checkbox {
+  --el-checkbox-bg-color: #424242;
+}
+.el-input__inner {
+  --el-input-bg-color: #424242;
+}
+.el-radio__inner {
+  --el-radio-input-bg-color: #424242;
+}
+.el-popper.is-light {
+  border: none;
 }
 .el-checkbox {
   --el-checkbox-checked-bg-color: var(--el-checkbox-bg-color);
@@ -148,5 +161,17 @@ button {
 }
 .el-message-box {
   border: none;
+}
+.el-message-box {
+  background-color: #424242;
+}
+.el-message-box__btns .upload-box-btn {
+  --el-button-hover-text-color: #ffffff;
+  --el-button-bg-color: #323232;
+  --el-button-border-color: #424242;
+  --el-button-hover-bg-color: rgb(104, 104, 104);
+  --el-button-hover-border-color: rgb(104, 104, 104);
+  --el-button-active-bg-color: rgb(59, 59, 59);
+  --el-button-active-border-color: rgb(59, 59, 59);
 }
 </style>

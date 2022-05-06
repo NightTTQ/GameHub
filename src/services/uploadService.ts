@@ -31,8 +31,9 @@ export default {
       showClose: false,
       closeOnClickModal: false,
       closeOnPressEscape: false,
-      confirmButtonText: "Cancel",
-      confirmButtonClass: "upload-box-btn",
+      showConfirmButton: false,
+      showCancelButton: true,
+      cancelButtonClass: "upload-box-btn",
       message: h(uploadProcess, { fileName: file.name, process: process }),
       beforeClose: (action, instance, done) => {
         if (process.value < 100) {
