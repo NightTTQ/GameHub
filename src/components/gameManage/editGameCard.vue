@@ -52,6 +52,7 @@ const goView = () => {
 .sub-card {
   background-color: #303030;
   color: white;
+  border: none;
   display: inline-block;
 }
 

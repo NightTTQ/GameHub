@@ -16,16 +16,17 @@
               :data="item"
               :type="0"
             />
-            <CreateGameCard :type="0" />
+            <CreateGameCard :type="0" class="card" />
           </div>
           <span class="sub-title">EDITOR</span>
           <div class="games-wrapper">
             <EditGameCard
+              class="card"
               v-for="item in games?.editor"
               :data="item"
               :type="1"
             />
-            <CreateGameCard :type="1" />
+            <CreateGameCard :type="1" class="card" />
           </div>
         </div>
       </el-card>
@@ -71,6 +72,7 @@ const getGames = async () => {
 .card {
   color: white;
   width: 100%;
+  min-height: 250px;
   background-color: rgb(42, 42, 42);
 }
 .item {
