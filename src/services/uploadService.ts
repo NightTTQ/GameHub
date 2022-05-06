@@ -21,6 +21,9 @@ export default {
       onUploadProgress: (e: any) => {
         if (callback) callback(((e.loaded / e.total) * 100) | 0);
         process.value = Number(((e.loaded / e.total) * 100).toFixed(1));
+        if (e.loaded === e.total) {
+          setTimeout(() => ElMessageBox.close(), 300);
+        }
       },
     };
     ElMessageBox({
@@ -29,12 +32,13 @@ export default {
       closeOnClickModal: false,
       closeOnPressEscape: false,
       confirmButtonText: "Cancel",
+      confirmButtonClass: "upload-box-btn",
       message: h(uploadProcess, { fileName: file.name, process: process }),
       beforeClose: (action, instance, done) => {
         if (process.value < 100) {
           controller.abort();
-          request.defaults.signal = undefined;
         }
+        request.defaults.signal = undefined;
         done();
       },
     });
