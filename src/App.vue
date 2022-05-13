@@ -114,50 +114,11 @@ button {
   justify-content: center;
 }
 .el-menu {
-  border: none;
   --el-menu-item-height: 48px;
-}
-.el-backtop {
-  --el-backtop-bg-color: rgb(24, 24, 24);
-  --el-backtop-text-color: var(--el-color-primary);
-  --el-backtop-hover-bg-color: rgb(42, 42, 42);
-}
-:root {
-  color: #ffffff;
-  --el-text-color-primary: #f2f6fc;
-
-  --el-card-border-color: rgba(255, 255, 255, 0.12);
-  --el-text-color-regular: none;
-  --el-bg-color: rgb(28, 28, 28);
-  --el-input-bg-color: #424242;
-  --el-input-border: none;
-  --el-border-base: none;
-  --el-border-color-light: #363636;
-}
-.el-notification {
-  background-color: #424242;
-}
-.el-checkbox {
-  --el-checkbox-bg-color: #424242;
-}
-.el-input__inner {
-  --el-input-bg-color: #424242;
-}
-.el-radio__inner {
-  --el-radio-input-bg-color: #424242;
-}
-.el-popper.is-light {
-  border: none;
 }
 .el-checkbox {
   --el-checkbox-checked-bg-color: var(--el-checkbox-bg-color);
   --el-checkbox-checked-icon-color: #ffffff;
-}
-.el-notification {
-  --el-border-color-lighter: none;
-}
-.date-popper .el-picker-panel {
-  background: none;
 }
 .el-message-box {
   border: none;
@@ -167,8 +128,6 @@ button {
 }
 .el-message-box__btns .upload-box-btn {
   --el-button-hover-text-color: #ffffff;
-  --el-button-bg-color: #323232;
-  --el-button-border-color: #424242;
   --el-button-hover-bg-color: rgb(104, 104, 104);
   --el-button-hover-border-color: rgb(104, 104, 104);
   --el-button-active-bg-color: rgb(59, 59, 59);

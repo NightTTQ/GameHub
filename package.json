@@ -10,8 +10,9 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^1.0.1",
+    "@vueuse/core": "^8.4.2",
     "axios": "^0.26.0",
-    "element-plus": "^2.0.2",
+    "element-plus": "^2.2.0",
     "lodash": "^4.17.21",
     "marked": "^4.0.12",
     "md-editor-v3": "^1.11.9",
