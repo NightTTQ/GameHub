@@ -3,8 +3,24 @@
     <el-row :gutter="20" justify="center">
       <el-col :sm="24" :lg="24">
         <el-scrollbar>
-          <el-form-item label="Game Video" class="game-pic-wrapper">
-            <div style="display: flex"></div>
+          <el-form-item label="Game Video">
+            <el-row v-for="(item, key) in data.video" style="width: 100%">
+              <el-input v-model="item.data">
+                <template #prepend>
+                  <el-select v-model="item.type">
+                    <el-option
+                      v-for="item in types"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </template>
+                <template #append>
+                  <el-button :icon="Delete" @click="del(key)"></el-button>
+                </template>
+              </el-input>
+            </el-row>
           </el-form-item>
         </el-scrollbar>
       </el-col>
@@ -13,8 +29,9 @@
     <el-row justify="end">
       <el-col>
         <el-form-item style="margin: 0">
+          <el-button @click="add">Add</el-button>
           <el-button color="#424242" @click="submit" :loading="isLoading">
-            <span style="color: white">Submit</span>
+            Submit
           </el-button>
         </el-form-item>
       </el-col>
@@ -24,6 +41,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { updateGame } from "@/services/userGameService";
+import { Delete } from "@element-plus/icons-vue";
 
 const emit = defineEmits<{
   (event: "updated", res: any): void;
@@ -38,9 +56,7 @@ const submit = async () => {
 };
 
 interface dataType {
-  class?: string;
-  platform?: Array<string>;
-  releaseDate?: Date;
+  video?: Array<any>;
 }
 const props = defineProps<{
   gameId: number;
@@ -48,21 +64,32 @@ const props = defineProps<{
 }>();
 
 const data = ref<dataType>({
-  class: undefined,
-  platform: undefined,
-  releaseDate: undefined,
+  video: [],
 });
 watch(props, () => {
   if (!hasInit) {
-    data.value.class = props.src?.class;
-    data.value.platform = props.src?.platform;
-    data.value.releaseDate = props.src?.releaseDate;
+    data.value.video = props.src?.video;
     hasInit = true;
   }
 });
+const types = [
+  {
+    value: "video",
+    label: "file",
+  },
+  {
+    value: "bili",
+    label: "bilibili",
+  },
+];
+const add = () => {
+  if (Array.isArray(data.value.video))
+    data.value.video.push({ type: "", data: "" });
+  else data.value.video = [{ type: "", data: "" }];
+  console.log(data.value.video);
+};
+const del = (key: number) => {
+  data.value.video?.splice(key, 1);
+};
 </script>
-<style scoped>
-.item {
-  width: 100%;
-}
-</style>
+<style scoped></style>

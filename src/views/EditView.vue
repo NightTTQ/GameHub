@@ -43,7 +43,11 @@
               />
             </el-collapse-item>
             <el-collapse-item title="Videos" name="5">
-              <videos :src="{}" :game-id="Number(props.id)" @updated="update" />
+              <videos
+                :src="{ video: form.video }"
+                :game-id="Number(props.id)"
+                @updated="update"
+              />
             </el-collapse-item>
             <el-collapse-item title="Gallery" name="6"> </el-collapse-item>
             <el-collapse-item title="Downloads" name="7"> </el-collapse-item>
@@ -116,6 +120,8 @@ interface gameData {
   about?: string;
   // 4 Game Intro Images
   cover?: string;
+  // 5 Videos
+  video?: Array<Object>;
 }
 const form = ref<gameData>({
   // 1 Basic Info
@@ -130,6 +136,8 @@ const form = ref<gameData>({
   about: undefined,
   // 4 Game Intro Images
   cover: undefined,
+  // 5 Videos
+  video: undefined,
 });
 
 const activeTab = ref("1");
