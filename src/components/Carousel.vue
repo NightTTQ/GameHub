@@ -26,6 +26,16 @@
                   :src="item.data"
                   :ref="(video) => videos.push(video)"
                 ></video>
+                <iframe
+                  v-if="item.type === 'bili'"
+                  class="img"
+                  :src="`//player.bilibili.com/player.html?bvid=${item.data}`"
+                  scrolling="no"
+                  border="0"
+                  frameborder="no"
+                  framespacing="0"
+                  allowfullscreen="true"
+                ></iframe>
               </div>
             </div>
           </div>
@@ -54,7 +64,10 @@
                         class="img"
                         :src="item.data"
                       />
-                      <div v-if="item.type === 'video'" class="img">
+                      <div
+                        v-if="item.type === 'video' || item.type === 'bili'"
+                        class="img"
+                      >
                         <el-icon :size="20" color="#FFF">
                           <video-play />
                         </el-icon>
