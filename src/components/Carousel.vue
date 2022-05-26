@@ -18,7 +18,11 @@
           <div class="slider-item-content">
             <div class="slider-item-content-ele">
               <div class="slider-item-content-ele-pic">
-                <img v-if="item.type === 'img'" class="img" :src="item.data" />
+                <img
+                  v-if="item.type === 'image/png'"
+                  class="img"
+                  :src="item.data"
+                />
                 <video
                   v-if="item.type === 'video'"
                   class="img"
@@ -60,7 +64,7 @@
                   >
                     <div class="carousel-swiper-item-btn-content-ele-pic">
                       <img
-                        v-if="item.type === 'img'"
+                        v-if="item.type === 'image/png'"
                         class="img"
                         :src="item.data"
                       />
