@@ -49,8 +49,16 @@
                 @updated="update"
               />
             </el-collapse-item>
-            <el-collapse-item title="Gallery" name="6"> </el-collapse-item>
-            <el-collapse-item title="Downloads" name="7"> </el-collapse-item>
+            <el-collapse-item title="Gallery" name="6">
+              <Gallery
+                :src="{ image: form.image }"
+                :game-id="Number(props.id)"
+                @updated="update"
+              />
+            </el-collapse-item>
+            <el-collapse-item title="Downloads" name="7">
+              <Downloads />
+            </el-collapse-item>
           </el-collapse>
         </el-form>
       </el-card>
@@ -67,6 +75,7 @@ import AdditionalInfo from "@/components/gameManage/gameEdit/additionalInfo.vue"
 import GameIntro from "@/components/gameManage/gameEdit/gameIntro.vue";
 import GameIntroImages from "@/components/gameManage/gameEdit/gameIntroImages.vue";
 import Videos from "@/components/gameManage/gameEdit/videos.vue";
+import Gallery from "@/components/gameManage/gameEdit/gallery.vue";
 import Downloads from "@/components/gameManage/gameEdit/downloads.vue";
 
 const props = defineProps<{
@@ -122,6 +131,8 @@ interface gameData {
   cover?: string;
   // 5 Videos
   video?: Array<Object>;
+  // 6 Gallary
+  image?: Array<Object>;
 }
 const form = ref<gameData>({
   // 1 Basic Info
@@ -138,6 +149,8 @@ const form = ref<gameData>({
   cover: undefined,
   // 5 Videos
   video: undefined,
+  // 6 Gallary
+  image: undefined,
 });
 
 const activeTab = ref("1");
