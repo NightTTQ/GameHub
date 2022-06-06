@@ -6,6 +6,7 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AdditionalInfo: typeof import('./src/components/gameManage/gameEdit/additionalInfo.vue')['default']
+    AdditionalSettings: typeof import('./src/components/gameManage/gameEdit/additionalSettings.vue')['default']
     BasicInfo: typeof import('./src/components/gameManage/gameEdit/basicInfo.vue')['default']
     Carousel: typeof import('./src/components/Carousel.vue')['default']
     CreateGameCard: typeof import('./src/components/gameManage/createGameCard.vue')['default']
@@ -38,6 +39,7 @@ declare module '@vue/runtime-core' {
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     ExpandablePanel: typeof import('./src/components/ExpandablePanel.vue')['default']

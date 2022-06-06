@@ -4,7 +4,7 @@
       <el-card body-style="display: flex;">
         <template #header>
           <div class="card-header">
-            <span class="title">Create new game</span>
+            <span class="title">Edit game</span>
           </div>
         </template>
 
@@ -64,6 +64,11 @@
               />
             </el-collapse-item>
             <el-collapse-item title="Additional Settings" name="8">
+              <AdditionalSettings
+                :src="{ visible: form.visible }"
+                :game-id="Number(props.id)"
+                @updated="update"
+              />
             </el-collapse-item>
           </el-collapse>
         </el-form>
@@ -83,6 +88,7 @@ import GameIntroImages from "@/components/gameManage/gameEdit/gameIntroImages.vu
 import Videos from "@/components/gameManage/gameEdit/videos.vue";
 import Gallery from "@/components/gameManage/gameEdit/gallery.vue";
 import Downloads from "@/components/gameManage/gameEdit/downloads.vue";
+import AdditionalSettings from "@/components/gameManage/gameEdit/additionalSettings.vue";
 
 const props = defineProps<{
   id: number | string;
@@ -141,6 +147,8 @@ interface gameData {
   image?: Array<Object>;
   // 7 Downloads
   links?: Array<Object>;
+  // 8 Additional Settings
+  visible?: Boolean;
 }
 const form = ref<gameData>({
   // 1 Basic Info
@@ -161,6 +169,8 @@ const form = ref<gameData>({
   image: undefined,
   // 7 Downloads
   links: undefined,
+  // 8 Additional Settings
+  visible: undefined,
 });
 
 const activeTab = ref("1");
