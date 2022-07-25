@@ -1,46 +1,30 @@
 # GameHub
 
-This template should help get you started developing with Vue 3 in Vite.
+独立开发的全栈项目，一个游戏发行与分享平台，拥有完整的用户注册登录、游戏创建编辑、详情展示下载等各项功能。
 
-## Recommended IDE Setup
+本仓库为前端仓库。
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+## 前端技术栈
 
-## Type Support for `.vue` Imports in TS
+Vue3+TypeScript+ElementPlus+Pinia
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## 环境搭建
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+### 安装依赖
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 启动前端开发服务器
 
 ```sh
 npm run dev
 ```
+## 项目状态
 
-### Type-Check, Compile and Minify for Production
+你可以通过[线上地址](https://gamehub.ponder.fun)来预览此项目。
 
-```sh
-npm run build
-```
+由于本项目原后端服务由字节轻服务提供，目前轻服务已停止对外服务，故目前项目缺失后端服务，暂时无法正常使用。
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+目前正在使用egg重写自建后端服务，若后续开发顺利同样也会进行开源，敬请期待！
