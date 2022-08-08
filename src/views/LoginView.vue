@@ -75,58 +75,60 @@ const handleLogin = async () => {
   user.setUserInfo({});
   user.setLoginStatus(false);
   //进行登录
-  const loginRes = await userService.login(
-    form.value.username,
-    form.value.password
-  );
-  if (loginRes.success) {
-    //服务器返回成功保存RefreshToken和TOKEN
-    store.setRefreshToken(loginRes.RefreshToken);
-    store.setToken(loginRes.TOKEN);
-    //查询localSession是否存在
-    if (store.getSession()) {
-      //获取userInfo
-      const userInfo = await userService.getUserInfo();
-      //判断userInfo是否获取成功
-      if (userInfo.success && userInfo.user) {
-        isLoading.value = false;
-        //登录成功
-        user.setUserInfo(userInfo.user);
-        user.setLoginStatus(true);
-        ElNotification({
-          title: "Success",
-          message: "Login success",
-          type: "success",
-        });
-        isLoading.value = false;
-        router.push({ name: "home" });
+  try {
+    const res = await userService.login(
+      form.value.username,
+      form.value.password
+    );
+    if (res.code === 0) {
+      //服务器返回成功保存RefreshToken和TOKEN
+      store.setRefreshToken(res.data.refreshToken);
+      store.setToken(res.data.token);
+      //查询localSession是否存在
+      if (store.getSession()) {
+        //获取userInfo
+        const userInfo = await userService.getUserInfo();
+        //判断userInfo是否获取成功
+        if (userInfo.success && userInfo.user) {
+          isLoading.value = false;
+          //登录成功
+          user.setUserInfo(userInfo.user);
+          user.setLoginStatus(true);
+          ElNotification({
+            title: "Success",
+            message: "Login success",
+            type: "success",
+          });
+          isLoading.value = false;
+          router.push({ name: "home" });
+        } else {
+          //登录态失效并清除localSession
+          user.setUserInfo({});
+          user.setLoginStatus(false);
+          store.removeSession();
+          ElNotification({
+            title: "Error",
+            message: userInfo.message,
+            type: "error",
+          });
+          isLoading.value = false;
+        }
       } else {
-        //登录态失效并清除localSession
+        //不存在则认为是未登录态
         user.setUserInfo({});
         user.setLoginStatus(false);
-        store.removeSession();
         ElNotification({
           title: "Error",
-          message: userInfo.message,
+          message: "General Session Fail",
           type: "error",
         });
         isLoading.value = false;
       }
-    } else {
-      //不存在则认为是未登录态
-      user.setUserInfo({});
-      user.setLoginStatus(false);
-      ElNotification({
-        title: "Error",
-        message: "General Session Fail",
-        type: "error",
-      });
-      isLoading.value = false;
-    }
-  } else {
+    } else throw res.msg;
+  } catch (error: any) {
     ElNotification({
       title: "Error",
-      message: loginRes.message,
+      message: error,
       type: "error",
     });
     isLoading.value = false;

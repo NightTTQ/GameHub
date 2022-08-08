@@ -10,7 +10,8 @@ let queue: Array<Function> = [];
 
 // Axios实例
 const instance = axios.create({
-  baseURL: "https://qcnnig.api.cloudendpoint.cn",
+  // baseURL: "https://qcnnig.api.cloudendpoint.cn",
+  baseURL: "/api",
   timeout: 300000,
   headers: {},
 });
@@ -19,7 +20,9 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (req) => {
     req.headers!["x-tt-session-v2"] = store.getSession()!;
-    req.headers!["token"] = store.getToken()!;
+    // req.headers!["token"] = store.getToken()!;
+    if (store.getToken())
+      req.headers!.Authorization = `Barear ${store.getToken()}`;
     return req;
   },
   (err) => {

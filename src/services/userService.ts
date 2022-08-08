@@ -2,6 +2,14 @@ import { v1 as uuidv1 } from "uuid";
 import request from "@/services/axios/request";
 import store from "@/utils/store";
 
+const api = {
+  getUserInfo: "/user/getUserInfo",
+  login: "/user/access/login",
+  register: "/user/access/create",
+  logout: "/user/access/logout",
+  refreshToken: "/user/access/refreshToken",
+};
+
 /**
  * @desc 向服务器发起登录，登录成功后可使用localSession获取用户信息
  * @param username 账号
@@ -16,7 +24,7 @@ async function login(username: string, password: string): Promise<any> {
     username: username,
     password: password,
   };
-  const { data } = await request.post("/userLogin", params, config);
+  const { data } = await request.post(api.login, params, config);
   return data;
 }
 /**
@@ -35,7 +43,7 @@ async function register(username: string, password: string): Promise<any> {
     username: username,
     password: password,
   };
-  const { data } = await request.post("/userRegister", params, config);
+  const { data } = await request.post(api.register, params, config);
   return data;
 }
 /**
@@ -49,7 +57,7 @@ async function logout() {
     },
   };
   const params = {};
-  const { data } = await request.post("/userLogout", params, config);
+  const { data } = await request.post(api.logout, params, config);
   return data;
 }
 /**
@@ -63,8 +71,7 @@ async function getUserInfo() {
     },
   };
   const params = {};
-  // return params;
-  const { data } = await request.post("/getUserInfo", params, config);
+  const { data } = await request.post(api.getUserInfo, params, config);
   return data;
 }
 /**
@@ -80,7 +87,7 @@ async function refreshToken() {
   };
   const params = {};
   const { data } = await request
-    .post("/refreshToken", params, config)
+    .post(api.refreshToken, params, config)
     .then((response) => {
       if (response.data.code) {
         // 返回含错误码，登录态失效

@@ -1,6 +1,6 @@
-const localSessionKey = "SessionID";
-const localTokenKey = "TOKEN";
-const localRefreshTokenKey = "RefreshToken";
+const localSessionKey = "sessionID";
+const localTokenKey = "token";
+const localRefreshTokenKey = "refreshToken";
 
 export default {
   /**

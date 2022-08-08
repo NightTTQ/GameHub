@@ -23,4 +23,15 @@ export default defineConfig({
       scss: {},
     },
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:7002",
+        changeOrigin: true,
+        ws: false,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
 });
