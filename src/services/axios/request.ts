@@ -8,6 +8,21 @@ import { ElNotification } from "element-plus";
 let isRefreshing = false;
 let queue: Array<Function> = [];
 
+// csrfToken in Cookie
+const getCsrfToken = async (once?: boolean): Promise<string> => {
+  const cookie = document.cookie;
+  const list = cookie.split(";");
+  for (const item of list) {
+    const arr = item.split("=");
+    if (arr[0] === "csrfToken") return arr[1];
+  }
+  if (once) return "";
+  else {
+    await axios.get("/api");
+    return getCsrfToken(true);
+  }
+};
+
 // Axios实例
 const instance = axios.create({
   // baseURL: "https://qcnnig.api.cloudendpoint.cn",
@@ -18,7 +33,8 @@ const instance = axios.create({
 
 // 请求拦截器
 instance.interceptors.request.use(
-  (req) => {
+  async (req) => {
+    req.headers!["x-csrf-token"] = await getCsrfToken();
     req.headers!["x-tt-session-v2"] = store.getSession()!;
     // req.headers!["token"] = store.getToken()!;
     if (store.getToken())
