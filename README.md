@@ -13,13 +13,13 @@ Vue3+TypeScript+ElementPlus+Pinia
 ### 安装依赖
 
 ```sh
-npm install
+pnpm install
 ```
 
 ### 启动前端开发服务器
 
 ```sh
-npm run dev
+pnpm run dev
 ```
 ## 项目状态
 
