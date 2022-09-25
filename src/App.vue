@@ -21,11 +21,15 @@
         class="nav-right"
       >
         <template #title>
-          <img
-            v-if="user.userInfo?.avatar"
-            :src="user.userInfo?.avatar"
-            alt="avatar"
-          />
+          <div class="avatar-wrapper">
+            <img
+              v-if="user.userInfo?.avatar"
+              class="avatar"
+              :src="user.userInfo?.avatar"
+              alt="avatar"
+            />
+          </div>
+
           <span>{{ user.userInfo.username }}</span>
         </template>
         <el-menu-item index="/mygames">My Games</el-menu-item>
@@ -78,6 +82,17 @@ const getUserInfo = async () => {
   }
 };
 </script>
+
+<style scoped>
+.avatar-wrapper {
+  height: var(--el-menu-item-height);
+  display: flex;
+}
+.avatar {
+  margin: calc(0.25em + 1px) 0.5em 0.25em 0.25em;
+  border-radius: 50%;
+}
+</style>
 
 <style>
 body {
