@@ -1,13 +1,14 @@
 import { v1 as uuidv1 } from "uuid";
 import request from "@/services/axios/request";
 import store from "@/utils/store";
+import { useUserStore } from "@/stores";
 
 const api = {
-  getUserInfo: "/user/getUserInfo",
-  login: "/user/access/login",
-  register: "/user/access/create",
-  logout: "/user/access/logout",
-  refreshToken: "/user/access/refreshToken",
+  getUserInfo: "/user/info",
+  login: "/user/login",
+  register: "/user/register",
+  logout: "/user/logout",
+  refreshToken: "/user/refreshToken",
 };
 
 /**
@@ -33,7 +34,7 @@ async function login(username: string, password: string): Promise<any> {
  * @param password 密码
  */
 async function register(username: string, password: string): Promise<any> {
-  if (!store.getSession()) store.setSession(uuidv1());
+  // if (!store.getSession()) store.setSession(uuidv1());
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -47,38 +48,27 @@ async function register(username: string, password: string): Promise<any> {
   return data;
 }
 /**
- * @desc 向服务器声明注销，注销成功后需手动清空localSession与登录态
+ * @desc 用户注销，会自动清空token、refreshToken与登录态
  */
 async function logout() {
-  if (!store.getSession()) return { error: "No user login." };
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  const params = {};
-  const { data } = await request.post(api.logout, params, config);
-  return data;
+  const user = useUserStore();
+  store.removeRefreshToken();
+  store.removeToken();
+  user.setLoginStatus(false);
+  user.setUserInfo({});
 }
 /**
- * @desc 使用localSession向服务器获取用户信息
+ * @desc 从服务器获取当前用户信息（需要token）
  */
 async function getUserInfo() {
-  if (!store.getSession()) return null;
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  const params = {};
-  const { data } = await request.post(api.getUserInfo, params, config);
+  const { data } = await request.get(api.getUserInfo);
   return data;
 }
 /**
  * @desc 使用localRefreshToken获取新Token
  */
 async function refreshToken() {
-  if (!store.getSession()) return null;
+  if (!store.getRefreshToken()) return null;
   const config = {
     headers: {
       "Content-Type": "application/json",

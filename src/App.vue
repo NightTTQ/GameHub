@@ -53,22 +53,20 @@ const user = useUserStore();
 const activeIndex = ref(router.currentRoute.value.path);
 
 const getUserInfo = async () => {
-  //查询localSession是否存在
-  if (store.getSession()) {
+  //查询token是否存在
+  if (store.getToken()) {
     //存在时查询pinia中的userInfo是否存在
     if (!user.userInfo._id) {
       //pinia中userInfo不存在则需重新获取
       const userInfo = await userService.getUserInfo();
       //判断userInfo是否获取成功
-      if (userInfo.success && userInfo.user) {
+      if (userInfo.code === 200 && userInfo.data) {
         //登录成功
-        user.setUserInfo(userInfo.user);
+        user.setUserInfo(userInfo.data);
         user.setLoginStatus(true);
       } else {
         //登录态失效并清除localSession
-        user.setUserInfo({});
-        user.setLoginStatus(false);
-        store.removeSession();
+        userService.logout();
       }
     } else {
       //pinia中userInfo存在则视为成功登录
@@ -76,8 +74,7 @@ const getUserInfo = async () => {
     }
   } else {
     //不存在则认为是未登录态
-    user.setUserInfo({});
-    user.setLoginStatus(false);
+    userService.logout();
   }
 };
 </script>

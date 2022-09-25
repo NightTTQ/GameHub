@@ -34,8 +34,8 @@ const instance = axios.create({
 // 请求拦截器
 instance.interceptors.request.use(
   async (req) => {
-    req.headers!["x-csrf-token"] = await getCsrfToken();
-    req.headers!["x-tt-session-v2"] = store.getSession()!;
+    // req.headers!["csrf-token"] = await getCsrfToken();
+    // req.headers!["x-tt-session-v2"] = store.getSession()!;
     // req.headers!["token"] = store.getToken()!;
     if (store.getToken())
       req.headers!.Authorization = `Barear ${store.getToken()}`;
@@ -54,7 +54,7 @@ instance.interceptors.response.use(
       return res;
     }
     // 返回数据提示token过期，刷新token
-    if (res.data.code == 1002) {
+    if (res.data.error?.message === "jwt expired") {
       const config = res.config;
       // token过期需要刷新
       console.log("token is expired");
