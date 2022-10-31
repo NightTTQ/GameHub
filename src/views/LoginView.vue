@@ -81,11 +81,9 @@ const handleLogin = async () => {
       form.value.password
     );
     if (res.code === 200) {
-      // 服务器返回成功保存refreshToken、token和user
-      store.setRefreshToken(res.data.refreshToken);
-      store.setToken(res.data.token);
+      // 服务器返回成功保存userInfo
       user.setLoginStatus(true);
-      user.setUserInfo(res.data.user);
+      user.setUserInfo(res.data);
       ElNotification({
         title: "Success",
         message: "Login success",

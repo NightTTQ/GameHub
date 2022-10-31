@@ -17,7 +17,7 @@ const api = {
  * @param password 密码
  */
 async function login(username: string, password: string): Promise<any> {
-  if (!store.getSession()) store.setSession(uuidv1());
+  // if (!store.getSession()) store.setSession(uuidv1());
   const config = {
     headers: { "Content-Type": "application/json" },
   };
@@ -52,8 +52,8 @@ async function register(username: string, password: string): Promise<any> {
  */
 async function logout() {
   const user = useUserStore();
-  store.removeRefreshToken();
-  store.removeToken();
+  // store.removeRefreshToken();
+  // store.removeToken();
   user.setLoginStatus(false);
   user.setUserInfo({});
 }

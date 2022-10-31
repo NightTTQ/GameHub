@@ -5,6 +5,7 @@ import "element-plus/theme-chalk/dark/css-vars.css";
 import "element-plus/es/components/notification/style/index";
 import "element-plus/es/components/message-box/style/index";
 import store from "@/utils/store";
+import { useUserStore } from "@/stores";
 import "video.js/dist/video-js.css";
 
 import App from "./App.vue";
@@ -16,8 +17,8 @@ const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 
 router.beforeEach((to, from, next) => {
-  // 只要本地存在token则路由认为已登录
-  if (store.getToken()) {
+  const user = useUserStore();
+  if (user.isLogin === true) {
     //用户已登录不能进入登录和注册页
     if (to.name === "login" || to.name === "register") {
       next({ name: "home" });
