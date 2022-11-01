@@ -21,6 +21,7 @@
 import { onMounted, ref } from "vue";
 import gameClass from "@/assets/gameClass.json";
 import type { ElTree } from "element-plus";
+import { ElNotification } from "element-plus";
 import getInfoService from "@/services/getInfoService";
 import { debounce } from "lodash";
 import GameCard from "@/components/GameCard.vue";
@@ -69,9 +70,17 @@ const handleCheckedTagsChange = debounce(async function () {
       }
     }
   tags.value = tmp;
-  gameData.value = await getInfoService.getInfo({
-    where: { class: tmp },
-  });
+  try {
+    gameData.value = await getInfoService.getInfo({
+      where: { class: tmp },
+    });
+  } catch (error) {
+    ElNotification({
+      title: "Error",
+      message: "Get Games Fail",
+      type: "error",
+    });
+  }
 }, 100);
 const loadMore = async () => {
   console.log("loadMore");

@@ -47,6 +47,7 @@ import { ref, onMounted, onBeforeMount } from "vue";
 import router from "@/router";
 import store from "@/utils/store";
 import { useUserStore } from "@/stores";
+import { ElNotification } from "element-plus";
 import userService from "@/services/userService";
 
 onBeforeMount(() => {
@@ -60,15 +61,23 @@ const getUserInfo = async () => {
   // 检查pinia中是否存在userInfo
   if (!user.userInfo._id) {
     //pinia中userInfo不存在则需重新获取
-    const userInfo = await userService.getUserInfo();
-    //判断userInfo是否获取成功
-    if (userInfo.code === 200 && userInfo.data) {
-      //登录成功
-      user.setUserInfo(userInfo.data);
-      user.setLoginStatus(true);
-    } else {
-      //登录态失效
-      userService.logout();
+    try {
+      const userInfo = await userService.getUserInfo();
+      //判断userInfo是否获取成功
+      if (userInfo.code === 200 && userInfo.data) {
+        //登录成功
+        user.setUserInfo(userInfo.data);
+        user.setLoginStatus(true);
+      } else {
+        //登录态失效
+        userService.logout();
+      }
+    } catch (error) {
+      ElNotification({
+        title: "Error",
+        message: "Get User Info Faild",
+        type: "error",
+      });
     }
   } else {
     //pinia中userInfo存在则视为成功登录
