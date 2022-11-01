@@ -52,10 +52,17 @@ async function register(username: string, password: string): Promise<any> {
  */
 async function logout() {
   const user = useUserStore();
-  // store.removeRefreshToken();
-  // store.removeToken();
-  user.setLoginStatus(false);
-  user.setUserInfo({});
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const { data } = await request.get(api.logout, config);
+  if (data.code === 200) {
+    user.setLoginStatus(false);
+    user.setUserInfo({});
+    return true;
+  } else return false;
 }
 /**
  * @desc 从服务器获取当前用户信息（需要token）
