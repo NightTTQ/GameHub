@@ -29,7 +29,7 @@ async function login(username: string, password: string): Promise<any> {
   return data;
 }
 /**
- * @desc 向服务器申请注册，注册成功后可使用localSession获取用户信息
+ * @desc 向服务器申请注册
  * @param username 账号
  * @param password 密码
  */

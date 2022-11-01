@@ -103,11 +103,9 @@ const handleRegister = async () => {
       form.value.username,
       form.value.password
     );
-    if (res.code === 200) {
+    if (res.data) {
       //注册成功自动登录并跳转至首页
-      store.setRefreshToken(res.data.refreshToken);
-      store.setToken(res.data.token);
-      user.setUserInfo(res.data.user);
+      user.setUserInfo(res.data);
       user.setLoginStatus(true);
       ElNotification({
         title: "Success",
@@ -118,13 +116,14 @@ const handleRegister = async () => {
       router.push({ name: "home" });
     }
   } catch (error: any) {
-    //注册失败弹出失败详细信息并删除localSession
+    //注册失败弹出失败详细信息
     ElNotification({
       title: "Error",
       message: error.response.data.error.message,
       type: "error",
     });
-    store.removeSession();
+    user.setUserInfo({});
+    user.setLoginStatus(false);
     isLoading.value = false;
   }
 };
