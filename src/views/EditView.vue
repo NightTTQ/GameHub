@@ -99,11 +99,11 @@ onMounted(async () => {
   if (res.error) {
     ElNotification({
       type: "error",
-      message: res.error,
+      message: res.error.message,
       title: "Error",
     });
     router.push({ name: "mygames" });
-  } else form.value = res;
+  } else form.value = res.data;
 });
 // 游戏更新后根据返回信息刷新
 const update = (res: any) => {

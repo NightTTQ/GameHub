@@ -27,7 +27,7 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     //用户未登录不能进入需要登录的页面
-    if (to.meta.isLogin) {
+    if (to.meta.isLogin === true) {
       next({ name: "login" });
     } else {
       next();

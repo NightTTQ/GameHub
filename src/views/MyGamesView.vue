@@ -50,7 +50,14 @@ interface data {
 const games = ref<data>();
 
 onMounted(async () => {
-  games.value = await getGames();
+  const res = await getGames();
+  if (res.error)
+    ElNotification({
+      title: "Error",
+      message: res.error.message,
+      type: "error",
+    });
+  else games.value = res.data;
 });
 
 const getGames = async () => {

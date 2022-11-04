@@ -1,17 +1,13 @@
 import request from "@/services/axios/request";
+const api = { userGame: "/user/game", createGame: "/game/create" };
 
 /**
  * @dec 获取属于用户或用户可编辑的游戏
  * @param id 获取的具体游戏id
  */
 async function getUserGame(id?: number) {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  const params = { id };
-  const { data } = await request.post("/getMyGame", params, config);
+  const params = { id: id };
+  const { data } = await request.get(api.userGame, { params: params });
   return data;
 }
 /**
