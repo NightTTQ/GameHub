@@ -71,10 +71,13 @@ const handleCheckedTagsChange = debounce(async function () {
     }
   tags.value = tmp;
   try {
-    gameData.value = await getInfoService.getInfo({
-      where: { class: tmp },
+    const { data } = await getInfoService.getList({
+      where: { type: tmp },
     });
+    gameData.value = data;
   } catch (error) {
+    console.log(error);
+
     ElNotification({
       title: "Error",
       message: "Get Games Fail",
@@ -85,7 +88,7 @@ const handleCheckedTagsChange = debounce(async function () {
 const loadMore = async () => {
   console.log("loadMore");
   gameData.value.push(
-    await getInfoService.getInfo({ skip: gameData.value.length })
+    await getInfoService.getList({ skip: gameData.value.length })
   );
 };
 </script>

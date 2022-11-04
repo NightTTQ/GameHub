@@ -1,34 +1,37 @@
 import request from "@/services/axios/request";
+const api = { getList: "/game/list", getGame: "/game" };
 const config = {
   headers: { "Content-Type": "application/json" },
 };
 
 export default {
-  async getInfo({
-    _id,
-    id,
+  async getList({
     skip,
     limit,
     where,
   }: {
-    _id?: number | string;
-    id?: number | string;
     skip?: number;
     limit?: number;
     where?: any;
   }) {
-    for (const item in where) {
-      if (where[item].length === 0) delete where[item];
+    const { type } = where;
+    let typeStr: string | null = "";
+    for (const item of type) {
+      if (typeStr.length) typeStr = typeStr + "|^" + item;
+      else typeStr = typeStr + "^" + item;
     }
+    if (!typeStr.length) typeStr = null;
     const params = {
-      _id: _id,
-      id: id,
       skip: skip,
       limit: limit,
-      where: where,
+      type: typeStr,
     };
 
-    const { data } = await request.post("/getGame", params, config);
+    const { data } = await request.get(api.getList, { params: params });
+    return data;
+  },
+  async getGame({ id }: { id: number }) {
+    const { data } = await request.get(`${api.getGame}/${id}`);
     return data;
   },
 };

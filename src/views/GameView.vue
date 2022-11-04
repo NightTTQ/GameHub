@@ -23,7 +23,7 @@
                   </div>
                   <div class="description-about">
                     <Metadata
-                      :gameclass="data?.class"
+                      :gameclass="data?.type"
                       :platform="data?.platform"
                     />
                   </div>
@@ -65,15 +65,15 @@ interface dataType {
   id?: number;
   name?: string;
   platform?: string[];
-  class?: string;
+  type?: string;
   description?: string;
   links?: Link[];
   author?: Author;
   cover?: string;
-  image?: Image[];
+  images?: Image[];
   about?: string;
   releaseDate?: String;
-  video?: Video[];
+  videos?: Video[];
   createdAt?: String;
   updatedAt?: String;
 }
@@ -100,15 +100,15 @@ const data = ref<dataType>({
   id: undefined,
   name: undefined,
   platform: undefined,
-  class: undefined,
+  type: undefined,
   description: undefined,
   links: undefined,
   author: undefined,
   cover: undefined,
-  image: undefined,
+  images: undefined,
   about: undefined,
   releaseDate: undefined,
-  video: undefined,
+  videos: undefined,
   createdAt: undefined,
   updatedAt: undefined,
 });
@@ -119,15 +119,17 @@ const props = defineProps<{
 
 const carouselData = computed(() => {
   return [
-    ...(Array.isArray(data.value.video) ? data.value.video : []),
-    ...(Array.isArray(data.value.image) ? data.value.image : []),
+    ...(Array.isArray(data.value.videos) ? data.value.videos : []),
+    ...(Array.isArray(data.value.images) ? data.value.images : []),
   ];
 });
 
 const getData = async () => {
-  data.value = await getInfoService.getInfo({
-    id: props.id,
+  const res = await getInfoService.getGame({
+    id: Number(props.id),
   });
+
+  data.value = res.data;
 };
 
 onMounted(() => {
