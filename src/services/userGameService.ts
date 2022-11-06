@@ -1,5 +1,9 @@
 import request from "@/services/axios/request";
-const api = { userGame: "/user/game", createGame: "/game/create" };
+const api = {
+  userGame: "/user/game",
+  createGame: "/game/create",
+  updateGame: "/game/update",
+};
 
 /**
  * @dec 获取属于用户或用户可编辑的游戏
@@ -17,11 +21,11 @@ async function getUserGame(id?: number) {
 async function createGame(info: any) {
   const config = {
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
     },
   };
-  const params = { info };
-  const { data } = await request.post("/createGame", params, config);
+  const body = info;
+  const { data } = await request.post(api.createGame, body, config);
   return data;
 }
 /**
@@ -32,11 +36,11 @@ async function createGame(info: any) {
 async function updateGame(id: number, info: object) {
   const config = {
     headers: {
-      "Content-Type": "content-type: application/json",
+      "Content-Type": "application/json",
     },
   };
-  const params = { id, data: info };
-  const { data } = await request.post("/updateGame", params, config);
+  const body = info;
+  const { data } = await request.patch(`${api.updateGame}/${id}`, body, config);
   return data;
 }
 

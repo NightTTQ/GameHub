@@ -24,7 +24,7 @@
           <el-row :gutter="20" justify="space-between">
             <el-col :sm="24" :lg="12">
               <el-form-item label="Game Type">
-                <el-select v-model="form.class" class="item">
+                <el-select v-model="form.type" class="item">
                   <el-option-group
                     v-for="group in gameClass"
                     :key="group.class"
@@ -118,7 +118,7 @@ interface Author {
 interface createGameData {
   name: string | undefined;
   platform: Array<string> | undefined;
-  class: string | undefined;
+  type: string | undefined;
   author: Author;
   cover: string | undefined;
   releaseDate: Date | undefined;
@@ -126,7 +126,7 @@ interface createGameData {
 const form = ref<createGameData>({
   name: undefined,
   platform: undefined,
-  class: undefined,
+  type: undefined,
   author: { name: "", type: 0, url: "" },
   cover: undefined,
   releaseDate: undefined,
