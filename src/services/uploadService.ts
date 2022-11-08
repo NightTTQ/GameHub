@@ -3,6 +3,8 @@ import { ElMessageBox } from "element-plus";
 import uploadProcess from "@/components/utils/uploadProcess.vue";
 import { ref, h } from "vue";
 
+const api = { getConfig: "/file/token" };
+
 export default {
   /**
    * @dec 向服务器上传单个文件
@@ -11,6 +13,7 @@ export default {
    * @returns 文件的url
    */
   async upload(file: File, callback?: Function) {
+    const uploadConfig = await this.getConfig();
     const process = ref(0);
     const controller = new AbortController();
     request.defaults.signal = controller.signal;
@@ -48,9 +51,14 @@ export default {
     const _FormData = new FormData();
     // 添加文件
     _FormData.append("file", file);
+    _FormData.append("token", uploadConfig.token);
 
-    // return params;
-    const { data } = await request.post("/uploadFile", _FormData, config);
-    return data;
+    const { data } = await request.post(uploadConfig.url, _FormData, config);
+
+    return `${uploadConfig.domain}/${data.key}`;
+  },
+  async getConfig() {
+    const { data } = await request.get(api.getConfig);
+    return data.data;
   },
 };
