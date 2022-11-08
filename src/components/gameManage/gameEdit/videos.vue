@@ -4,7 +4,7 @@
       <el-col :sm="24" :lg="24">
         <el-scrollbar>
           <el-form-item label="Game Video">
-            <el-row v-for="(item, key) in data.video" style="width: 100%">
+            <el-row v-for="(item, key) in data.videos" style="width: 100%">
               <el-input v-model="item.data">
                 <template #prepend>
                   <el-select v-model="item.type">
@@ -56,7 +56,7 @@ const submit = async () => {
 };
 
 interface dataType {
-  video?: Array<any>;
+  videos?: Array<any>;
 }
 const props = defineProps<{
   gameId: number;
@@ -64,11 +64,11 @@ const props = defineProps<{
 }>();
 
 const data = ref<dataType>({
-  video: [],
+  videos: [],
 });
 watch(props, () => {
   if (!hasInit) {
-    data.value.video = props.src?.video;
+    data.value.videos = props.src?.videos;
     hasInit = true;
   }
 });
@@ -83,13 +83,13 @@ const types = [
   },
 ];
 const add = () => {
-  if (Array.isArray(data.value.video))
-    data.value.video.push({ type: "", data: "" });
-  else data.value.video = [{ type: "", data: "" }];
-  console.log(data.value.video);
+  if (Array.isArray(data.value.videos))
+    data.value.videos.push({ type: "", data: "" });
+  else data.value.videos = [{ type: "", data: "" }];
+  console.log(data.value.videos);
 };
 const del = (key: number) => {
-  data.value.video?.splice(key, 1);
+  data.value.videos?.splice(key, 1);
 };
 </script>
 <style scoped></style>
