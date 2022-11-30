@@ -70,7 +70,7 @@ interface dataType {
   links?: Link[];
   author?: Author;
   cover?: string;
-  images?: Image[];
+  gallery?: Image[];
   about?: string;
   releaseDate?: String;
   videos?: Video[];
@@ -105,7 +105,7 @@ const data = ref<dataType>({
   links: undefined,
   author: undefined,
   cover: undefined,
-  images: undefined,
+  gallery: undefined,
   about: undefined,
   releaseDate: undefined,
   videos: undefined,
@@ -120,7 +120,7 @@ const props = defineProps<{
 const carouselData = computed(() => {
   return [
     ...(Array.isArray(data.value.videos) ? data.value.videos : []),
-    ...(Array.isArray(data.value.images) ? data.value.images : []),
+    ...(Array.isArray(data.value.gallery) ? data.value.gallery : []),
   ];
 });
 

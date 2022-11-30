@@ -59,10 +59,7 @@ const aboutToolbar: ToolbarNames[] = [
   "mermaid",
 ];
 
-const uploadImg = async (
-  files: FileList,
-  callback: (urls: string[]) => void
-) => {
+const uploadImg = async (files: File[], callback: (urls: string[]) => void) => {
   await Promise.all(
     Array.from(files).map((file) => {
       return uploadService.upload(file);

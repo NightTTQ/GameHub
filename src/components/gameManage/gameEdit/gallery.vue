@@ -8,7 +8,7 @@
           list-type="picture-card"
           :on-preview="handlePictureCardPreview"
           :before-remove="toRemove"
-          :file-list="fileList"
+          v-model:file-list="fileList"
         >
           <el-icon><Plus /></el-icon>
         </el-upload>
@@ -45,10 +45,11 @@ const isLoading = ref(false);
 let hasInit = false;
 const submit = async () => {
   isLoading.value = true;
+  data.value.gallery?.splice(0);
   // 检索fileList
   await Promise.all(
-    fileList.value.map((item, key, array) => {
-      return new Promise<void>(async (resolve) => {
+    fileList.value.map((item, key, array) =>
+      (async () => {
         if (item.raw) {
           // 上传未上传的图片
           array[key].status = "uploading";
@@ -60,14 +61,14 @@ const submit = async () => {
             }
           );
           array[key].status = "success";
-          data.value.image?.push({ type: item.raw.type, data: url });
+          data.value.gallery?.push({ type: item.raw.type, data: url });
+          delete array[key].raw;
         } else {
           // 将已上传的图片url存入data
-          data.value.image?.push({ type: item.name, data: item.url });
+          data.value.gallery?.push({ type: item.name, data: item.url });
         }
-        resolve();
-      });
-    })
+      })()
+    )
   );
   // 将data提交至后端
   const res = await updateGame(props.gameId, data.value);
@@ -75,7 +76,7 @@ const submit = async () => {
   isLoading.value = false;
 };
 interface dataType {
-  image?: Array<any>;
+  gallery?: Array<any>;
 }
 const props = defineProps<{
   gameId: number;
@@ -83,12 +84,12 @@ const props = defineProps<{
 }>();
 
 const data = ref<dataType>({
-  image: [],
+  gallery: [],
 });
 watch(props, () => {
   // 将服务器上已存在的图片存入fileList
   if (!hasInit) {
-    props.src?.image?.forEach((item) => {
+    props.src?.gallery?.forEach((item) => {
       fileList.value.push({ name: item.type, url: item.data });
     });
     hasInit = true;

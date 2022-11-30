@@ -19,7 +19,7 @@
             <div class="slider-item-content-ele">
               <div class="slider-item-content-ele-pic">
                 <img
-                  v-if="item.type === 'image/png'"
+                  v-if="item.type.includes('image')"
                   class="img"
                   :src="item.data"
                 />
@@ -64,7 +64,7 @@
                   >
                     <div class="carousel-swiper-item-btn-content-ele-pic">
                       <img
-                        v-if="item.type === 'image/png'"
+                        v-if="item.type.includes('image')"
                         class="img"
                         :src="item.data"
                       />
